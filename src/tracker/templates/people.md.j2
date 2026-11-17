@@ -1,0 +1,33 @@
+# {{ project }} people — {{ date }}
+
+_Generated {{ generated_at }} · last 90 days · public GitHub/governance data only_
+
+{% for repo in repos %}
+## {{ repo.full_name }}
+
+{% if repo.owners %}
+**Repo owners (CODEOWNERS):** {{ repo.owners | join(', ') }}
+{% endif %}
+
+{% for mod in repo.modules %}
+### {{ mod.name }}
+{% if mod.owners %}
+- **Owners:** {{ mod.owners | join(', ') }}
+{% endif %}
+- **Top authors:** {% for a in mod.authors %}{{ a.login }} ({{ a.count }}){% if not loop.last %}, {% endif %}{% else %}—{% endfor %}
+- **Top reviewers:** {% for a in mod.reviewers %}{{ a.login }} ({{ a.count }}){% if not loop.last %}, {% endif %}{% else %}—{% endfor %}
+{% endfor %}
+
+{% if not repo.modules %}
+- **Top authors:** {% for a in repo.authors %}{{ a.login }} ({{ a.count }}){% if not loop.last %}, {% endif %}{% else %}—{% endfor %}
+- **Top reviewers:** {% for a in repo.reviewers %}{{ a.login }} ({{ a.count }}){% if not loop.last %}, {% endif %}{% else %}—{% endfor %}
+{% endif %}
+
+{% endfor %}
+
+{% if governance_urls %}
+## Governance
+{% for u in governance_urls %}
+- {{ u }}
+{% endfor %}
+{% endif %}

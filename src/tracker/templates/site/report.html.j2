@@ -1,0 +1,8 @@
+{% extends "site/base.html.j2" %}
+{% block title %}{{ title }} · OSS Project Tracker{% endblock %}
+{% block content %}
+<p class="meta"><a href="{% if project_name == '.' %}index.html{% else %}index.html{% endif %}">← {% if project_name == '.' %}Projects{% else %}{{ project_name }}{% endif %}</a></p>
+<article class="markdown">
+{{ body_html | safe }}
+</article>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends "site/base.html.j2" %}
+{% block title %}{{ project.name }} · OSS Project Tracker{% endblock %}
+{% block content %}
+<h1>{{ project.name }}</h1>
+{% if project.description %}<p class="lede">{{ project.description }}</p>{% endif %}
+
+{% if project.has_map %}
+<p><a href="module-map.html">Module map</a></p>
+{% endif %}
+
+<h2>Digests</h2>
+<ul>
+{% for d in project.digests %}
+  <li><a href="{{ d.file }}">{{ d.label }}</a></li>
+{% else %}
+  <li><em>No digests yet.</em></li>
+{% endfor %}
+</ul>
+
+<h2>Pipeline</h2>
+<ul>
+{% for d in project.pipelines %}
+  <li><a href="{{ d.file }}">{{ d.label }}</a></li>
+{% else %}
+  <li><em>No pipeline reports yet.</em></li>
+{% endfor %}
+</ul>
+
+<h2>People</h2>
+<ul>
+{% for d in project.people %}
+  <li><a href="{{ d.file }}">{{ d.label }}</a></li>
+{% else %}
+  <li><em>No people reports yet.</em></li>
+{% endfor %}
+</ul>
+{% endblock %}

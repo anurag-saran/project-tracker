@@ -1,0 +1,24 @@
+{% extends "site/base.html.j2" %}
+{% block title %}OSS Project Tracker{% endblock %}
+{% block content %}
+<h1>Projects</h1>
+<p class="lede">Module maps, change digests, and pipeline views for multi-repo OSS efforts.</p>
+{% if has_weekly %}
+<p><a href="weekly.html">This week’s rollup</a> — TL;DRs across projects. For section diffs, open the weekly PR’s <em>Files changed</em> tab.</p>
+{% endif %}
+<ul class="project-list">
+{% for p in projects %}
+  <li>
+    <strong><a href="{{ p.name }}/index.html">{{ p.name }}</a></strong>
+    {% if p.description %}<div class="meta">{{ p.description }}</div>{% endif %}
+    <div class="meta">
+      {% if p.has_map %}<a href="{{ p.name }}/module-map.html">module map</a>{% endif %}
+      {% if p.digests %} · {{ p.digests|length }} digest(s){% endif %}
+      {% if p.pipelines %} · {{ p.pipelines|length }} pipeline report(s){% endif %}
+    </div>
+  </li>
+{% else %}
+  <li>No reports yet. Run <code>tracker digest</code> / <code>tracker map</code> first.</li>
+{% endfor %}
+</ul>
+{% endblock %}

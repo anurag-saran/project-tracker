@@ -1,0 +1,21 @@
+.tracker/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.DS_Store
+/site/
+# reports/ is tracked so weekly PRs show section diffs
+modules.generated.yaml
+*.db
+.env
+.python-version

@@ -1,0 +1,48 @@
+# {{ project }} digest — {{ date }}
+
+_Since {{ since }} · generated {{ generated_at }}_
+
+## TL;DR for this week
+
+{% for bullet in tldr %}
+- {{ bullet }}
+{% else %}
+- No significant changes in this period.
+{% endfor %}
+
+{% for repo in repos %}
+## {{ repo.full_name }} ({{ repo.tier }})
+
+{% if repo.releases %}
+### Releases
+{% for rel in repo.releases %}
+- [{{ rel.tag }}]({{ rel.url }}){% if rel.published_at %} — {{ rel.published_at[:10] }}{% endif %}{% if rel.name %}: {{ rel.name }}{% endif %}
+{% endfor %}
+{% endif %}
+
+{% for mod in repo.modules %}
+### {{ mod.name }}
+
+{{ mod.summary }}
+
+{% if mod.first_timers %}
+**First-time contributors:** {{ mod.first_timers | join(', ') }}
+{% endif %}
+{% else %}
+{% if repo.ungrouped_summary %}
+### Changes
+
+{{ repo.ungrouped_summary }}
+{% endif %}
+{% endfor %}
+
+{% if repo.highlights %}
+### Highlights
+{% for h in repo.highlights %}
+- {{ h }}
+{% endfor %}
+{% endif %}
+
+{% else %}
+_No repository activity in this period._
+{% endfor %}

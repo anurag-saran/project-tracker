@@ -1,0 +1,51 @@
+settings:
+  max_repos_per_org: 25
+  default_since: 7d
+
+# Focus: vLLM + llm-d only. Add other projects later by appending here.
+projects:
+  - name: vllm
+    description: High-throughput and memory-efficient inference engine for LLMs
+    sources:
+      - org: vllm-project
+        skip_archived: true
+      - repo: vllm-project/vllm
+        tier: core
+    pipeline_signals:
+      issue_title_prefixes: ["[RFC]", "[Roadmap]"]
+      labels: ["RFC"]
+      significant_pr:
+        labels: ["RFC", "breaking-change"]
+        min_files: 25
+        min_additions: 500
+    people_signals:
+      codeowners: [".github/CODEOWNERS"]
+    docs_urls:
+      - "https://docs.vllm.ai"
+      - "https://vllm.ai/blog"
+
+  - name: llm-d
+    description: Kubernetes-native distributed LLM inference (built around vLLM)
+    sources:
+      - org: llm-d
+        skip_archived: true
+      - repo: llm-d/llm-d
+        tier: core
+      - org: llm-d-incubation
+        skip_archived: true
+        tier: watch
+    pipeline_signals:
+      issue_title_prefixes: ["[RFC]", "[Proposal]"]
+      labels: ["RFC", "proposal"]
+      # Approved proposals for public APIs / new components live here.
+      proposals_dirs: ["llm-d/llm-d:docs/proposals"]
+      significant_pr:
+        labels: ["RFC", "proposal"]
+        min_files: 20
+        min_additions: 400
+    people_signals:
+      codeowners: [".github/CODEOWNERS", "CODEOWNERS"]
+      governance_urls: ["https://llm-d.ai/community/sigs"]
+    docs_urls:
+      - "https://llm-d.ai"
+      - "https://github.com/llm-d/llm-d/tree/main/docs/proposals"

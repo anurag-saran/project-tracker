@@ -1,0 +1,172 @@
+name: Weekly tracker reports
+
+on:
+  schedule:
+    # Mondays 7:00 America/New_York ≈ 12:00 UTC
+    - cron: "0 12 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: tracker-weekly
+  cancel-in-progress: false
+
+jobs:
+  reports:
+    runs-on: ubuntu-latest
+    outputs:
+      week: ${{ steps.meta.outputs.week }}
+      pr_number: ${{ steps.pr.outputs.pull-request-number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Week stamp
+        id: meta
+        run: echo "week=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v4
+        with:
+          python-version: "3.12"
+
+      - name: Install package
+        run: uv sync --all-extras
+
+      - name: Init workspace
+        run: uv run tracker init
+
+      - name: Digest (all)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+        run: |
+          export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            export TRACKER_LLM_PROVIDER=null
+          fi
+          uv run tracker digest all --since 7d
+
+      - name: Pipeline (all)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+        run: |
+          export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            export TRACKER_LLM_PROVIDER=null
+          fi
+          uv run tracker pipeline all --since 7d --skip-fetch
+
+      - name: Module map (first Monday or manual)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+        run: |
+          export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            export TRACKER_LLM_PROVIDER=null
+          fi
+          day=$(date -u +%d)
+          if [ "$day" -le 7 ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            for p in $(uv run python -c "import yaml; from pathlib import Path; print(' '.join(x['name'] for x in yaml.safe_load(Path('projects.yaml').read_text())['projects']))"); do
+              uv run tracker map "$p" --skip-fetch || true
+            done
+          else
+            echo "Skipping module map (not first week of month)"
+          fi
+
+      - name: Weekly rollup
+        run: uv run tracker rollup
+
+      - name: Build site
+        run: uv run tracker site
+
+      - name: Open weekly PR (read updates + diff sections)
+        id: pr
+        env:
+          WEEK: ${{ steps.meta.outputs.week }}
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BRANCH="tracker/weekly-${WEEK}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git checkout -B "$BRANCH"
+
+          # Track report artifacts (dated archive + stable latest-* for diffs)
+          git add reports modules.generated.yaml || true
+
+          if git diff --staged --quiet; then
+            echo "No report changes"
+            echo "pull-request-number=" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          git commit -m "chore: weekly tracker reports ${WEEK}"
+
+          # Push branch (create or update)
+          git push -u origin "HEAD:refs/heads/${BRANCH}" --force
+
+          BODY_FILE=$(mktemp)
+          {
+            echo "Weekly OSS tracker run for **${WEEK}**."
+            echo
+            echo "### How to read this"
+            echo "1. **Conversation / PR body** — TL;DRs per project (below)."
+            echo "2. **Files changed** — week-over-week diff of each project's sections via stable paths:"
+            echo "   - \`reports/<project>/latest-digest.md\`"
+            echo "   - \`reports/<project>/latest-pipeline.md\`"
+            echo "   - \`reports/<project>/latest-people.md\`"
+            echo "   - \`reports/<project>/module-map.md\`"
+            echo "3. Dated archives under \`reports/<project>/YYYY-MM-DD-*.md\` keep history."
+            echo
+            echo "---"
+            echo
+            if [ -f reports/WEEKLY.md ]; then
+              cat reports/WEEKLY.md
+            else
+              echo "_No WEEKLY.md generated._"
+            fi
+          } > "$BODY_FILE"
+
+          # Create PR if missing; otherwise update body
+          EXISTING=$(gh pr list --head "$BRANCH" --json number --jq '.[0].number // empty')
+          if [ -n "$EXISTING" ]; then
+            gh pr edit "$EXISTING" --title "Weekly tracker — ${WEEK}" --body-file "$BODY_FILE"
+            echo "pull-request-number=$EXISTING" >> "$GITHUB_OUTPUT"
+          else
+            URL=$(gh pr create \
+              --title "Weekly tracker — ${WEEK}" \
+              --body-file "$BODY_FILE" \
+              --base "${{ github.event.repository.default_branch }}" \
+              --head "$BRANCH")
+            echo "Opened $URL"
+            NUM=$(gh pr list --head "$BRANCH" --json number --jq '.[0].number')
+            echo "pull-request-number=$NUM" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+
+  deploy:
+    needs: reports
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

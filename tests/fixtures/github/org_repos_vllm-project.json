@@ -1,0 +1,45 @@
+{
+  "data": {
+    "organization": {
+      "login": "vllm-project",
+      "repositories": {
+        "pageInfo": { "hasNextPage": false, "endCursor": null },
+        "nodes": [
+          {
+            "name": "vllm",
+            "nameWithOwner": "vllm-project/vllm",
+            "description": "A high-throughput and memory-efficient inference and serving engine for LLMs",
+            "isArchived": false,
+            "isFork": false,
+            "stargazerCount": 50000,
+            "pushedAt": "2025-11-01T00:00:00Z",
+            "defaultBranchRef": { "name": "main" },
+            "url": "https://github.com/vllm-project/vllm"
+          },
+          {
+            "name": "docs",
+            "nameWithOwner": "vllm-project/docs",
+            "description": "Documentation helpers",
+            "isArchived": false,
+            "isFork": false,
+            "stargazerCount": 10,
+            "pushedAt": "2025-10-01T00:00:00Z",
+            "defaultBranchRef": { "name": "main" },
+            "url": "https://github.com/vllm-project/docs"
+          },
+          {
+            "name": "old-thing",
+            "nameWithOwner": "vllm-project/old-thing",
+            "description": "archived",
+            "isArchived": true,
+            "isFork": false,
+            "stargazerCount": 1,
+            "pushedAt": "2020-01-01T00:00:00Z",
+            "defaultBranchRef": { "name": "main" },
+            "url": "https://github.com/vllm-project/old-thing"
+          }
+        ]
+      }
+    }
+  }
+}

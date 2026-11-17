@@ -1,0 +1,41 @@
+{
+  "data": {
+    "repository": {
+      "pullRequests": {
+        "pageInfo": { "hasNextPage": false, "endCursor": null },
+        "nodes": [
+          {
+            "databaseId": 3,
+            "number": 200,
+            "title": "[RFC] New KV cache layout",
+            "body": "Large redesign.",
+            "state": "OPEN",
+            "url": "https://github.com/vllm-project/vllm/pull/200",
+            "createdAt": "2025-10-01T00:00:00Z",
+            "updatedAt": "2025-11-01T00:00:00Z",
+            "mergedAt": null,
+            "closedAt": null,
+            "additions": 800,
+            "deletions": 100,
+            "changedFiles": 40,
+            "author": { "login": "carol" },
+            "labels": { "nodes": [{ "name": "RFC" }] },
+            "reviews": {
+              "nodes": [
+                { "author": { "login": "alice" }, "state": "COMMENTED" },
+                { "author": { "login": "dave" }, "state": "APPROVED" }
+              ]
+            },
+            "comments": { "totalCount": 12 },
+            "reviewThreads": { "totalCount": 4 },
+            "files": {
+              "nodes": [
+                { "path": "vllm/v1/core/kv.py", "additions": 400, "deletions": 50 }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

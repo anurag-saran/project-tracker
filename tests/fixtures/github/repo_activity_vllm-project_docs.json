@@ -1,0 +1,13 @@
+{
+  "data": {
+    "repository": {
+      "nameWithOwner": "vllm-project/docs",
+      "pullRequests": { "totalCount": 2 },
+      "mergedRecent": {
+        "nodes": [
+          { "mergedAt": "2025-10-01T00:00:00Z" }
+        ]
+      }
+    }
+  }
+}

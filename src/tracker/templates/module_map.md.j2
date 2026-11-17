@@ -1,0 +1,55 @@
+# {{ project }} module map
+
+_Generated {{ generated_at }}_
+
+{% if description %}
+{{ description }}
+{% endif %}
+
+{% for repo in repos %}
+## {{ repo.full_name }} ({{ repo.tier }})
+
+{% if repo.purpose %}
+{{ repo.purpose }}
+{% elif repo.description %}
+{{ repo.description }}
+{% endif %}
+
+- **Activity (90d):** {{ repo.activity_90d }} merged PRs
+- **Stars:** {{ repo.stars }}
+- **Latest release:** {% if repo.latest_release_tag %}{{ repo.latest_release_tag }}{% if repo.latest_release_at %} ({{ repo.latest_release_at[:10] }}){% endif %}{% else %}_none_{% endif %}
+{% if repo.owners %}
+- **Owners:** {{ repo.owners | join(', ') }}
+{% endif %}
+{% if repo.entry_points %}
+- **Entry points:** {{ repo.entry_points | join(', ') }}
+{% endif %}
+{% if repo.relations %}
+- **Relations:** {{ repo.relations }}
+{% endif %}
+
+{% for mod in repo.modules %}
+### {{ mod.name }}
+
+{{ mod.purpose or '_No description yet._' }}
+
+- **Paths:** {% for p in mod.paths %}`{{ p }}`{% if not loop.last %}, {% endif %}{% endfor %}
+{% if mod.owners %}
+- **Owners:** {{ mod.owners | join(', ') }}
+{% endif %}
+{% if mod.activity_90d is not none %}
+- **Activity (90d):** {{ mod.activity_90d }} PRs touching module
+{% endif %}
+{% endfor %}
+
+{% else %}
+_No repos resolved._
+{% endfor %}
+
+{% if overflow %}
+## Other repos
+
+{% for r in overflow %}
+- `{{ r.full_name }}` — {{ r.description or '—' }} ({{ r.activity_90d }} PRs / 90d)
+{% endfor %}
+{% endif %}

@@ -1,0 +1,56 @@
+# {{ project }} pipeline — {{ date }}
+
+_Generated {{ generated_at }}_
+
+## TL;DR for this week
+
+{% for bullet in tldr %}
+- {{ bullet }}
+{% else %}
+- No pipeline items to highlight.
+{% endfor %}
+
+## RFCs & proposals
+
+### New this period
+{% for item in rfcs_new %}
+- [{{ item.title }}]({{ item.url }}) — {{ item.summary }} _({{ item.status }}, heat={{ item.heat }})_
+{% else %}
+- _None_
+{% endfor %}
+
+### Ongoing
+{% for item in rfcs_ongoing %}
+- [{{ item.title }}]({{ item.url }}) — {{ item.summary }} _({{ item.status }}, heat={{ item.heat }})_
+{% else %}
+- _None_
+{% endfor %}
+
+{% if proposal_files %}
+### Proposal files
+{% for f in proposal_files %}
+- [`{{ f.path }}`]({{ f.url }}) {% if f.last_modified_at %}({{ f.last_modified_at[:10] }}){% endif %}
+{% endfor %}
+{% endif %}
+
+## Significant open PRs
+
+{% for pr in significant_prs %}
+- [#{{ pr.number }} {{ pr.title }}]({{ pr.url }}) — {{ pr.summary }}
+  - author: {{ pr.author or '?' }} · age: {{ pr.age_days }}d · reviewers: {{ pr.reviewers | join(', ') or '—' }} · last activity: {{ pr.updated_at[:10] if pr.updated_at else '—' }}
+{% else %}
+- _None_
+{% endfor %}
+
+## Roadmap issues
+
+{% for item in roadmaps %}
+- [{{ item.title }}]({{ item.url }}) — {{ item.done }}/{{ item.total }} checklist items done
+{% if item.items %}
+  {% for ci in item.items %}
+  - [{{ 'x' if ci.done else ' ' }}] {{ ci.text }}
+  {% endfor %}
+{% endif %}
+{% else %}
+- _None_
+{% endfor %}

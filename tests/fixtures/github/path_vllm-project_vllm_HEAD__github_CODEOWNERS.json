@@ -1,0 +1,10 @@
+{
+  "data": {
+    "repository": {
+      "object": {
+        "__typename": "Blob",
+        "byteSize": 120
+      }
+    }
+  }
+}

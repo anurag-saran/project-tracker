@@ -1,0 +1,41 @@
+{
+  "data": {
+    "repository": {
+      "issues": {
+        "pageInfo": { "hasNextPage": false, "endCursor": null },
+        "nodes": [
+          {
+            "databaseId": 10,
+            "number": 50,
+            "title": "[RFC] Pluggable scheduler",
+            "body": "Proposal for pluggable schedulers.\n\n- [x] Design doc\n- [ ] Implementation\n- [ ] Docs",
+            "state": "OPEN",
+            "url": "https://github.com/vllm-project/vllm/issues/50",
+            "createdAt": "2025-10-20T00:00:00Z",
+            "updatedAt": "2025-11-01T00:00:00Z",
+            "closedAt": null,
+            "author": { "login": "erin" },
+            "labels": { "nodes": [{ "name": "RFC" }] },
+            "comments": { "totalCount": 8 },
+            "reactions": { "totalCount": 5 }
+          },
+          {
+            "databaseId": 11,
+            "number": 51,
+            "title": "[Roadmap] Q4 goals",
+            "body": "- [x] Perf work\n- [ ] Multimodal",
+            "state": "OPEN",
+            "url": "https://github.com/vllm-project/vllm/issues/51",
+            "createdAt": "2025-09-01T00:00:00Z",
+            "updatedAt": "2025-10-15T00:00:00Z",
+            "closedAt": null,
+            "author": { "login": "frank" },
+            "labels": { "nodes": [{ "name": "roadmap" }] },
+            "comments": { "totalCount": 3 },
+            "reactions": { "totalCount": 1 }
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "data": {
+    "repository": {
+      "pullRequests": {
+        "pageInfo": { "hasNextPage": false, "endCursor": null },
+        "nodes": [
+          {
+            "databaseId": 1,
+            "number": 100,
+            "title": "feat: faster scheduler",
+            "body": "Improves throughput in v1 core.",
+            "state": "MERGED",
+            "url": "https://github.com/vllm-project/vllm/pull/100",
+            "createdAt": "2025-10-28T00:00:00Z",
+            "updatedAt": "2025-10-30T00:00:00Z",
+            "mergedAt": "2025-10-30T00:00:00Z",
+            "closedAt": "2025-10-30T00:00:00Z",
+            "additions": 120,
+            "deletions": 40,
+            "changedFiles": 5,
+            "author": { "login": "alice" },
+            "labels": { "nodes": [{ "name": "performance" }] },
+            "files": {
+              "nodes": [
+                { "path": "vllm/v1/core/scheduler.py", "additions": 80, "deletions": 20 },
+                { "path": "vllm/engine/llm_engine.py", "additions": 40, "deletions": 20 }
+              ]
+            }
+          },
+          {
+            "databaseId": 2,
+            "number": 101,
+            "title": "fix: handle empty batch",
+            "body": "Bugfix.",
+            "state": "MERGED",
+            "url": "https://github.com/vllm-project/vllm/pull/101",
+            "createdAt": "2025-10-29T00:00:00Z",
+            "updatedAt": "2025-10-31T00:00:00Z",
+            "mergedAt": "2025-10-31T00:00:00Z",
+            "closedAt": "2025-10-31T00:00:00Z",
+            "additions": 10,
+            "deletions": 2,
+            "changedFiles": 1,
+            "author": { "login": "bob" },
+            "labels": { "nodes": [{ "name": "bug" }] },
+            "files": {
+              "nodes": [
+                { "path": "vllm/v1/core/scheduler.py", "additions": 10, "deletions": 2 }
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

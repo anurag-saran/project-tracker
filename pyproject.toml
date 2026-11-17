@@ -1,0 +1,46 @@
+[project]
+name = "oss-project-tracker"
+version = "0.1.0"
+description = "Track multi-repo open-source projects: modules, digests, pipeline, and people"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "typer>=0.12.0",
+    "httpx>=0.27.0",
+    "pydantic>=2.0",
+    "jinja2>=3.1",
+    "pyyaml>=6.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+llm = [
+    "anthropic>=0.40.0",
+    "openai>=1.50.0",
+]
+dev = [
+    "pytest>=8.0",
+    "pytest-httpx>=0.30.0",
+]
+
+[project.scripts]
+tracker = "tracker.cli:app"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/tracker"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=8.0",
+    "pytest-httpx>=0.30.0",
+    "anthropic>=0.40.0",
+    "openai>=1.50.0",
+]

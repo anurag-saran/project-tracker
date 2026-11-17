@@ -1,0 +1,10 @@
+{
+  "data": {
+    "repository": {
+      "object": {
+        "text": "# CODEOWNERS\n* @vllm-project/maintainers\nvllm/v1/core/** @alice @bob\nvllm/engine/** @carol\n",
+        "byteSize": 120
+      }
+    }
+  }
+}
