@@ -1,0 +1,531 @@
+# llm-d pipeline — 2026-11-17
+
+_Generated 2026-11-17T02:42:59Z_
+
+## TL;DR for this week
+
+- 1 new RFC/proposal issue(s)
+- 212 significant open PR(s)
+- 7 roadmap issue(s) tracked
+- 19 ongoing RFC(s)
+
+## RFCs & proposals
+
+### New this period
+- [#125 [RFC] REST APIs for Lens engine](https://github.com/llm-d-incubation/llm-d-lens/issues/125) — [RFC] REST APIs for Lens engine _(OPEN, heat=1)_
+
+### Ongoing
+- [#3047 [Proposal] CPU Cache Sharing](https://github.com/llm-d/llm-d/issues/3047) — [Proposal] CPU Cache Sharing _(OPEN, heat=2)_
+- [#2971 [Proposal] Native Compaction Support](https://github.com/llm-d/llm-d/issues/2971) — [Proposal] Native Compaction Support _(OPEN, heat=6)_
+- [#2699 [RFC]: Dynamic runtime PD router infrastructure and strategy for llm-d](https://github.com/llm-d/llm-d/issues/2699) — [RFC]: Dynamic runtime PD router infrastructure and strategy for llm-d _(OPEN, heat=5)_
+- [#2569 [Proposal] Upstream llm-d Unified Model Server Telemetry to OpenTelemetry GenAI Semantic Conventions (gen_ai.server.*)](https://github.com/llm-d/llm-d/issues/2569) — [Proposal] Upstream llm-d Unified Model Server Telemetry to OpenTelemetry GenAI Semantic Conventions (gen_ai.server.*) _(OPEN, heat=4)_
+- [#104 [RFC]: Multi-Source Configuration-Driven Agentic Deploy - Stage 2](https://github.com/llm-d-incubation/llm-d-lens/issues/104) — [RFC]: Multi-Source Configuration-Driven Agentic Deploy - Stage 2 _(OPEN, heat=0)_
+- [#91 [RFC]: Multi-Source Configuration-Driven Agentic Deploy - Stage 1](https://github.com/llm-d-incubation/llm-d-lens/issues/91) — [RFC]: Multi-Source Configuration-Driven Agentic Deploy - Stage 1 _(OPEN, heat=0)_
+- [#96 [RFC]: OS platform abstraction](https://github.com/llm-d-incubation/llm-d-lens/issues/96) — [RFC]: OS platform abstraction _(OPEN, heat=0)_
+- [#90 [RFC] Document RAG Architecture for llm-d-lens](https://github.com/llm-d-incubation/llm-d-lens/issues/90) — [RFC] Document RAG Architecture for llm-d-lens _(OPEN, heat=0)_
+- [#3991 [Proposal] Tokenize once at ingress across vLLM and SGLang (Coordinator + EPP, EPP alone)](https://github.com/llm-d/llm-d-router/issues/3991) — [Proposal] Tokenize once at ingress across vLLM and SGLang (Coordinator + EPP, EPP alone) _(OPEN, heat=0)_
+- [#2409 [RFC]: Proactive P2P KV-Cache Migration API](https://github.com/llm-d/llm-d-router/issues/2409) — [RFC]: Proactive P2P KV-Cache Migration API _(OPEN, heat=2)_
+- [#3617 [RFC] native tokens-in/tokens-out](https://github.com/llm-d/llm-d-router/issues/3617) — [RFC] native tokens-in/tokens-out _(OPEN, heat=5)_
+- [#4078 [RFC] Sampled request/response capture for training-data collection for fine-tuning & RL](https://github.com/llm-d/llm-d-router/issues/4078) — [RFC] Sampled request/response capture for training-data collection for fine-tuning & RL _(OPEN, heat=3)_
+- [#2326 [RFC] llm-d-router Profiler](https://github.com/llm-d/llm-d-router/issues/2326) — [RFC] llm-d-router Profiler _(OPEN, heat=8)_
+- [#3691 [RFC]: Pre/post-processing (IO) disaggregation for /pooling requests](https://github.com/llm-d/llm-d-router/issues/3691) — [RFC]: Pre/post-processing (IO) disaggregation for /pooling requests _(OPEN, heat=1)_
+- [#3603 [RFC] Flow Control: Per-Endpoint Band Sharing](https://github.com/llm-d/llm-d-router/issues/3603) — [RFC] Flow Control: Per-Endpoint Band Sharing _(OPEN, heat=0)_
+- [#3519 [RFC] Stream non-streaming requests upstream so EPP sees the first token](https://github.com/llm-d/llm-d-router/issues/3519) — [RFC] Stream non-streaming requests upstream so EPP sees the first token _(OPEN, heat=3)_
+- [#1946 [rfc] Active-Active EPP deployments](https://github.com/llm-d/llm-d-router/issues/1946) — [rfc] Active-Active EPP deployments _(OPEN, heat=7)_
+- [#2786 [RFC]: Stage aware saturation in Flow control](https://github.com/llm-d/llm-d-router/issues/2786) — [RFC]: Stage aware saturation in Flow control _(OPEN, heat=5)_
+- [#1979 [RFC] Session-centric prefix-cache affinity and KV-lifecycle orchestration](https://github.com/llm-d/llm-d-router/issues/1979) — [RFC] Session-centric prefix-cache affinity and KV-lifecycle orchestration _(OPEN, heat=2)_
+
+
+## Significant open PRs
+
+- [#2936 [Hardware support] add hygon HCU BW-1000 sglang support](https://github.com/llm-d/llm-d/pull/2936) — [Hardware support] add hygon HCU BW-1000 sglang support
+  - author: archlitchi · age: 21d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-17
+- [#2874 docs(i18n): start zh-Hans docs with source freshness checks](https://github.com/llm-d/llm-d/pull/2874) — docs(i18n): start zh-Hans docs with source freshness checks
+  - author: tangming1996 · age: 28d · reviewers: — · last activity: 2026-11-17
+- [#3055 ci: add opt-in tiered prefix cache validation](https://github.com/llm-d/llm-d/pull/3055) — ci: add opt-in tiered prefix cache validation
+  - author: xiaojun-zhang · age: 6d · reviewers: — · last activity: 2026-11-16
+- [#3067 docs(router): add Workload and State Model architecture page](https://github.com/llm-d/llm-d/pull/3067) — docs(router): add Workload and State Model architecture page
+  - author: LukeAVanDrie · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#2725 Add opt-in vLLM tracing overlays for single-stage guides](https://github.com/llm-d/llm-d/pull/2725) — Add opt-in vLLM tracing overlays for single-stage guides
+  - author: JaredTan95 · age: 38d · reviewers: copilot-pull-request-reviewer, gyliu513 · last activity: 2026-11-15
+- [#3001 feat(observability): show trace exemplars on the EPP dashboards](https://github.com/llm-d/llm-d/pull/3001) — feat(observability): show trace exemplars on the EPP dashboards
+  - author: YidaWeng · age: 14d · reviewers: — · last activity: 2026-11-15
+- [#3002 guides(pd-disaggregation): add the experimental P/D Multi Tier KV cache path](https://github.com/llm-d/llm-d/pull/3002) — guides(pd-disaggregation): add the experimental P/D Multi Tier KV cache path
+  - author: YidaWeng · age: 14d · reviewers: — · last activity: 2026-11-15
+- [#2150 tiered-prefix-cache: add SGLang Mooncake backend](https://github.com/llm-d/llm-d/pull/2150) — tiered-prefix-cache: add SGLang Mooncake backend
+  - author: sagearc · age: 109d · reviewers: — · last activity: 2026-11-14
+- [#3042 ci(workload-autoscaling): add nightly GKE E2E lane for KEDA + EPP (queue signal)](https://github.com/llm-d/llm-d/pull/3042) — ci(workload-autoscaling): add nightly GKE E2E lane for KEDA + EPP (queue signal)
+  - author: RyanRosario · age: 9d · reviewers: RyanRosario, asm582, chatgpt-codex-connector · last activity: 2026-11-13
+- [#3063 WIP: add coordinator mode for p/d disaggregation](https://github.com/llm-d/llm-d/pull/3063) — WIP: add coordinator mode for p/d disaggregation
+  - author: capri-xiyue · age: 4d · reviewers: — · last activity: 2026-11-13
+- [#2950  feat(multimodal): add AMD disaggregated serving over MoRI-IO](https://github.com/llm-d/llm-d/pull/2950) — feat(multimodal): add AMD disaggregated serving over MoRI-IO
+  - author: nitsingh2 · age: 20d · reviewers: — · last activity: 2026-11-13
+- [#2822 feat(multimodal): add AMD aggregation guide](https://github.com/llm-d/llm-d/pull/2822) — feat(multimodal): add AMD aggregation guide
+  - author: nitsingh2 · age: 32d · reviewers: — · last activity: 2026-11-13
+- [#2461 feat(modelexpress-p2p): add Intel XPU (B60) host-staged transport guide](https://github.com/llm-d/llm-d/pull/2461) — feat(modelexpress-p2p): add Intel XPU (B60) host-staged transport guide
+  - author: yao531441 · age: 68d · reviewers: — · last activity: 2026-11-13
+- [#3006 docs: add ThunderAgent session admission guide](https://github.com/llm-d/llm-d/pull/3006) — docs: add ThunderAgent session admission guide
+  - author: zetxqx · age: 14d · reviewers: liu-cong · last activity: 2026-11-12
+- [#2630 Add SGLang HiCache with MooncakeStore over RoCE/RDMA](https://github.com/llm-d/llm-d/pull/2630) — Add SGLang HiCache with MooncakeStore over RoCE/RDMA
+  - author: bermanamit · age: 47d · reviewers: bermanamit, liu-cong · last activity: 2026-11-11
+- [#3056 feat(guides): add Intel CPU SGLang overlays for optimized-baseline and precise-prefix-cache-routing](https://github.com/llm-d/llm-d/pull/3056) — feat(guides): add Intel CPU SGLang overlays for optimized-baseline and precise-prefix-cache-routing
+  - author: yao531441 · age: 5d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-11
+- [#2970 feat(omni-serving): Intel XPU vllm-omni text-to-video](https://github.com/llm-d/llm-d/pull/2970) — feat(omni-serving): Intel XPU vllm-omni text-to-video
+  - author: sihancx · age: 18d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-10
+- [#3036 docs: add no-Kubernetes Docker guide for Ascend NPUs](https://github.com/llm-d/llm-d/pull/3036) — docs: add no-Kubernetes Docker guide for Ascend NPUs
+  - author: yisususu · age: 10d · reviewers: — · last activity: 2026-11-06
+- [#3034 feat(models): add GLM-5.3 Quark MXFP4 on AMD MI355X (P/D with MoRI-IO)](https://github.com/llm-d/llm-d/pull/3034) — feat(models): add GLM-5.3 Quark MXFP4 on AMD MI355X (P/D with MoRI-IO)
+  - author: shikamd123 · age: 10d · reviewers: — · last activity: 2026-11-06
+- [#3029 Hardware support: Rebellions NPU (precise-prefix-cache-routing)](https://github.com/llm-d/llm-d/pull/3029) — Hardware support: Rebellions NPU (precise-prefix-cache-routing)
+  - author: rebel-minhopark · age: 11d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-05
+- [#2967 feat(router): add decode calibration recipe (peakDecodeThroughput) to size xPyD ratios](https://github.com/llm-d/llm-d/pull/2967) — feat(router): add decode calibration recipe (peakDecodeThroughput) to size xPyD ratios
+  - author: StevenSiahaann · age: 18d · reviewers: StevenSiahaann, htang7415 · last activity: 2026-11-05
+- [#2965 feat(models): add GLM-5.3-Flash with a GKE overlay on GPU DRA and DRANET](https://github.com/llm-d/llm-d/pull/2965) — feat(models): add GLM-5.3-Flash with a GKE overlay on GPU DRA and DRANET
+  - author: huaxig · age: 19d · reviewers: jtechapps · last activity: 2026-11-05
+- [#2990 fix(guides): turn on and scrape the routing sidecar's /metrics in the P/D guides](https://github.com/llm-d/llm-d/pull/2990) — fix(guides): turn on and scrape the routing sidecar's /metrics in the P/D guides
+  - author: sudoalok · age: 16d · reviewers: — · last activity: 2026-11-03
+- [#3013 feat(observability): add routing sidecar Grafana dashboard](https://github.com/llm-d/llm-d/pull/3013) — feat(observability): add routing sidecar Grafana dashboard
+  - author: sudoalok · age: 13d · reviewers: — · last activity: 2026-11-03
+- [#2592 docs(observability): add KV offload row to the kv-cache dashboard](https://github.com/llm-d/llm-d/pull/2592) — docs(observability): add KV offload row to the kv-cache dashboard
+  - author: iacker · age: 52d · reviewers: — · last activity: 2026-11-03
+- [#2121 [wip] Kimi k3](https://github.com/llm-d/llm-d/pull/2121) — [wip] Kimi k3
+  - author: robertgshaw2-redhat · age: 112d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-03
+- [#2989 docs(observability): add the GKE Managed Prometheus wiring to the remaining guides](https://github.com/llm-d/llm-d/pull/2989) — docs(observability): add the GKE Managed Prometheus wiring to the remaining guides
+  - author: sudoalok · age: 16d · reviewers: — · last activity: 2026-11-03
+- [#2639 Add a read-only preflight check for the wide-ep guide](https://github.com/llm-d/llm-d/pull/2639) — Add a read-only preflight check for the wide-ep guide
+  - author: alexeymoskalev-devops · age: 46d · reviewers: — · last activity: 2026-11-03
+- [#2964 [ROCm] Enable SGLang precise and predicted guides for AMD](https://github.com/llm-d/llm-d/pull/2964) — [ROCm] Enable SGLang precise and predicted guides for AMD
+  - author: vcave · age: 19d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-02
+- [#2994 fix(guides): select and gate monitoring by backend](https://github.com/llm-d/llm-d/pull/2994) — fix(guides): select and gate monitoring by backend
+  - author: ducduong97hn · age: 16d · reviewers: — · last activity: 2026-11-02
+- [#1931 [WideEP]: Enable Grove for llm-d WideEP GB200](https://github.com/llm-d/llm-d/pull/1931) — [WideEP]: Enable Grove for llm-d WideEP GB200
+  - author: shayasoolin · age: 145d · reviewers: danbar2, shayasoolin, yankay · last activity: 2026-11-02
+- [#2972 fix(guides): skip monitoring cleanup when MONITORING is not true](https://github.com/llm-d/llm-d/pull/2972) — fix(guides): skip monitoring cleanup when MONITORING is not true
+  - author: chrikrah · age: 18d · reviewers: liu-cong · last activity: 2026-11-02
+- [#2981 feat(observability): add logs recipe to query logs by trace_id](https://github.com/llm-d/llm-d/pull/2981) — feat(observability): add logs recipe to query logs by trace_id
+  - author: sudoalok · age: 17d · reviewers: — · last activity: 2026-11-02
+- [#2995 feat(observability): add coordinator Grafana dashboard](https://github.com/llm-d/llm-d/pull/2995) — feat(observability): add coordinator Grafana dashboard
+  - author: shreyaabaranwal · age: 16d · reviewers: gyliu513 · last activity: 2026-11-01
+- [#2917 feat(guides): add the P/D Disaggregation with P2P KV Cache Sharing behind the Coordinator guide](https://github.com/llm-d/llm-d/pull/2917) — feat(guides): add the P/D Disaggregation with P2P KV Cache Sharing behind the Coordinator guide
+  - author: revit13 · age: 22d · reviewers: roytman · last activity: 2026-11-01
+- [#2986 feat(optimized-baseline): add a CPU inference simulator path](https://github.com/llm-d/llm-d/pull/2986) — feat(optimized-baseline): add a CPU inference simulator path
+  - author: ducduong97hn · age: 16d · reviewers: — · last activity: 2026-10-31
+- [#2992 feat(observability): add IPP dashboard and metric reference](https://github.com/llm-d/llm-d/pull/2992) — feat(observability): add IPP dashboard and metric reference
+  - author: ducduong97hn · age: 16d · reviewers: — · last activity: 2026-10-31
+- [#2987 test(sglang): verify precise prefix affinity across inference APIs](https://github.com/llm-d/llm-d/pull/2987) — test(sglang): verify precise prefix affinity across inference APIs
+  - author: ducduong97hn · age: 16d · reviewers: — · last activity: 2026-10-31
+- [#2613 feat(monitoring): add KV-cache index Grafana dashboard](https://github.com/llm-d/llm-d/pull/2613) — feat(monitoring): add KV-cache index Grafana dashboard
+  - author: satyamg1620 · age: 49d · reviewers: gyliu513, satyamg1620 · last activity: 2026-10-28
+- [#2600 Add multi cluster routing guide.](https://github.com/llm-d/llm-d/pull/2600) — Add multi cluster routing guide.
+  - author: Mohammad-nassar10 · age: 50d · reviewers: — · last activity: 2026-10-28
+- [#2889 guides: add experimental dynamic P/D disaggregation guide](https://github.com/llm-d/llm-d/pull/2889) — guides: add experimental dynamic P/D disaggregation guide
+  - author: sihancx · age: 27d · reviewers: copilot-pull-request-reviewer · last activity: 2026-10-28
+- [#2957 Add the multimedia downloader helper (Squid HTTP and SSL Bump caching proxy)](https://github.com/llm-d/llm-d/pull/2957) — Add the multimedia downloader helper (Squid HTTP and SSL Bump caching proxy)
+  - author: revit13 · age: 19d · reviewers: — · last activity: 2026-10-28
+- [#2952 feat(wide-ep): add Grove PodCliqueSet as an alternative to DisaggregatedSet](https://github.com/llm-d/llm-d/pull/2952) — feat(wide-ep): add Grove PodCliqueSet as an alternative to DisaggregatedSet
+  - author: robertgshaw2-redhat · age: 20d · reviewers: yankay · last activity: 2026-10-28
+- [#836 Behavioralize populator testing](https://github.com/llm-d-incubation/llm-d-fast-model-actuation/pull/836) — Behavioralize populator testing
+  - author: MikeSpreitzer · age: 6d · reviewers: MikeSpreitzer, clawgenti, copilot-pull-request-reviewer, git-jxj, hivecommons-hive · last activity: 2026-11-17
+- [#1 Import the llm-d-infra-providers PoC onto the bootstrap scaffold](https://github.com/llm-d-incubation/llm-d-infra-providers/pull/1) — Import the llm-d-infra-providers PoC onto the bootstrap scaffold
+  - author: yangligt2 · age: 20d · reviewers: — · last activity: 2026-10-27
+- [#120 docs: RFC for a layered Lens engine architecture](https://github.com/llm-d-incubation/llm-d-lens/pull/120) — docs: RFC for a layered Lens engine architecture
+  - author: ftian1 · age: 5d · reviewers: copilot-pull-request-reviewer, mengmeiye · last activity: 2026-11-16
+- [#119 llmd: deliver stacks through Argo CD (--backend argocd) and add `llmd admin argocd check`](https://github.com/llm-d-incubation/llm-d-lens/pull/119) — llmd: deliver stacks through Argo CD (--backend argocd) and add `llmd admin argocd check`
+  - author: mengmeiye · age: 6d · reviewers: — · last activity: 2026-11-10
+- [#95 Integrate document-only RAG and harden publication lifecycle](https://github.com/llm-d-incubation/llm-d-lens/pull/95) — Integrate document-only RAG and harden publication lifecycle
+  - author: VincyZhang · age: 17d · reviewers: — · last activity: 2026-10-30
+- [#282 feat: support oci:// model artifacts](https://github.com/llm-d-incubation/llm-d-modelservice/pull/282) — feat: support oci:// model artifacts
+  - author: louisphilippe-huberdeau-yasp · age: 6d · reviewers: — · last activity: 2026-11-10
+- [#281 feat: add AWS Neuron accelerator support](https://github.com/llm-d-incubation/llm-d-modelservice/pull/281) — feat: add AWS Neuron accelerator support
+  - author: louisphilippe-huberdeau-yasp · age: 6d · reviewers: — · last activity: 2026-11-10
+- [#272 fix(chart): omit deployment replicas when autoscaling is enabled](https://github.com/llm-d-incubation/llm-d-modelservice/pull/272) — fix(chart): omit deployment replicas when autoscaling is enabled
+  - author: bojiang-li · age: 33d · reviewers: jgchn, kalantar · last activity: 2026-11-02
+- [#355 refactor: consolidate slo_templates.json into usecase_slo_workload.json](https://github.com/llm-d-incubation/llm-d-planner/pull/355) — refactor: consolidate slo_templates.json into usecase_slo_workload.json
+  - author: anfredette · age: 78d · reviewers: anfredette, jgchn · last activity: 2026-09-01
+- [#205 Validate capacity planner accuracy and compile extensive report with next steps ](https://github.com/llm-d-incubation/llm-d-planner/pull/205) — Validate capacity planner accuracy and compile extensive report with next steps
+  - author: jgchn · age: 207d · reviewers: jgchn, namasl · last activity: 2026-07-29
+- [#48 Support replacement member admission through Add](https://github.com/llm-d-incubation/llm-d-resiliency-operator/pull/48) — Support replacement member admission through Add
+  - author: Etelis · age: 29d · reviewers: — · last activity: 2026-11-16
+- [#50 Prepare vLLM replacement member admission](https://github.com/llm-d-incubation/llm-d-resiliency-operator/pull/50) — Prepare vLLM replacement member admission
+  - author: Etelis · age: 29d · reviewers: — · last activity: 2026-11-16
+- [#38 Add tests for the engine fault recovery controller](https://github.com/llm-d-incubation/llm-d-resiliency-operator/pull/38) — Add tests for the engine fault recovery controller
+  - author: Etelis · age: 33d · reviewers: — · last activity: 2026-11-13
+- [#56 Add an initial SGLang engine](https://github.com/llm-d-incubation/llm-d-resiliency-operator/pull/56) — Add an initial SGLang engine
+  - author: almogtavor · age: 27d · reviewers: — · last activity: 2026-11-13
+- [#121 Fault injection testing infrastructure](https://github.com/llm-d-incubation/llm-d-resiliency-operator/pull/121) — Fault injection testing infrastructure
+  - author: rachelt44 · age: 5d · reviewers: — · last activity: 2026-11-11
+- [#60 Use resumable engine actions with bounded recovery](https://github.com/llm-d-incubation/llm-d-resiliency-operator/pull/60) — Use resumable engine actions with bounded recovery
+  - author: Etelis · age: 25d · reviewers: — · last activity: 2026-10-28
+- [#50 slime SWE-agent](https://github.com/llm-d-incubation/llm-d-rl/pull/50) — slime SWE-agent
+  - author: NaomiEisen · age: 42d · reviewers: — · last activity: 2026-10-05
+- [#49 SkyRL integration with llm-d](https://github.com/llm-d-incubation/llm-d-rl/pull/49) — SkyRL integration with llm-d
+  - author: andreyod · age: 60d · reviewers: — · last activity: 2026-09-17
+- [#48 Add swe_rebench workload: agentic multi-turn RL training via verl and uni-agent](https://github.com/llm-d-incubation/llm-d-rl/pull/48) — Add swe_rebench workload: agentic multi-turn RL training via verl and uni-agent
+  - author: andreyod · age: 67d · reviewers: — · last activity: 2026-09-10
+- [#214 [Batch Protoype 5/N]: Fix out-of-memory crashes in verl weight syncs](https://github.com/llm-d-incubation/llm-d-rl-time-slicing/pull/214) — [Batch Protoype 5/N]: Fix out-of-memory crashes in verl weight syncs
+  - author: Edwinhr716 · age: 32d · reviewers: aishukamal · last activity: 2026-11-14
+- [#176 Remove node group labels](https://github.com/llm-d-incubation/llm-d-rl-time-slicing/pull/176) — Remove node group labels
+  - author: lynnl0927 · age: 83d · reviewers: aishukamal, coderabbitai, jessicaochen · last activity: 2026-09-23
+- [#159 snapshot-agent: resolve each job's backend via explicit config, workload channel, pod annotation, then default](https://github.com/llm-d-incubation/llm-d-rl-time-slicing/pull/159) — snapshot-agent: resolve each job's backend via explicit config, workload channel, pod annotation, then default
+  - author: aishukamal · age: 90d · reviewers: — · last activity: 2026-09-17
+- [#146 fix(enginecache): FlashInfer reads FLASHINFER_WORKSPACE_BASE, not _DIR](https://github.com/llm-d-incubation/llm-d-scaling-manager/pull/146) — fix(enginecache): FlashInfer reads FLASHINFER_WORKSPACE_BASE, not _DIR
+  - author: ev-shindin · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#142 ci: monthly check that our upstream component pins are current](https://github.com/llm-d-incubation/llm-d-scaling-manager/pull/142) — ci: monthly check that our upstream component pins are current
+  - author: ev-shindin · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#46 fix: graceful inference shutdown](https://github.com/llm-d-incubation/llm-d-semantic-classifier/pull/46) — fix: graceful inference shutdown
+  - author: pazqo · age: 27d · reviewers: — · last activity: 2026-10-20
+- [#27 feat: add contrastive finetuning tool for custom classifiers](https://github.com/llm-d-incubation/llm-d-semantic-classifier/pull/27) — feat: add contrastive finetuning tool for custom classifiers
+  - author: pazqo · age: 69d · reviewers: — · last activity: 2026-10-10
+- [#31 feat(cache): add opt-in LRU eviction policy](https://github.com/llm-d-incubation/llm-d-semantic-classifier/pull/31) — feat(cache): add opt-in LRU eviction policy
+  - author: bentito · age: 59d · reviewers: — · last activity: 2026-09-28
+- [#30 feat: add local semantic routing proxy for Codex](https://github.com/llm-d-incubation/llm-d-semantic-classifier/pull/30) — feat: add local semantic routing proxy for Codex
+  - author: bentito · age: 60d · reviewers: — · last activity: 2026-09-17
+- [#49 Refresh run-llm-d-benchmark for llm-d v1.0 and llm-d-benchmark v1.0.0](https://github.com/llm-d-incubation/llm-d-skills/pull/49) — Refresh run-llm-d-benchmark for llm-d v1.0 and llm-d-benchmark v1.0.0
+  - author: yangligt2 · age: 24d · reviewers: rachelt44, yangligt2 · last activity: 2026-11-10
+- [#48 Add run-fma-benchmark skill for Fast Model Actuation (FMA) actuation-timing benchmarks](https://github.com/llm-d-incubation/llm-d-skills/pull/48) — Add run-fma-benchmark skill for Fast Model Actuation (FMA) actuation-timing benchmarks
+  - author: rubambiza · age: 26d · reviewers: Etelis · last activity: 2026-11-06
+- [#36 gpu health check llm-d skill](https://github.com/llm-d-incubation/llm-d-skills/pull/36) — gpu health check llm-d skill
+  - author: DolevAdas · age: 124d · reviewers: — · last activity: 2026-08-26
+- [#5 cache config llm-d](https://github.com/llm-d-incubation/llm-d-skills/pull/5) — cache config llm-d
+  - author: DolevAdas · age: 225d · reviewers: — · last activity: 2026-04-27
+- [#48 Add profiles for the llm-d optimized-baseline guide](https://github.com/llm-d-incubation/llm-d-validate/pull/48) — Add profiles for the llm-d optimized-baseline guide
+  - author: Vezio · age: 0d · reviewers: — · last activity: 2026-11-17
+- [#91 tests: verl FleetView](https://github.com/llm-d-incubation/py-inference-scheduler/pull/91) — tests: verl FleetView
+  - author: aniketmohanty82 · age: 21d · reviewers: — · last activity: 2026-11-04
+- [#90 verl hook: share fleet snapshots between a worker's waiting decisions](https://github.com/llm-d-incubation/py-inference-scheduler/pull/90) — verl hook: share fleet snapshots between a worker's waiting decisions
+  - author: aniketmohanty82 · age: 21d · reviewers: — · last activity: 2026-11-04
+- [#89 tests: verl admission by the worker's ranking](https://github.com/llm-d-incubation/py-inference-scheduler/pull/89) — tests: verl admission by the worker's ranking
+  - author: aniketmohanty82 · age: 21d · reviewers: — · last activity: 2026-11-04
+- [#83 tests: verl admission queue](https://github.com/llm-d-incubation/py-inference-scheduler/pull/83) — tests: verl admission queue
+  - author: aniketmohanty82 · age: 26d · reviewers: — · last activity: 2026-11-04
+- [#88 verl hook: rank engines in the workers and leave the fleet only admission](https://github.com/llm-d-incubation/py-inference-scheduler/pull/88) — verl hook: rank engines in the workers and leave the fleet only admission
+  - author: aniketmohanty82 · age: 21d · reviewers: — · last activity: 2026-11-04
+- [#82 verl hook: admit requests through the fleet actor when the profile has flow control](https://github.com/llm-d-incubation/py-inference-scheduler/pull/82) — verl hook: admit requests through the fleet actor when the profile has flow control
+  - author: aniketmohanty82 · age: 26d · reviewers: — · last activity: 2026-11-03
+- [#47 Mooncake KV Offload tier: request relocation](https://github.com/llm-d-incubation/py-inference-scheduler/pull/47) — Mooncake KV Offload tier: request relocation
+  - author: aniketmohanty82 · age: 115d · reviewers: aniketmohanty82, kfswain · last activity: 2026-10-20
+- [#48 Mooncake KV offload tier: unit tests](https://github.com/llm-d-incubation/py-inference-scheduler/pull/48) — Mooncake KV offload tier: unit tests
+  - author: aniketmohanty82 · age: 115d · reviewers: — · last activity: 2026-07-24
+- [#520 feat(api): add request continuation package for interrupted generations](https://github.com/llm-d/llm-d-async/pull/520) — feat(api): add request continuation package for interrupted generations
+  - author: jtechapps · age: 19d · reviewers: jtechapps · last activity: 2026-11-16
+- [#538 feat(metrics): emit a per-pool deadline-driven required-replicas gauge](https://github.com/llm-d/llm-d-async/pull/538) — feat(metrics): emit a per-pool deadline-driven required-replicas gauge
+  - author: sohom-cs · age: 6d · reviewers: chatgpt-codex-connector, sohom-cs · last activity: 2026-11-16
+- [#548 feat(transform): JSON-to-multipart transforms for transcriptions and image edits](https://github.com/llm-d/llm-d-async/pull/548) — feat(transform): JSON-to-multipart transforms for transcriptions and image edits
+  - author: aneeshkp · age: 3d · reviewers: — · last activity: 2026-11-16
+- [#543 feat(api): binary-safe results with content type and headers](https://github.com/llm-d/llm-d-async/pull/543) — feat(api): binary-safe results with content type and headers
+  - author: wseaton · age: 4d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-16
+- [#516 Lease sql results until the consumer acknowledges them](https://github.com/llm-d/llm-d-async/pull/516) — Lease sql results until the consumer acknowledges them
+  - author: wseaton · age: 24d · reviewers: — · last activity: 2026-11-16
+- [#541 feat(metrics): attach trace exemplars to the inference latency histogram](https://github.com/llm-d/llm-d-async/pull/541) — feat(metrics): attach trace exemplars to the inference latency histogram
+  - author: sohom-cs · age: 5d · reviewers: — · last activity: 2026-11-15
+- [#484 feat(flowcontrol): endpoint-scrape absent_value and counted admission](https://github.com/llm-d/llm-d-async/pull/484) — feat(flowcontrol): endpoint-scrape absent_value and counted admission
+  - author: wseaton · age: 41d · reviewers: copilot-pull-request-reviewer, shimib · last activity: 2026-11-12
+- [#447 feat(producer-gcp): add GCP Pub/Sub producer library](https://github.com/llm-d/llm-d-async/pull/447) — feat(producer-gcp): add GCP Pub/Sub producer library
+  - author: apurv-1 · age: 63d · reviewers: apurv-1, copilot-pull-request-reviewer, shimib · last activity: 2026-11-05
+- [#525 feat(worker,redis): streaming SSE dispatch, lease-fenced checkpoints, and resume](https://github.com/llm-d/llm-d-async/pull/525) — feat(worker,redis): streaming SSE dispatch, lease-fenced checkpoints, and resume
+  - author: jtechapps · age: 18d · reviewers: jtechapps · last activity: 2026-11-04
+- [#1616 evaluation step 2: step 1 verification with CPU](https://github.com/llm-d/llm-d-autoscaling/pull/1616) — evaluation step 2: step 1 verification with CPU
+  - author: lionelvillard · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#1608 feat(benchmark): add async-batch baseline, M1 cron, and M2 backlog scenarios](https://github.com/llm-d/llm-d-autoscaling/pull/1608) — feat(benchmark): add async-batch baseline, M1 cron, and M2 backlog scenarios
+  - author: jtechapps · age: 10d · reviewers: — · last activity: 2026-11-07
+- [#789 feat(processor): batch media input endpoints through async multipart dispatch](https://github.com/llm-d/llm-d-batch-gateway/pull/789) — feat(processor): batch media input endpoints through async multipart dispatch
+  - author: aneeshkp · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#787 feat(postgresql): add db_client.postgresql.pool.max_connections](https://github.com/llm-d/llm-d-batch-gateway/pull/787) — feat(postgresql): add db_client.postgresql.pool.max_connections
+  - author: delete-cloud · age: 4d · reviewers: aneeshkp · last activity: 2026-11-14
+- [#784 feat(scripts): migrate job records from Redis to PostgreSQL](https://github.com/llm-d/llm-d-batch-gateway/pull/784) — feat(scripts): migrate job records from Redis to PostgreSQL
+  - author: aneeshkp · age: 5d · reviewers: aneeshkp, madhugoutham, zdtsw · last activity: 2026-11-14
+- [#698 feat: persist durable batch manifests](https://github.com/llm-d/llm-d-batch-gateway/pull/698) — feat: persist durable batch manifests
+  - author: tryambak2019 · age: 56d · reviewers: — · last activity: 2026-11-14
+- [#699 feat: checkpoint resumable async batches](https://github.com/llm-d/llm-d-batch-gateway/pull/699) — feat: checkpoint resumable async batches
+  - author: tryambak2019 · age: 56d · reviewers: — · last activity: 2026-11-14
+- [#700 feat: make resumable finalization retry safe](https://github.com/llm-d/llm-d-batch-gateway/pull/700) — feat: make resumable finalization retry safe
+  - author: tryambak2019 · age: 56d · reviewers: — · last activity: 2026-11-14
+- [#765 fix(processor): don't let resumable finalization overwrite a persisted cancel](https://github.com/llm-d/llm-d-batch-gateway/pull/765) — fix(processor): don't let resumable finalization overwrite a persisted cancel
+  - author: 0z5a · age: 13d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-13
+- [#554 enh: replace local input file copy with S3 ranged gets](https://github.com/llm-d/llm-d-batch-gateway/pull/554) — enh: replace local input file copy with S3 ranged gets
+  - author: acardace · age: 133d · reviewers: acardace, j-mok-dev, lioraron, wseaton, yizhaodev · last activity: 2026-11-13
+- [#717 test: cover resumable recovery pod loss](https://github.com/llm-d/llm-d-batch-gateway/pull/717) — test: cover resumable recovery pod loss
+  - author: tryambak2019 · age: 48d · reviewers: — · last activity: 2026-11-13
+- [#786 feat(apiserver): verify the auth proxy's shared token](https://github.com/llm-d/llm-d-batch-gateway/pull/786) — feat(apiserver): verify the auth proxy's shared token
+  - author: delete-cloud · age: 4d · reviewers: — · last activity: 2026-11-12
+- [#726 fix(gc): own event purge scheduling and test clientset event wiring](https://github.com/llm-d/llm-d-batch-gateway/pull/726) — fix(gc): own event purge scheduling and test clientset event wiring
+  - author: acardace · age: 39d · reviewers: acardace, aneeshkp · last activity: 2026-11-11
+- [#2162 feat(async-batch): add async/batch autoscaling Goodput harness, scoring, and llm-d-async v1.0.0 deployment](https://github.com/llm-d/llm-d-benchmark/pull/2162) — feat(async-batch): add async/batch autoscaling Goodput harness, scoring, and llm-d-async v1.0.0 deployment
+  - author: jtechapps · age: 10d · reviewers: — · last activity: 2026-11-12
+- [#774 Add SGLang LoRA support](https://github.com/llm-d/llm-d-inference-sim/pull/774) — Add SGLang LoRA support
+  - author: irar2 · age: 34d · reviewers: — · last activity: 2026-11-17
+- [#920 Exit non-zero when the simulator or dataset tool fails to start](https://github.com/llm-d/llm-d-inference-sim/pull/920) — Exit non-zero when the simulator or dataset tool fails to start
+  - author: lkhun9311 · age: 1d · reviewers: irar2 · last activity: 2026-11-16
+- [#776 Add fake metrics support for SGLang](https://github.com/llm-d/llm-d-inference-sim/pull/776) — Add fake metrics support for SGLang
+  - author: mayabar · age: 34d · reviewers: irar2, mayabar · last activity: 2026-11-15
+- [#171 add pr_number/pr_repo inputs to OCP helmfile reusable workflow](https://github.com/llm-d/llm-d-infra/pull/171) — add pr_number/pr_repo inputs to OCP helmfile reusable workflow
+  - author: sudoalok · age: 179d · reviewers: — · last activity: 2026-05-21
+- [#741 fix: protect hot cache files and pause full-queue crawlers](https://github.com/llm-d/llm-d-kv-cache/pull/741) — fix: protect hot cache files and pause full-queue crawlers
+  - author: guygir · age: 25d · reviewers: guygir, kfirtoledo · last activity: 2026-11-16
+- [#747 feat(ExternalPrimaryTier): Add the ExternalPrimaryTier Component](https://github.com/llm-d/llm-d-kv-cache/pull/747) — feat(ExternalPrimaryTier): Add the ExternalPrimaryTier Component
+  - author: omerpaz95 · age: 4d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-12
+- [#738 feat(pvc-evictor): clean stale vLLM filesystem-tier temporary files](https://github.com/llm-d/llm-d-kv-cache/pull/738) — feat(pvc-evictor): clean stale vLLM filesystem-tier temporary files
+  - author: sachinsharma3191 · age: 29d · reviewers: — · last activity: 2026-11-04
+- [#727 feat(connectors): implement P/D NIXL backend for TieringOffloadingSpec (#519)](https://github.com/llm-d/llm-d-kv-cache/pull/727) — feat(connectors): implement P/D NIXL backend for TieringOffloadingSpec (#519)
+  - author: mahendrarathore1742 · age: 59d · reviewers: — · last activity: 2026-09-18
+- [#120 refactor: Derive latency model features from the shared schema](https://github.com/llm-d/llm-d-latency-predictor/pull/120) — refactor: Derive latency model features from the shared schema
+  - author: WEIXILIN0307 · age: 2d · reviewers: — · last activity: 2026-11-14
+- [#119 feat: Consume the shared Router latency protocol](https://github.com/llm-d/llm-d-latency-predictor/pull/119) — feat: Consume the shared Router latency protocol
+  - author: WEIXILIN0307 · age: 2d · reviewers: — · last activity: 2026-11-14
+- [#79 Dynamic retraining based on model performance ( IN DRAFT PHASE )](https://github.com/llm-d/llm-d-latency-predictor/pull/79) — Dynamic retraining based on model performance ( IN DRAFT PHASE )
+  - author: modassarrana89-new · age: 97d · reviewers: madhugoutham, modassarrana89-new · last activity: 2026-11-12
+- [#60 feat: standardized offline A/B benchmark template for feature validation](https://github.com/llm-d/llm-d-latency-predictor/pull/60) — feat: standardized offline A/B benchmark template for feature validation
+  - author: madhugoutham · age: 117d · reviewers: kaushikmitr, madhugoutham · last activity: 2026-08-03
+- [#47 feat: Add Intel XPU support](https://github.com/llm-d/llm-d-pd-utils/pull/47) — feat: Add Intel XPU support
+  - author: joshuayao · age: 33d · reviewers: copilot-pull-request-reviewer · last activity: 2026-10-14
+- [#198 feat(results): S3-compatible Results Store backend](https://github.com/llm-d/llm-d-prism/pull/198) — feat(results): S3-compatible Results Store backend
+  - author: alonh · age: 4d · reviewers: seanhorgan · last activity: 2026-11-15
+- [#3875 feat(kvevents): index sliding-window groups in a separate window index](https://github.com/llm-d/llm-d-router/pull/3875) — feat(kvevents): index sliding-window groups in a separate window index
+  - author: sohom-cs · age: 14d · reviewers: chatgpt-codex-connector, sohom-cs, vMaroon · last activity: 2026-11-17
+- [#3847 approx-prefix: index completion text for the serving endpoint](https://github.com/llm-d/llm-d-router/pull/3847) — approx-prefix: index completion text for the serving endpoint
+  - author: seongyun1104 · age: 15d · reviewers: github-advanced-security, liu-cong, seongyun1104, vMaroon · last activity: 2026-11-17
+- [#4051 Workload step 2: parent band inheritance for forked sub-agents](https://github.com/llm-d/llm-d-router/pull/4051) — Workload step 2: parent band inheritance for forked sub-agents
+  - author: RishabhSaini · age: 10d · reviewers: LukeAVanDrie · last activity: 2026-11-16
+- [#4301 feat(epp): add endpointslice-discovery plugin](https://github.com/llm-d/llm-d-router/pull/4301) — feat(epp): add endpointslice-discovery plugin
+  - author: capri-xiyue · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#3740 feat(epp): add qos-contract plugin for per-team QoS contracts](https://github.com/llm-d/llm-d-router/pull/3740) — feat(epp): add qos-contract plugin for per-team QoS contracts
+  - author: dmitripikus · age: 18d · reviewers: LukeAVanDrie, dmitripikus, elevran · last activity: 2026-11-16
+- [#4094 datalayer: record per-metric scrape time for scalar metrics](https://github.com/llm-d/llm-d-router/pull/4094) — datalayer: record per-metric scrape time for scalar metrics
+  - author: ptimizeroracle · age: 7d · reviewers: copilot-pull-request-reviewer, elevran · last activity: 2026-11-16
+- [#4019 feat(epp): replicate prefix windows as Redis streams](https://github.com/llm-d/llm-d-router/pull/4019) — feat(epp): replicate prefix windows as Redis streams
+  - author: smurthy024 · age: 11d · reviewers: copilot-pull-request-reviewer, smurthy024 · last activity: 2026-11-16
+- [#4059 Salt the speech prefix fingerprint with the request's conditioning](https://github.com/llm-d/llm-d-router/pull/4059) — Salt the speech prefix fingerprint with the request's conditioning
+  - author: RishabhSaini · age: 10d · reviewers: RishabhSaini, ahg-g, ptimizeroracle, zetxqx · last activity: 2026-11-16
+- [#4016 fix(metrics): publish engine-deferred requests and leave them out of the saturation queue term](https://github.com/llm-d/llm-d-router/pull/4016) — fix(metrics): publish engine-deferred requests and leave them out of the saturation queue term
+  - author: ZeXi0308 · age: 11d · reviewers: LukeAVanDrie, elevran · last activity: 2026-11-16
+- [#3857 feat(epp): count in-flight P2P pulls per source in p2p-source-producer](https://github.com/llm-d/llm-d-router/pull/3857) — feat(epp): count in-flight P2P pulls per source in p2p-source-producer
+  - author: sohom-cs · age: 14d · reviewers: chatgpt-codex-connector, nilig, sohom-cs · last activity: 2026-11-16
+- [#4298 feat(epp): estimate TTFT from a prefill step profile in prefix-cache-affinity-filter](https://github.com/llm-d/llm-d-router/pull/4298) — feat(epp): estimate TTFT from a prefill step profile in prefix-cache-affinity-filter
+  - author: vMaroon · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#4020 feat: add length-adaptive-load-scorer for decode load balancing](https://github.com/llm-d/llm-d-router/pull/4020) — feat: add length-adaptive-load-scorer for decode load balancing
+  - author: cheng-hsiang-chiu · age: 11d · reviewers: — · last activity: 2026-11-16
+- [#4161 feat(epp): add cache-class dispatch gate for preferential miss holdback](https://github.com/llm-d/llm-d-router/pull/4161) — feat(epp): add cache-class dispatch gate for preferential miss holdback
+  - author: smurthy024 · age: 6d · reviewers: copilot-pull-request-reviewer, smurthy024 · last activity: 2026-11-16
+- [#4077 feat(CrossReplicaSyncer): add a peer-to-peer syncer over gRPC](https://github.com/llm-d/llm-d-router/pull/4077) — feat(CrossReplicaSyncer): add a peer-to-peer syncer over gRPC
+  - author: vMaroon · age: 8d · reviewers: elevran, vMaroon · last activity: 2026-11-16
+- [#3992 docs: add tokenize-once-at-ingress proposal](https://github.com/llm-d/llm-d-router/pull/3992) — docs: add tokenize-once-at-ingress proposal
+  - author: ahg-g · age: 11d · reviewers: ahg-g, elevran, hickeyma, roytman, sagearc · last activity: 2026-11-16
+- [#4243 Publish flow control priority band queue via CrossReplicaSyncer](https://github.com/llm-d/llm-d-router/pull/4243) — Publish flow control priority band queue via CrossReplicaSyncer
+  - author: sarahliu-cisco · age: 3d · reviewers: — · last activity: 2026-11-16
+- [#4294 feat(epp): validate qos-contract latency promises against Prometheus](https://github.com/llm-d/llm-d-router/pull/4294) — feat(epp): validate qos-contract latency promises against Prometheus
+  - author: dmitripikus · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#4036 feat(disagg): add kv-compat-pd-decider and kv-compat-filter](https://github.com/llm-d/llm-d-router/pull/4036) — feat(disagg): add kv-compat-pd-decider and kv-compat-filter
+  - author: redhat-telco-guy · age: 10d · reviewers: — · last activity: 2026-11-16
+- [#3965 feat(epp): support multi-role revision overflow guards](https://github.com/llm-d/llm-d-router/pull/3965) — feat(epp): support multi-role revision overflow guards
+  - author: htang7415 · age: 12d · reviewers: — · last activity: 2026-11-16
+- [#4011 [5/7] Support upstream vLLM gRPC P/D and EC disaggregation in sidecar](https://github.com/llm-d/llm-d-router/pull/4011) — [5/7] Support upstream vLLM gRPC P/D and EC disaggregation in sidecar
+  - author: ahg-g · age: 11d · reviewers: ahg-g, elevran · last activity: 2026-11-16
+- [#4013 [6/7] Support upstream vLLM gRPC P/D and EC disaggregation in coordinator](https://github.com/llm-d/llm-d-router/pull/4013) — [6/7] Support upstream vLLM gRPC P/D and EC disaggregation in coordinator
+  - author: ahg-g · age: 11d · reviewers: ahg-g, elevran, github-advanced-security · last activity: 2026-11-16
+- [#4289 feat(epp): add opt-in read-only endpoints API on the metrics server](https://github.com/llm-d/llm-d-router/pull/4289) — feat(epp): add opt-in read-only endpoints API on the metrics server
+  - author: chethanuk · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#2292 feat(scheduler): size approx-prefix-cache LRU to offload-extended KV cache capacity](https://github.com/llm-d/llm-d-router/pull/2292) — feat(scheduler): size approx-prefix-cache LRU to offload-extended KV cache capacity
+  - author: BenjaminBraunDev · age: 103d · reviewers: BenjaminBraunDev, ahg-g, kaushikmitr, liu-cong · last activity: 2026-11-16
+- [#4182 Force-streaming to the conditional-decode step](https://github.com/llm-d/llm-d-router/pull/4182) — Force-streaming to the conditional-decode step
+  - author: DolevAdas · age: 5d · reviewers: DolevAdas, roytman · last activity: 2026-11-16
+- [#4285 epp: answer a conditional-decode cache miss with 204](https://github.com/llm-d/llm-d-router/pull/4285) — epp: answer a conditional-decode cache miss with 204
+  - author: revit13 · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#4093 Sync SGLang protos to sgl-project/sglang@cfe0fc54ba15](https://github.com/llm-d/llm-d-router/pull/4093) — Sync SGLang protos to sgl-project/sglang@cfe0fc54ba15
+  - author: llm-d-router-release-notes · age: 7d · reviewers: — · last activity: 2026-11-16
+- [#4281 Sync vLLM protos to vllm-project/vllm@e67fb98ad39a](https://github.com/llm-d/llm-d-router/pull/4281) — Sync vLLM protos to vllm-project/vllm@e67fb98ad39a
+  - author: llm-d-router-release-notes · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#4275 feat(epp): bound prefix-cache-affinity-filter load_override spillover](https://github.com/llm-d/llm-d-router/pull/4275) — feat(epp): bound prefix-cache-affinity-filter load_override spillover
+  - author: sohom-cs · age: 1d · reviewers: — · last activity: 2026-11-15
+- [#4153 fix(epp): honor a renamed prefill profile in prefill-aware plugins](https://github.com/llm-d/llm-d-router/pull/4153) — fix(epp): honor a renamed prefill profile in prefill-aware plugins
+  - author: NightG1owZ · age: 6d · reviewers: — · last activity: 2026-11-15
+- [#4205 doctor: add the offline analyze command for router profiler captures](https://github.com/llm-d/llm-d-router/pull/4205) — doctor: add the offline analyze command for router profiler captures
+  - author: sohom-cs · age: 4d · reviewers: chatgpt-codex-connector, sohom-cs · last activity: 2026-11-15
+- [#4224 refactor: Collect latency features through providers](https://github.com/llm-d/llm-d-router/pull/4224) — refactor: Collect latency features through providers
+  - author: WEIXILIN0307 · age: 3d · reviewers: — · last activity: 2026-11-14
+- [#4223 refactor: Use shared latency types in the predictor client](https://github.com/llm-d/llm-d-router/pull/4223) — refactor: Use shared latency types in the predictor client
+  - author: WEIXILIN0307 · age: 3d · reviewers: — · last activity: 2026-11-14
+- [#4222 feat: Define the shared latency protocol foundation](https://github.com/llm-d/llm-d-router/pull/4222) — feat: Define the shared latency protocol foundation
+  - author: WEIXILIN0307 · age: 3d · reviewers: — · last activity: 2026-11-14
+- [#4197 fix(epp): bound Kubernetes discovery membership staleness](https://github.com/llm-d/llm-d-router/pull/4197) — fix(epp): bound Kubernetes discovery membership staleness
+  - author: Ilai-Dabush · age: 5d · reviewers: — · last activity: 2026-11-14
+- [#3916 scheduling: serve recent decisions on /debug/scheduling/recent](https://github.com/llm-d/llm-d-router/pull/3916) — scheduling: serve recent decisions on /debug/scheduling/recent
+  - author: satyamg1620 · age: 13d · reviewers: gyliu513, satyamg1620 · last activity: 2026-11-14
+- [#2829 Track resident decode tokens from cumulative streaming usage](https://github.com/llm-d/llm-d-router/pull/2829) — Track resident decode tokens from cumulative streaming usage
+  - author: vMaroon · age: 64d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-14
+- [#4191 feat(sessionstate): track endpoint bindings and migrate thunder-agent](https://github.com/llm-d/llm-d-router/pull/4191) — feat(sessionstate): track endpoint bindings and migrate thunder-agent
+  - author: zetxqx · age: 5d · reviewers: — · last activity: 2026-11-14
+- [#3421 feat(epp): add queue wait to the prefix-cache-affinity TTFT estimate](https://github.com/llm-d/llm-d-router/pull/3421) — feat(epp): add queue wait to the prefix-cache-affinity TTFT estimate
+  - author: pavanipenumalla · age: 33d · reviewers: kaushikmitr · last activity: 2026-11-13
+- [#3908 [7/8] Support sglang.api.v1 Generate P/D disaggregation in sidecar](https://github.com/llm-d/llm-d-router/pull/3908) — [7/8] Support sglang.api.v1 Generate P/D disaggregation in sidecar
+  - author: ahg-g · age: 13d · reviewers: ahg-g, elevran, github-advanced-security, roytman · last activity: 2026-11-13
+- [#4225 test: Prepare the latency schema A-C benchmark workloads](https://github.com/llm-d/llm-d-router/pull/4225) — test: Prepare the latency schema A-C benchmark workloads
+  - author: WEIXILIN0307 · age: 3d · reviewers: — · last activity: 2026-11-13
+- [#2899 fix(kvcache): honor engine retrieval span in precise prefix matching](https://github.com/llm-d/llm-d-router/pull/2899) — fix(kvcache): honor engine retrieval span in precise prefix matching
+  - author: huangxiaobai-ydmy · age: 60d · reviewers: ahg-g, huangxiaobai-ydmy, liu-cong · last activity: 2026-11-13
+- [#4206 feat(pd): propagate the prefiller's created_cache_tokens to the client](https://github.com/llm-d/llm-d-router/pull/4206) — feat(pd): propagate the prefiller's created_cache_tokens to the client
+  - author: Weihrauch · age: 4d · reviewers: — · last activity: 2026-11-12
+- [#3975 Release the prefill in-flight entry from the decode's KV events](https://github.com/llm-d/llm-d-router/pull/3975) — Release the prefill in-flight entry from the decode's KV events
+  - author: vMaroon · age: 11d · reviewers: paolo-perrone, vMaroon · last activity: 2026-11-12
+- [#3885 Add an opt-in render circuit breaker to token-producer](https://github.com/llm-d/llm-d-router/pull/3885) — Add an opt-in render circuit breaker to token-producer
+  - author: huhongyu20040201-personal · age: 14d · reviewers: huhongyu20040201-personal, vMaroon · last activity: 2026-11-12
+- [#3730 feat(coordinator): set the SGLang bootstrap port through kv_connector_params](https://github.com/llm-d/llm-d-router/pull/3730) — feat(coordinator): set the SGLang bootstrap port through kv_connector_params
+  - author: chethanuk · age: 18d · reviewers: — · last activity: 2026-11-11
+- [#4037 feat(disagg): exclude prefill/decode pairs after failed requests](https://github.com/llm-d/llm-d-router/pull/4037) — feat(disagg): exclude prefill/decode pairs after failed requests
+  - author: redhat-telco-guy · age: 10d · reviewers: — · last activity: 2026-11-11
+- [#4186 feat(epp): admit sheddable requests on the negative band](https://github.com/llm-d/llm-d-router/pull/4186) — feat(epp): admit sheddable requests on the negative band
+  - author: tsisodia10 · age: 5d · reviewers: — · last activity: 2026-11-11
+- [#4159 publish thread-id and parent-thread-id from agent-identity](https://github.com/llm-d/llm-d-router/pull/4159) — publish thread-id and parent-thread-id from agent-identity
+  - author: D-Sai-Venkatesh · age: 6d · reviewers: — · last activity: 2026-11-10
+- [#3678 feat(prefix): merge peer prefixes after cross-replica publish](https://github.com/llm-d/llm-d-router/pull/3678) — feat(prefix): merge peer prefixes after cross-replica publish
+  - author: delete-cloud · age: 20d · reviewers: — · last activity: 2026-11-10
+- [#3327 datalayer: record each polling source's failed polls on the endpoint](https://github.com/llm-d/llm-d-router/pull/3327) — datalayer: record each polling source's failed polls on the endpoint
+  - author: tadler10 · age: 36d · reviewers: chatgpt-codex-connector, elevran, tadler10 · last activity: 2026-11-10
+- [#3892 feat(flowcontrol): add cross-band fairness band selection policy](https://github.com/llm-d/llm-d-router/pull/3892) — feat(flowcontrol): add cross-band fairness band selection policy
+  - author: loicmarchal · age: 13d · reviewers: LukeAVanDrie · last activity: 2026-11-10
+- [#3465 feat(epp): add prefix-cache-aware-admitter](https://github.com/llm-d/llm-d-router/pull/3465) — feat(epp): add prefix-cache-aware-admitter
+  - author: damodaryekkuluri · age: 32d · reviewers: copilot-pull-request-reviewer, damodaryekkuluri · last activity: 2026-11-10
+- [#3173 fix: check projected request cost before flow-control release](https://github.com/llm-d/llm-d-router/pull/3173) — fix: check projected request cost before flow-control release
+  - author: LingYi-Liang · age: 41d · reviewers: liu-cong · last activity: 2026-11-09
+- [#4092 feat(flowcontrol): add opt-in fair admission for full priority bands](https://github.com/llm-d/llm-d-router/pull/4092) — feat(flowcontrol): add opt-in fair admission for full priority bands
+  - author: madhugoutham · age: 8d · reviewers: ishwar170695 · last activity: 2026-11-09
+- [#2638 feat(disagg): add decode fallback profile](https://github.com/llm-d/llm-d-router/pull/2638) — feat(disagg): add decode fallback profile
+  - author: nicole-lihui · age: 76d · reviewers: ahg-g, nicole-lihui · last activity: 2026-11-09
+- [#4068 observability: generate scheduler metrics and docs with Weaver](https://github.com/llm-d/llm-d-router/pull/4068) — observability: generate scheduler metrics and docs with Weaver
+  - author: rudrakshkarpe · age: 9d · reviewers: gyliu513, rudrakshkarpe · last activity: 2026-11-08
+- [#3911 Share decoded KV events through a data-layer source](https://github.com/llm-d/llm-d-router/pull/3911) — Share decoded KV events through a data-layer source
+  - author: vMaroon · age: 13d · reviewers: ahg-g, liu-cong · last activity: 2026-11-07
+- [#4073 feat(disagg): add nixl-health-pd-decider plugin](https://github.com/llm-d/llm-d-router/pull/4073) — feat(disagg): add nixl-health-pd-decider plugin
+  - author: satyamg1620 · age: 9d · reviewers: — · last activity: 2026-11-07
+- [#4038 feat(disagg): add hetero-pd-decider](https://github.com/llm-d/llm-d-router/pull/4038) — feat(disagg): add hetero-pd-decider
+  - author: redhat-telco-guy · age: 10d · reviewers: — · last activity: 2026-11-06
+- [#3821 Send the prefill data-parallel rank through the P/D sidecar](https://github.com/llm-d/llm-d-router/pull/3821) — Send the prefill data-parallel rank through the P/D sidecar
+  - author: robertgshaw2-redhat · age: 16d · reviewers: sagearc · last activity: 2026-11-06
+- [#3818 epp: route to data-parallel ranks served behind one port](https://github.com/llm-d/llm-d-router/pull/3818) — epp: route to data-parallel ranks served behind one port
+  - author: robertgshaw2-redhat · age: 16d · reviewers: — · last activity: 2026-11-06
+- [#4048 [PoC] Group scheduler and thread identity](https://github.com/llm-d/llm-d-router/pull/4048) — [PoC] Group scheduler and thread identity
+  - author: D-Sai-Venkatesh · age: 10d · reviewers: — · last activity: 2026-11-06
+- [#3862 feat(epp): add a cold-session prefill filter](https://github.com/llm-d/llm-d-router/pull/3862) — feat(epp): add a cold-session prefill filter
+  - author: YidaWeng · age: 14d · reviewers: — · last activity: 2026-11-06
+- [#1981 feat: add opt-in GenAI payload capture (PayloadStore Phase 1)](https://github.com/llm-d/llm-d-router/pull/1981) — feat: add opt-in GenAI payload capture (PayloadStore Phase 1)
+  - author: nickaggarwal · age: 126d · reviewers: copilot-pull-request-reviewer, nickaggarwal · last activity: 2026-11-06
+- [#3912 Resolve external session block paths against KV-event residency](https://github.com/llm-d/llm-d-router/pull/3912) — Resolve external session block paths against KV-event residency
+  - author: vMaroon · age: 13d · reviewers: — · last activity: 2026-11-06
+- [#2852 feat(epp): add scoped session identity and session manager plugins](https://github.com/llm-d/llm-d-router/pull/2852) — feat(epp): add scoped session identity and session manager plugins
+  - author: guygir · age: 63d · reviewers: — · last activity: 2026-11-06
+- [#2967 feat(epp): weigh non-text tokens in token-load-scorer](https://github.com/llm-d/llm-d-router/pull/2967) — feat(epp): weigh non-text tokens in token-load-scorer
+  - author: sudoalok · age: 55d · reviewers: ahg-g, capri-xiyue, kaushikmitr, sudoalok · last activity: 2026-11-06
+- [#3739 fix(epp): salvage usage from dropped oversized SSE lines](https://github.com/llm-d/llm-d-router/pull/3739) — fix(epp): salvage usage from dropped oversized SSE lines
+  - author: zhouyou9505 · age: 18d · reviewers: ishwar170695 · last activity: 2026-11-05
+- [#3511 [coordinator] SGLang P/D support](https://github.com/llm-d/llm-d-router/pull/3511) — [coordinator] SGLang P/D support
+  - author: sagearc · age: 28d · reviewers: roytman, sagearc · last activity: 2026-11-05
+- [#2831 sidecar: fix bidirectional KV transfer blockers (streaming + security)](https://github.com/llm-d/llm-d-router/pull/2831) — sidecar: fix bidirectional KV transfer blockers (streaming + security)
+  - author: kapiljain1989 · age: 63d · reviewers: nilig · last activity: 2026-11-05
+- [#3953 feat: hardware-aware P/D decider and KV compatibility filter](https://github.com/llm-d/llm-d-router/pull/3953) — feat: hardware-aware P/D decider and KV compatibility filter
+  - author: redhat-telco-guy · age: 12d · reviewers: — · last activity: 2026-11-04
+- [#3504 fix: invalidate residency when engine mappings are evicted](https://github.com/llm-d/llm-d-router/pull/3504) — fix: invalidate residency when engine mappings are evicted
+  - author: lzl86 · age: 28d · reviewers: copilot-pull-request-reviewer, ptimizeroracle · last activity: 2026-11-03
+- [#3152 Feature/mrl aware](https://github.com/llm-d/llm-d-router/pull/3152) — Feature/mrl aware
+  - author: davidbreitgand · age: 42d · reviewers: — · last activity: 2026-11-02
+- [#3051 Add EPP config hotloading](https://github.com/llm-d/llm-d-router/pull/3051) — Add EPP config hotloading
+  - author: anishasthana · age: 50d · reviewers: ahg-g, liu-cong · last activity: 2026-11-02
+- [#3340 feat(dynamicPD): add dynamic P/D/M layout API and runtime role flipping](https://github.com/llm-d/llm-d-router/pull/3340) — feat(dynamicPD): add dynamic P/D/M layout API and runtime role flipping
+  - author: sihancx · age: 35d · reviewers: — · last activity: 2026-11-02
+- [#3096 epp: add served-model-filter to route only to pods listing model](https://github.com/llm-d/llm-d-router/pull/3096) — epp: add served-model-filter to route only to pods listing model
+  - author: bartoszmajsak · age: 48d · reviewers: — · last activity: 2026-11-01
+- [#3785 feat(coordinator): extend tokens-in decode wrapping to Responses and Messages](https://github.com/llm-d/llm-d-router/pull/3785) — feat(coordinator): extend tokens-in decode wrapping to Responses and Messages
+  - author: ishwar170695 · age: 17d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-01
+- [#3761 epp: route to vLLM data-parallel ranks behind one port with x-data-parallel-rank](https://github.com/llm-d/llm-d-router/pull/3761) — epp: route to vLLM data-parallel ranks behind one port with x-data-parallel-rank
+  - author: robertgshaw2-redhat · age: 18d · reviewers: robertgshaw2-redhat, sagearc, vMaroon · last activity: 2026-10-31
+- [#3290 feat(sidecar): support vLLM NIXL push mode](https://github.com/llm-d/llm-d-router/pull/3290) — feat(sidecar): support vLLM NIXL push mode
+  - author: YannikHinteregger · age: 38d · reviewers: — · last activity: 2026-10-30
+- [#3479 fix(epp): support Vertex AI dedicated endpoint REST paths in the vertexai parser](https://github.com/llm-d/llm-d-router/pull/3479) — fix(epp): support Vertex AI dedicated endpoint REST paths in the vertexai parser
+  - author: tianjiaoliu-google · age: 31d · reviewers: kaushikmitr, zetxqx · last activity: 2026-10-30
+- [#3707 epp: add reserve-endpoint plugin to return the picked endpoint.](https://github.com/llm-d/llm-d-router/pull/3707) — epp: add reserve-endpoint plugin to return the picked endpoint.
+  - author: Mohammad-nassar10 · age: 19d · reviewers: — · last activity: 2026-10-28
+- [#3708 feat(coordinator): rebuild the chat envelope on a rewritten decode leg](https://github.com/llm-d/llm-d-router/pull/3708) — feat(coordinator): rebuild the chat envelope on a rewritten decode leg
+  - author: roytman · age: 19d · reviewers: — · last activity: 2026-10-28
+- [#3705 feat(coordinator): put the decode leg on the tokens-in generate format](https://github.com/llm-d/llm-d-router/pull/3705) — feat(coordinator): put the decode leg on the tokens-in generate format
+  - author: roytman · age: 19d · reviewers: — · last activity: 2026-10-28
+- [#3690 feat(coordinator): put the decode leg on the tokens-in generate format](https://github.com/llm-d/llm-d-router/pull/3690) — feat(coordinator): put the decode leg on the tokens-in generate format
+  - author: roytman · age: 20d · reviewers: — · last activity: 2026-10-27
+- [#3692 feat: pre/post-processing (IO) disaggregation for /pooling requests](https://github.com/llm-d/llm-d-router/pull/3692) — feat: pre/post-processing (IO) disaggregation for /pooling requests
+  - author: kon-pap · age: 20d · reviewers: — · last activity: 2026-10-27
+- [#2351 feat(epp): add LMetric scorer for precise-prefix-cache-routing](https://github.com/llm-d/llm-d-router/pull/2351) — feat(epp): add LMetric scorer for precise-prefix-cache-routing
+  - author: sihancx · age: 97d · reviewers: copilot-pull-request-reviewer · last activity: 2026-10-27
+- [#519 feat(i18n): enable zh-Hans documentation switching and freshness-aware sync](https://github.com/llm-d/llm-d.github.io/pull/519) — feat(i18n): enable zh-Hans documentation switching and freshness-aware sync
+  - author: tangming1996 · age: 28d · reviewers: — · last activity: 2026-11-17
+- [#548 Blog/kv cache serving efficiency](https://github.com/llm-d/llm-d.github.io/pull/548) — Blog/kv cache serving efficiency
+  - author: kaushikmitr · age: 0d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-16
+- [#532 [Blog]: The Coordinator: Orchestrating Complex and Disaggregated Inference Without a Sidecar](https://github.com/llm-d/llm-d.github.io/pull/532) — [Blog]: The Coordinator: Orchestrating Complex and Disaggregated Inference Without a Sidecar
+  - author: roytman · age: 18d · reviewers: capri-xiyue, copilot-pull-request-reviewer, revit13, roytman · last activity: 2026-11-10
+- [#543 [Blog]: What Does Tracing Cost the EPP? Measuring OpenTelemetry Overhead in llm-d](https://github.com/llm-d/llm-d.github.io/pull/543) — [Blog]: What Does Tracing Cost the EPP? Measuring OpenTelemetry Overhead in llm-d
+  - author: albertoperdomo2 · age: 7d · reviewers: — · last activity: 2026-11-09
+- [#541 [Blog]: AMD MoRI with llm-d: Long-Context GLM-5.3 on MI355X](https://github.com/llm-d/llm-d.github.io/pull/541) — [Blog]: AMD MoRI with llm-d: Long-Context GLM-5.3 on MI355X
+  - author: shikamd123 · age: 10d · reviewers: — · last activity: 2026-11-07
+
+## Roadmap issues
+
+- [#2060 [Question] Production Readiness for vLLM/SGLang and Mixed Deployment & Roadmap for Ascend NPU Support](https://github.com/llm-d/llm-d/issues/2060) — 0/0 checklist items done
+- [#15 [Roadmap] v0.1.0 - v0.2.0 (Oct - Dec '26)](https://github.com/llm-d-incubation/llm-d-lens/issues/15) — 0/0 checklist items done
+- [#87 IRO roadmap: production qualification and recovery](https://github.com/llm-d-incubation/llm-d-resiliency-operator/issues/87) — 0/0 checklist items done
+- [#510 [Tracking] v1.1.0 Roadmap](https://github.com/llm-d/llm-d-async/issues/510) — 19/30 checklist items done
+  - [x] #452 — Add sql transport backed by Postgres
+  - [x] #515 — Version the sql transport schema with numbered migrations
+  - [ ] #516 — Lease sql results until the consumer acknowledges them (draft; fixes result loss in llm-d/llm-d-batch-gateway#755)
+  - [ ] #551 — sql transport never reports its broker backlog source as available (PR #552)
+  - [ ] #531 — Binary-safe results, e.g. audio from vllm-omni `/v1/audio/speech` (PR #543)
+  - [ ] #532 — JSON-to-multipart transforms for transcriptions and image edits (PR #548, draft)
+  - [ ] #465 — Autoscaling metric producer: emit a deadline-driven required-replicas gauge (PR #526 per-queue gauge; PR #538 per-pool gauge, built on #526)
+  - [ ] #421 — Document Redis deployment requirements: topology, memory policy, sizing (PR #550; replaces closed #432 and covers the Redis Cluster/Sentinel support from #491)
+  - [x] #468 — Nightly e2e test for async traffic mixed with realtime traffic (closed 2026-10-21)
+  - [ ] #501 — `prometheus-budget` source 1 reads the waiting queue, not in-flight load
+  - [ ] #514 — Reduce runtime of llm-d async tests
+  - [ ] #518 — Shared continuation package in the api module for resuming partial generations (PR #520, draft)
+  - [x] Versioning and compatibility policy in `CONTRIBUTING.md` (#511). Still open: pick the removal release for the deprecated `redis-pubsub` transport and the `--redis.*` / `--redis.ss.*` / `--pubsub.*` / `--message-queue-impl` flags
+  - [x] #507 — go-dependencies group bump, including the `client_golang` v1.25 `Query` signature change and go-redis `pipeline_pool_size` forwarding
+  - [ ] #555 — Bump `sigs.k8s.io/gateway-api-inference-extension` from v1.2.1 to the v1.6 line (own PR; likely drags k8s modules)
+  - [ ] e2e suite: switch `EPP_IMAGE` / `ROUTER_VERSION` from `main` to a router release once one carries `llm-d.ai/v1` EndpointPickerConfig
+  - [x] Dependabot: `release-note-none` / `dependencies` labels are applied without the warning comment (#517, #527, #528, #537)
+  - [x] #452 — Add sql transport backed by Postgres
+  - [x] #515 — Version the sql transport schema with numbered migrations
+  - [x] #483 — fix(worker): retry transport errors
+- [#459 [Tracking] v0.11.0 Roadmap](https://github.com/llm-d/llm-d-async/issues/459) — 4/7 checklist items done
+  - [ ] #446 — Support Redis cluster mode
+  - [ ] #462 — redis-sortedset: requests sharing a deadline dequeue in random order
+  - [ ] #421 — Document Redis deployment requirements: topology, memory policy, sizing
+  - [x] #460 — prometheus-budget gate queries deprecated EPP metric names; stays closed on EPPs exporting only `llm_d_epp_*` (#477)
+  - [x] #422 — Cancel inference requests that are already executing (#474)
+  - [x] #464 — Gate-waiting requests are invisible to all queue metrics, breaking metrics-driven scale-from-zero (#476)
+  - [x] #416 — transports: per-topic/per-message result topic routing for gcp-pubsub, parity with redis-sortedset (#466)
+- [#418 [Tracking] v0.10.0 Roadmap](https://github.com/llm-d/llm-d-async/issues/418) — 15/15 checklist items done
+  - [x] #407 — Hot reload sorted-set queue configuration (redis)
+  - [x] #417 — Remove Redis PubSub transport
+  - [x] #440 — Use new `flow_control_pool_saturation` in Prometheus Saturation gate
+  - [x] #308 — OpenAI-compatible synchronous gateway in front of the async queues (producer-backed)
+  - [x] #344 — Token Throughput counter (input + output tokens processed)
+  - [x] #345 — Deadline Proximity histogram (time-to-deadline of queued items)
+  - [x] #384 — Add gate decision metric for worker pool gates
+  - [x] #413 — tracing: align span attributes with OTel GenAI semconv and the `llm_d.*` namespace (router#708)
+  - [x] #391 — redis-sortedset retry backoff is realized as a new deadline, not a backoff, and retries preempt fresh traffic
+  - [x] #404 — Accepted Redis requests can be lost when an Async pod is hard-killed
+  - [x] #406 — tier-priority: nothing enforces that reserved-lane objectives outrank overflow-lane objectives (inversion silently defeats the quota model)
+  - [x] #423 — Results can be lost after Producer GetResult removes them before consumer persistence
+  - [x] #441 — Consider removing or making priority_header not stamped when unspecified
+  - [x] #83 — Add Pub/Sub queue impl to e2e tests (emulator)
+  - [x] #389 — tests: update the EPP image to llm-d-router
+- [#1079 Roadmap ](https://github.com/llm-d/llm-d-autoscaling/issues/1079) — 0/15 checklist items done
+  - [ ] Unify WVA configuration surface (scalin policy config map/CRD)
+  - [ ] Rate-based (velocity) scaling signal  (aka Throughput analyzer)
+  - [ ] Quota-limiter (support GPU limiting by quotas
+  - [ ] Stabilizer (implement stabilization behavior on WVA engine signal)
+  - [ ] Re-scaler (replica rebalancing between different models/inference pools for the limited case)
+  - [ ] SGLang inference-engine backend support
+  - [ ] Replica rebalancing Graduation
+  - [ ] Overprovisioning to handle short-lived traffic burst and cold start mitigation
+  - [ ] Variant prioritization w.r.t. available capacity type
+  - [ ] HPA+EPP with flow control metrics guide graduation to stable (generally applicable)
+  - [ ] HPA+vLLM queue and kv cache metrics (no flow control dependency, reliable scaling signal for decode replicas)
+  - [ ] KEDA configurations for the existing autoscaling guides
+  - [ ] Autoscaling for P/D Disaggregation guide
+  - [ ] Autoscaling for Predicted Latency-Based Routing guide
+  - [ ] workload-based benchmarking using publicly available traces
