@@ -175,7 +175,7 @@ def build_pipeline(
                             "url": item["url"],
                             "done": done,
                             "total": len(checks),
-                            "items": checks[:20],
+                            "checklist": checks[:20],
                         }
                     )
                 elif created >= since_iso:

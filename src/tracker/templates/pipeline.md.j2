@@ -46,8 +46,8 @@ _Generated {{ generated_at }}_
 
 {% for item in roadmaps %}
 - [{{ item.title }}]({{ item.url }}) — {{ item.done }}/{{ item.total }} checklist items done
-{% if item.items %}
-  {% for ci in item.items %}
+{% if item.checklist %}
+  {% for ci in item.checklist %}
   - [{{ 'x' if ci.done else ' ' }}] {{ ci.text }}
   {% endfor %}
 {% endif %}
