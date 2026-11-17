@@ -103,9 +103,15 @@ jobs:
 
           git checkout -B "$BRANCH"
 
-          # Track report artifacts (dated archive + stable latest-* for diffs)
-          git add reports modules.generated.yaml || true
+          # Track report artifacts (dated archive + stable latest-* for diffs).
+          # Add paths separately so a missing optional file does not skip reports/.
+          git add reports
+          if [ -f modules.generated.yaml ]; then
+            git add modules.generated.yaml
+          fi
 
+          echo "Staged files:"
+          git diff --staged --name-only | head -100
           if git diff --staged --quiet; then
             echo "No report changes"
             echo "pull-request-number=" >> "$GITHUB_OUTPUT"
