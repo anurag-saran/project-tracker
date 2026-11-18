@@ -185,6 +185,24 @@ query($owner: String!, $name: String!, $cursor: String) {
 }
 """
 
+MILESTONES = """
+query($owner: String!, $name: String!) {
+  repository(owner: $owner, name: $name) {
+    milestones(first: 20, states: [OPEN], orderBy: {field: DUE_DATE, direction: ASC}) {
+      nodes {
+        title
+        description
+        dueOn
+        url
+        openIssueCount: issues(states: OPEN) { totalCount }
+        closedIssueCount: issues(states: CLOSED) { totalCount }
+        openPrCount: pullRequests(states: OPEN) { totalCount }
+      }
+    }
+  }
+}
+"""
+
 TREE_ENTRIES = """
 query($owner: String!, $name: String!, $expression: String!) {
   repository(owner: $owner, name: $name) {

@@ -538,6 +538,50 @@ def blogs(
 
 
 @app.command()
+def releases(
+    ctx: typer.Context,
+    project: str = typer.Argument("all", help="Project name or 'all'"),
+    dry_run: bool = typer.Option(
+        False, "--dry-run", help="Skip LLM; extract bullets from notes only"
+    ),
+    skip_fetch: bool = typer.Option(
+        False, "--skip-fetch", help="Use SQLite releases only (no GitHub refresh)"
+    ),
+    limit: int = typer.Option(6, "--limit", help="Stable releases per repo"),
+) -> None:
+    """List features shipped per release + what's planned for the next drop."""
+    from tracker.stages.releases import build_releases
+
+    root = _root(ctx)
+    cfg = _config(ctx)
+    db = _db(ctx)
+    client = None
+    if not skip_fetch:
+        try:
+            client = _client(ctx, db)
+        except GitHubError as e:
+            console.print(f"[yellow]warn[/yellow] {e} — using cached releases")
+            client = None
+
+    try:
+        for name in _projects(ctx, project):
+            console.rule(f"[bold]releases {name}")
+            build_releases(
+                db,
+                cfg,
+                name,
+                client=client,
+                dry_run=dry_run,
+                workspace=root,
+                release_limit=limit,
+            )
+    finally:
+        if client:
+            client.close()
+        db.close()
+
+
+@app.command()
 def rollup(ctx: typer.Context) -> None:
     """Write reports/WEEKLY.md + ensure latest-* copies for week-over-week diffs."""
     from tracker.stages.rollup import build_weekly_rollup

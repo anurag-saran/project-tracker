@@ -308,11 +308,37 @@ class GitHubClient:
                             "body": node.get("description"),
                             "published_at": node.get("publishedAt"),
                             "url": node.get("url"),
+                            "is_prerelease": bool(node.get("isPrerelease")),
                         }
                     )
             if not conn["pageInfo"]["hasNextPage"]:
                 break
             cursor = conn["pageInfo"]["endCursor"]
+        return out
+
+    def list_milestones(self, owner: str, name: str) -> list[dict[str, Any]]:
+        data = self.graphql(Q.MILESTONES, {"owner": owner, "name": name})
+        repo = data.get("repository") or {}
+        nodes = ((repo.get("milestones") or {}).get("nodes")) or []
+        out: list[dict[str, Any]] = []
+        for n in nodes:
+            if not n:
+                continue
+            out.append(
+                {
+                    "title": n.get("title"),
+                    "description": n.get("description"),
+                    "due_on": n.get("dueOn"),
+                    "url": n.get("url"),
+                    "open_issues": (n.get("openIssueCount") or {}).get(
+                        "totalCount", 0
+                    ),
+                    "closed_issues": (n.get("closedIssueCount") or {}).get(
+                        "totalCount", 0
+                    ),
+                    "open_prs": (n.get("openPrCount") or {}).get("totalCount", 0),
+                }
+            )
         return out
 
     def get_tree_entries(

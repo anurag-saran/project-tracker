@@ -76,6 +76,7 @@ def build_site(
         digests = []
         pipelines = []
         blogs = []
+        releases = []
         people = []
         has_map = False
         if pdir.exists():
@@ -83,6 +84,7 @@ def build_site(
                 ("digest", digests),
                 ("pipeline", pipelines),
                 ("blogs", blogs),
+                ("releases", releases),
                 ("people", people),
             ):
                 latest = pdir / f"latest-{kind}.md"
@@ -114,6 +116,7 @@ def build_site(
                 "digests": digests,
                 "pipelines": pipelines,
                 "blogs": blogs,
+                "releases": releases,
                 "people": people,
                 "has_map": has_map,
             }
@@ -141,7 +144,7 @@ def build_site(
                 )
             )
 
-        for group in (digests, pipelines, blogs, people):
+        for group in (digests, pipelines, blogs, releases, people):
             for item in group:
                 body = _md_to_html(item["src"].read_text())
                 (proj_out / item["file"]).write_text(

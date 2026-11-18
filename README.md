@@ -34,6 +34,7 @@ tracker fetch <project|all> [--since 7d]
 tracker digest <project|all> [--since 7d] [--dry-run] [--skip-fetch]
 tracker pipeline <project|all> [--since 7d] [--dry-run]
 tracker blogs <project|all> [--since 7d] [--dry-run]   # RSS → summaries + links
+tracker releases <project|all> [--dry-run]              # shipped features + next planned
 tracker people <project>
 tracker map <project> [--dry-run]
 tracker site                         # static HTML under site/
@@ -46,9 +47,10 @@ Reports land in `reports/<project>/`:
 - `YYYY-MM-DD-digest.md` (archive) and `latest-digest.md` (stable, for diffs)
 - `YYYY-MM-DD-pipeline.md` / `latest-pipeline.md`
 - `YYYY-MM-DD-blogs.md` / `latest-blogs.md` — new posts with summaries + **Read full post** links
+- `YYYY-MM-DD-releases.md` / `latest-releases.md` — features per release + next community drop
 - `YYYY-MM-DD-people.md` / `latest-people.md`
 - `module-map.md`
-- `reports/WEEKLY.md` — cross-project TL;DR rollup (includes blogs)
+- `reports/WEEKLY.md` — cross-project TL;DR rollup (includes blogs + releases)
 
 ## Adding a project
 

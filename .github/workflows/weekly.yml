@@ -77,6 +77,18 @@ jobs:
           fi
           uv run tracker blogs all --since 7d
 
+      - name: Releases (shipped features + next planned)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+        run: |
+          export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
+          if [ -z "$ANTHROPIC_API_KEY" ]; then
+            export TRACKER_LLM_PROVIDER=null
+          fi
+          uv run tracker releases all
+
       - name: Module map (first Monday or manual)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -144,6 +156,7 @@ jobs:
             echo "   - \`reports/<project>/latest-digest.md\`"
             echo "   - \`reports/<project>/latest-pipeline.md\`"
             echo "   - \`reports/<project>/latest-blogs.md\`"
+            echo "   - \`reports/<project>/latest-releases.md\`"
             echo "   - \`reports/<project>/latest-people.md\`"
             echo "   - \`reports/<project>/module-map.md\`"
             echo "3. Dated archives under \`reports/<project>/YYYY-MM-DD-*.md\` keep history."

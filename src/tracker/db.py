@@ -605,6 +605,17 @@ class Database:
             ).fetchall()
         )
 
+    def list_releases(
+        self, repo_id: int, *, limit: int = 12
+    ) -> list[sqlite3.Row]:
+        return list(
+            self.execute(
+                "SELECT * FROM releases WHERE repo_id = ? "
+                "ORDER BY published_at DESC NULLS LAST, tag DESC LIMIT ?",
+                (repo_id, limit),
+            ).fetchall()
+        )
+
     def list_issues_by_signal(
         self, repo_id: int, signal: str | None = None, state: str | None = None
     ) -> list[sqlite3.Row]:

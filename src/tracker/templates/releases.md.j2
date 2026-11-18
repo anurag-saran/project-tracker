@@ -1,0 +1,66 @@
+# {{ project }} releases — {{ date }}
+
+_Generated {{ generated_at }}_
+
+{% if docs_urls %}
+**Docs:** {% for u in docs_urls %}[{{ u }}]({{ u }}){% if not loop.last %} · {% endif %}{% endfor %}
+{% endif %}
+
+## TL;DR
+
+{% for bullet in tldr %}
+- {{ bullet }}
+{% else %}
+- No release activity summarized.
+{% endfor %}
+
+{% for repo in repos %}
+## {{ repo.full_name }} ({{ repo.tier }})
+
+Release page: [{{ repo.release_url }}]({{ repo.release_url }})
+
+### Shipped (what went in)
+
+{% for rel in repo.shipped %}
+#### [{{ rel.tag }}]({{ rel.url }}){% if rel.published_at %} — {{ rel.published_at[:10] }}{% endif %}
+
+{% if rel.features %}
+{% for f in rel.features %}
+- {{ f }}
+{% endfor %}
+{% else %}
+- _No feature bullets extracted — see [full notes]({{ rel.url }})._
+{% endif %}
+
+{% else %}
+_No stable releases stored yet. Run fetch / releases with a GitHub token._
+{% endfor %}
+
+### Next community release (planned)
+
+{% if repo.upcoming_rcs %}
+**Release candidates / trains in flight**
+{% for rel in repo.upcoming_rcs %}
+- [{{ rel.tag }}]({{ rel.url }}){% if rel.published_at %} ({{ rel.published_at[:10] }}){% endif %}
+{% if rel.features %}
+{% for f in rel.features[:6] %}
+  - {{ f }}
+{% endfor %}
+{% endif %}
+{% endfor %}
+{% endif %}
+
+{% if repo.planned %}
+**Milestones, roadmaps & open RFCs feeding the next drop**
+{% for item in repo.planned %}
+- [{{ item.title }}]({{ item.url }}) _({{ item.kind }}{% if item.detail %} · {{ item.detail }}{% endif %})_{% if item.summary %} — {{ item.summary }}{% endif %}
+{% endfor %}
+{% else %}
+{% if not repo.upcoming_rcs %}
+_Nothing explicit queued (no open milestones / roadmap RFCs in cache)._
+{% endif %}
+{% endif %}
+
+{% else %}
+_No repos to report._
+{% endfor %}

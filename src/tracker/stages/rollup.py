@@ -83,8 +83,30 @@ def build_weekly_rollup(
         digest = _latest(pdir, "digest")
         pipeline = _latest(pdir, "pipeline")
         blogs = _latest(pdir, "blogs")
+        releases = _latest(pdir, "releases")
         people = _latest(pdir, "people")
         mmap = pdir / "module-map.md"
+
+        if releases and releases.exists():
+            if releases.name != "latest-releases.md":
+                publish_latest(releases, "releases")
+                releases = pdir / "latest-releases.md"
+            rtldr = _extract_tldr(releases.read_text())
+            # releases template uses "## TL;DR" — extractor handles it
+            parts.append("**Releases (shipped + next)**")
+            parts.append("")
+            if rtldr:
+                for b in rtldr:
+                    parts.append(f"- {b}")
+            else:
+                parts.append(
+                    f"- see [`latest-releases.md`]({project.name}/latest-releases.md)"
+                )
+            parts.append("")
+            parts.append(
+                f"→ [`reports/{project.name}/latest-releases.md`]({project.name}/latest-releases.md)"
+            )
+            parts.append("")
 
         if blogs and blogs.exists():
             if blogs.name != "latest-blogs.md":
