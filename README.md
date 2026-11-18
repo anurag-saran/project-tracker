@@ -4,6 +4,8 @@ CLI to track multi-repo open-source projects (**vLLM**, **llm-d**, **Praxis AI**
 
 Adding a project means editing [`projects.yaml`](projects.yaml) only — no code changes.
 
+**New to these projects?** See [`LEARNING.md`](LEARNING.md) for official tutorials and quickstarts (also `learning.html` on the static site).
+
 ## Setup
 
 Requirements: Python 3.12+, [uv](https://docs.astral.sh/uv/), a GitHub token.

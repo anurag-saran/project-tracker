@@ -17,10 +17,15 @@ def test_build_site(tmp_workspace: Path):
     (reports / "2025-11-01-digest.md").write_text(
         "# digest\n\n## TL;DR for this week\n\n- one\n"
     )
+    (tmp_workspace / "LEARNING.md").write_text(
+        "# Learning\n\n- [Quickstart](https://example.com)\n"
+    )
     out = build_site(cfg, workspace=tmp_workspace)
     assert (out / "index.html").exists()
     assert (out / "vllm" / "index.html").exists()
     assert (out / "vllm" / "module-map.html").exists()
     assert (out / "vllm" / "2025-11-01-digest.html").exists()
+    assert (out / "learning.html").exists()
     html = (out / "index.html").read_text()
     assert "vllm" in html
+    assert "learning.html" in html

@@ -10,7 +10,7 @@ from typing import Any
 from rich.console import Console
 
 from tracker.config import RootConfig
-from tracker.paths import reports_dir, site_dir
+from tracker.paths import find_workspace, reports_dir, site_dir
 from tracker.render.markdown import get_env
 from tracker.util import to_iso
 
@@ -169,11 +169,26 @@ def build_site(
             )
         )
 
+    root = workspace or find_workspace()
+    learning = root / "LEARNING.md"
+    has_learning = learning.exists()
+    if has_learning:
+        (out / "learning.html").write_text(
+            env.get_template("site/report.html.j2").render(
+                projects=projects_meta,
+                title="Learning",
+                project_name=".",
+                body_html=_md_to_html(learning.read_text()),
+                generated_at=generated_at,
+            )
+        )
+
     (out / "index.html").write_text(
         env.get_template("site/index.html.j2").render(
             projects=projects_meta,
             generated_at=generated_at,
             has_weekly=weekly.exists(),
+            has_learning=has_learning,
         )
     )
     console.print(f"[green]Site built at[/green] {out}")
