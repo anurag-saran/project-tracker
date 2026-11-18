@@ -35,12 +35,15 @@ def test_build_weekly_rollup(tmp_workspace: Path):
         "# blogs\n\n## TL;DR for this week\n\n"
         "- [New post](https://vllm.ai/blog/x)\n"
     )
-    out = build_weekly_rollup(cfg, workspace=tmp_workspace, date="2025-11-10")
+    out = build_weekly_rollup(
+        cfg, workspace=tmp_workspace, date="2025-11-10", dry_run=True
+    )
     assert out.name == "WEEKLY.md"
     text = out.read_text()
     assert "Weekly tracker — 2025-11-10" in text
     assert "### vllm" in text
     assert "Faster scheduler" in text
+    assert "Digest TL;DR" in text
     assert "1 new RFC" in text
     assert "New blogs" in text
     assert "New post" in text

@@ -38,7 +38,7 @@ tracker releases <project|all> [--dry-run]              # shipped features + nex
 tracker people <project>
 tracker map <project> [--dry-run]
 tracker site                         # static HTML under site/
-tracker rollup                       # reports/WEEKLY.md + ensure latest-* copies
+tracker rollup [--dry-run]           # WEEKLY.md (LLM TL;DRs for releases/blogs/digest/pipeline)
 tracker notify <project> --channel slack   # optional; off by default
 ```
 

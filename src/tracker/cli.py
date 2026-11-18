@@ -582,13 +582,20 @@ def releases(
 
 
 @app.command()
-def rollup(ctx: typer.Context) -> None:
+def rollup(
+    ctx: typer.Context,
+    dry_run: bool = typer.Option(
+        False,
+        "--dry-run",
+        help="Skip LLM; copy extracted digest bullets into WEEKLY",
+    ),
+) -> None:
     """Write reports/WEEKLY.md + ensure latest-* copies for week-over-week diffs."""
     from tracker.stages.rollup import build_weekly_rollup
 
     root = _root(ctx)
     cfg = _config(ctx)
-    path = build_weekly_rollup(cfg, workspace=root)
+    path = build_weekly_rollup(cfg, workspace=root, dry_run=dry_run)
     console.print(
         "Read the rollup, then diff stable paths like "
         "reports/<project>/latest-digest.md against last week."
