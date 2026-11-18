@@ -53,17 +53,35 @@ def _map_pr_to_modules(
     return hit or ["_ungrouped"]
 
 
+# Keep prompts inside smaller OpenAI-compatible context windows (e.g. ~40k).
+_MAX_PRS_PER_MODULE = 35
+_MAX_PROMPT_CHARS = 48_000
+
+
 def _format_pr_line(row) -> str:
     labels = _pr_labels(row)
     lab = f" [{', '.join(labels)}]" if labels else ""
-    files = _pr_files(row)[:12]
+    files = _pr_files(row)[:8]
     file_note = f" files: {', '.join(files)}" if files else ""
     return (
         f"- #{row['number']} {row['title']}{lab} "
         f"(+{row['additions'] or 0}/-{row['deletions'] or 0}) "
         f"by @{row['author'] or '?'}{file_note}\n"
-        f"  {trim_body(row['body'], 400)}"
+        f"  {trim_body(row['body'], 180)}"
     )
+
+
+def _select_prs_for_prompt(prs: list) -> list:
+    """Prefer largest / newest PRs so the model sees the important changes."""
+    ranked = sorted(
+        prs,
+        key=lambda p: (
+            (p["additions"] or 0) + (p["deletions"] or 0),
+            p["merged_at"] or "",
+        ),
+        reverse=True,
+    )
+    return ranked[:_MAX_PRS_PER_MODULE]
 
 
 def _summarize_module(
@@ -86,16 +104,22 @@ def _summarize_module(
     for pr in prs:
         buckets[classify_pr(pr["title"], _pr_labels(pr), pr["body"])].append(pr)
 
+    prompt_prs = _select_prs_for_prompt(prs)
     user_parts = [
         f"Project: {project}",
         f"Repo: {repo}",
         f"Module: {module}",
-        f"PR count: {len(prs)}",
+        f"PR count: {len(prs)} (showing {len(prompt_prs)} for summarization)",
         "",
         "Pull requests:",
     ]
-    for pr in prs:
+    for pr in prompt_prs:
         user_parts.append(_format_pr_line(pr))
+        if sum(len(p) for p in user_parts) >= _MAX_PROMPT_CHARS:
+            user_parts.append(
+                f"\n… truncated; {len(prs) - len(prompt_prs)} additional PRs omitted."
+            )
+            break
     user = "\n".join(user_parts)
     source_hash = content_hash(
         [dict(p) if hasattr(p, "keys") else p for p in prs]

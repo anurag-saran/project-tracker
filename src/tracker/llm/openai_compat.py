@@ -31,6 +31,14 @@ class OpenAICompatProvider(LLMProvider):
         from openai import OpenAI
 
         client = OpenAI(api_key=self.api_key, base_url=self.base_url)
+        # Qwen3 thinking burns context; disable unless TRACKER_OPENAI_THINKING=1
+        extra: dict = {}
+        if os.environ.get("TRACKER_OPENAI_THINKING", "").lower() not in (
+            "1",
+            "true",
+            "yes",
+        ):
+            extra["chat_template_kwargs"] = {"enable_thinking": False}
         resp = client.chat.completions.create(
             model=self.model,
             messages=[
@@ -38,8 +46,14 @@ class OpenAICompatProvider(LLMProvider):
                 {"role": "user", "content": user},
             ],
             max_tokens=2048,
+            extra_body=extra or None,
         )
         text = resp.choices[0].message.content or ""
+        # Qwen3 / reasoning models often wrap scratchpad in <think>…</think>
+        if "</think>" in text:
+            text = text.split("</think>", 1)[-1].strip()
+        elif text.lstrip().startswith("<think>"):
+            text = ""
         usage = resp.usage
         tin = getattr(usage, "prompt_tokens", 0) or 0
         tout = getattr(usage, "completion_tokens", 0) or 0

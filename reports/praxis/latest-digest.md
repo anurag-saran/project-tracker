@@ -1,6 +1,6 @@
 # praxis digest — 2026-11-18
 
-_Since 7d · generated 2026-11-18T15:42:20Z_
+_Since 7d · generated 2026-11-18T18:28:21Z_
 
 ## TL;DR for this week
 
@@ -16,76 +16,100 @@ _Since 7d · generated 2026-11-18T15:42:20Z_
 - [v0.11.0](https://github.com/praxis-proxy/ai/releases/tag/v0.11.0) — 2026-11-13
 ### apis
 
-Summary unavailable (null LLM). Source items:
-- #2013 refactor(translation): exchange state in `filter_state` (+1164/-939) by @alexsnaps files: apis/src/azure/to_openai/mod.rs, apis/src/bedrock/converse/mod.rs, apis/src/openai/responses/responses_to_chat_completions/mod.rs, apis/src/openai/responses/responses_to_chat_completions/tests.rs, apis/src/vertex/anthropic/mod.rs, apis/src/vertex/anthropic/request.rs, apis/src/vertex/anthropic/response.rs, apis/src/vertex/gemini/mod.rs
-- all five: the response transform mode and upstream status
-- vertex_gemini: the model, `include_usage` and candidate count
-- bedrock_converse: the model, response ID and `include_usage`
-- vertex_anthropic: the model and an operation marker
-- openai_responses_to_chat_complet...
-- #2028 feat(anthropic): reject the MCP connector on backends that cannot run it (+565/-26) by @leseb files: apis/src/anthropic/messages_request/mod.rs, apis/src/anthropic/messages_request/tests.rs, apis/src/anthropic/messages_to_chat_completions/request.rs, apis/src/anthropic/protocol/mod.rs, apis/src/anthropic/protocol/tests.rs, docs/anthropic-messages.md, docs/filters/anthropic_messages_protocol.md, examples/configs/anthropic/messages-native-vllm.yaml, tests/integration/sdk/anthropic/test_anthropic_sdk_compat.py, tests/integration/tests/suite/examples/anthropic_messages_native_vllm.rs
-- #1996 fix(openai): accept blank namespace descriptions per schema (+239/-40) by @henschwartz files: apis/src/openai/responses/openai_client_tool_compat/mod.rs, apis/src/openai/responses/openai_client_tool_compat/tests.rs, tests/integration/sdk/openai/test_openai_responses_vllm.py, tests/integration/tests/suite/examples/openai_client_tool_compat.rs
-- Accept schema-valid empty/whitespace `namespace.description` in `openai_client_tool_compat` (still reject missing/non-string).
-- Fold blank namespace blurbs without an empty `: ` suffix; keep blank vs missing distinct in discovery conflict identity.
-- [x] Unit: blank lowers; missing still 400; blank≡whitespace hoist; blank vs missing conflicts
-- [x] IT: `...
+# apis Module PR Summary
+
+## Features
+- Pin the OpenAI Files API contract as groundwork for a local Files API implementation, ensuring no runtime behavior change (#1955).
+- Extend NeMo redaction support to OpenAI Responses and Anthropic Messages, enabling text-changing redaction in guardrail filters (#1969).
+
+## Performance
+- Retain incremental stream state in Anthropic streaming translation to avoid rescanning unfinished prefixes, improving efficiency (#1986).
+- Optimize document extraction serialization by counting bytes without retaining full JSON bodies, reducing memory usage (#2002).
+
+## Fixes
+- Preserve request field order and enforce body contracts to ensure accurate JSON handling in filters (#1980).
+- Fix handling of named tool-use blocks in Anthropic Messages streaming to return correct `stop_reason` (#1954).
+- Accept blank namespace descriptions in `openai_client_tool_compat` as per schema, while rejecting missing or invalid types (#1996).
+- Prevent leaking of provider error text and request values in logs to avoid exposing sensitive user data (#2010).
+
+## Breaking or deprecations
+- Remove redundant `api_translation_enabled` flag for Anthropic translation, as it's now always enabled (#1958).
+
+## Infra
+- Add OpenAI verification badges to README and conformance pages for improved visibility of conformance status (#1979).
+- Bump pinned Codex CLI compatibility to `0.167.0` to ensure acceptance tests validate the latest client behavior (#1926).
 
 ### filters
 
-Summary unavailable (null LLM). Source items:
-- #1981 feat(metering): resolve tenant identity from verified AuthenticatedIdentity (+721/-29) by @guicassolato files: docs/filters/external_metering.md, examples/configs/external-metering.yaml, filters/src/identity.rs, filters/src/metering/config.rs, filters/src/metering/mod.rs, filters/src/metering/tests.rs, tests/integration/tests/suite/examples/external_metering.rs
-**This enables using the Praxis Policy Engine (PPE) for identity resol...
-- #2006 `token_rate_limit` state to `filter_state` (+595/-310) by @alexsnaps files: filters/src/token_rate_limit/hierarchy_tests.rs, filters/src/token_rate_limit/mod.rs, filters/src/token_rate_limit/tests.rs
-- #1969 feat(ai_guardrails): Support NeMo guardrail redaction for OpenAI Responses and Anthropic Messages (+2252/-215) by @liavweiss files: apis/src/guardrail_messages/mod.rs, apis/src/guardrail_messages/redaction.rs, docs/filters/ai_guardrails.md, examples/configs/nemo-guardrails-response.yaml, examples/configs/nemo-guardrails.yaml, filters/src/guardrails/filter.rs, filters/src/guardrails/providers/nemo.rs, filters/src/guardrails/tests.rs, tests/integration/sdk/anthropic/test_anthropic_sdk_compat.py, tests/integration/tests/suite/examples/guardrails.rs, tests/integration/tests/suite/examples/guardrails_response.rs, tests/integration/tests/suite/examples/openai_agentic_loop.rs
-- Apply replacements to the original message or text block while preserving the protocol structure and unaffected fields.
-- Preserve message identity across concurrent checks, including when th...
-- #1924 fix(filters): require explicit token rate limit backend (+216/-112) by @tsisodia10 files: docs/filters/token_rate_limit.md, examples/configs/token-rate-limit-header-keys.yaml, examples/configs/token-rate-limit-hierarchy.yaml, examples/configs/token-rate-limit-ip-keys.yaml, examples/configs/token-rate-limit-mixed-algorithms.yaml, examples/configs/token-rate-limit-model-keys.yaml, examples/configs/token-rate-limit-soft-enforcement.yaml, examples/configs/token-rate-limit-soft-tiers.yaml, examples/configs/token-rate-limit.yaml, filters/src/token_rate_limit/config.rs, filters/src/token_rate_limit/mod.rs, filters/src/token_rate_limit/tests.rs
-- require `backend` and `backend.kind` for the token-rate-limit filter instead of silently selecting the in-memory backend
-- reject network-only settings when `kind: memory` is selected
-- update all token-rate-limit examples, generated filter documentation, unit coverage, and functional example coverage
-- [x] Unit tests — `CARGO_TARGET...
-- #1968 refactor(a2a): task-route capture state in `filter_state` (+676/-1176) by @alexsnaps files: filters/src/agentic/a2a/mod.rs, filters/src/agentic/a2a/sse.rs, filters/src/agentic/a2a/tests.rs, filters/src/token_usage/count.rs, filters/src/token_usage/count/tests.rs
+## Features
+
+- Support NeMo guardrail redaction for OpenAI Responses and Anthropic Messages (#1969).
+- Add verified-identity tier to `external_metering` filter for resolving tenant identity from `AuthenticatedIdentity` (#1981).
+
+## Performance
+
+- Move `token_rate_limit` state to `filter_state` for better performance and management (#2006).
+- Move `token_count` state to `filter_state` for improved efficiency (#1959).
+
+## Fixes
+
+- Require explicit token rate limit backend configuration instead of defaulting to in-memory (#1924).
+
+## Breaking or deprecations
+
+- `a2a` task-route capture state is now stored in `filter_state` instead of `filter_metadata` (#1968).
+
+## Infra
+
+- No infrastructure-related changes in this set of PRs.
 
 **First-time contributors:** guicassolato
 ### server
 
-Summary unavailable (null LLM). Source items:
-- #1960 Include the Conversations API in the FIPS compliance profile (+48/-18) by @rhdedgar files: .github/scripts/release_qualification.py, Makefile, docs/fips.md, docs/release.md, server/src/server.rs, tests/integration/tests/suite/examples/mod.rs, xtask/src/fips/graph.rs
+## Features
+
+- Added support for the Conversations API in the FIPS compliance profile, enabling secure handling of conversation data (#1960).
+
+## Infra
+
+- Updated release qualification scripts and documentation to reflect the inclusion of the Conversations API in FIPS compliance (#1960).
 
 ### store
 
-Summary unavailable (null LLM). Source items:
-- #1950 fix(conversations): complete exact API contract conformance (+1475/-605) by @leseb files: apis/src/openai/conversations/error.rs, apis/src/openai/conversations/filter.rs, apis/src/openai/conversations/handlers.rs, apis/src/openai/conversations/mod.rs, apis/src/openai/conversations/rate_limit.rs, apis/src/openai/conversations/routes.rs, apis/src/openai/conversations/tests.rs, docs/conformance/README.md, docs/conformance/openai-conformance-report.json, docs/filters/openai_conversations.md, examples/configs/openai/conversations/conversations.yaml, store-backends/src/postgres.rs
--> trusted owner check
--> op...
+# Summary of Recent Changes in `store` Module (praxis-proxy/ai)
+
+## Fixes
+
+- Ensured complete conformance with the OpenAI API contract for all eight locally owned Conversations operations, addressing discrepancies and improving alignment with the pinned OpenAI reference (#1950).
 
 ### store-backends
 
-Summary unavailable (null LLM). Source items:
-- #1950 fix(conversations): complete exact API contract conformance (+1475/-605) by @leseb files: apis/src/openai/conversations/error.rs, apis/src/openai/conversations/filter.rs, apis/src/openai/conversations/handlers.rs, apis/src/openai/conversations/mod.rs, apis/src/openai/conversations/rate_limit.rs, apis/src/openai/conversations/routes.rs, apis/src/openai/conversations/tests.rs, docs/conformance/README.md, docs/conformance/openai-conformance-report.json, docs/filters/openai_conversations.md, examples/configs/openai/conversations/conversations.yaml, store-backends/src/postgres.rs
--> trusted owner check
--> op...
+## Fixes
+
+- Ensured full API contract conformance for all eight locally owned Conversations operations against the current pinned OpenAI reference (#1950). This ensures accurate behavior and compatibility with expected OpenAI API responses.
+- Reduced code complexity by removing redundant or outdated code as part of aligning with the OpenAI reference implementation (#1950).
 
 ### vllm
 
-Summary unavailable (null LLM). Source items:
-- #1977 test(openresponses): add full acceptance and live vision coverage (+824/-21) by @leseb files: .github/workflows/anthropic-vllm-vision.yaml, .github/workflows/openresponses-conformance.yaml, Makefile, docs/conformance/README.md, docs/conformance/openresponses-acceptance.md, docs/conformance/openresponses-translation.md, docs/developing/gpu-nightly-suite.md, tests/conformance/openresponses/managed.yaml, tests/conformance/openresponses/manifest.yaml, tests/conformance/openresponses/passthrough.yaml, tests/conformance/openresponses/run-cpu.ts, tests/integration/sdk/openai/run_responses_acceptance.py
--> serial C...
+## Features
+
+- Added full acceptance and live vision coverage for OpenResponses testing (#1977). This enhances the CI process by ensuring broader validation of response templates, including vision capabilities.
 
 ### xtask
 
-Summary unavailable (null LLM). Source items:
-- #1960 Include the Conversations API in the FIPS compliance profile (+48/-18) by @rhdedgar files: .github/scripts/release_qualification.py, Makefile, docs/fips.md, docs/release.md, server/src/server.rs, tests/integration/tests/suite/examples/mod.rs, xtask/src/fips/graph.rs
-- #1955 feat(openai-files): pin the API contract and route/schema source of truth (+2633/-435) by @r-papso files: apis/Cargo.toml, apis/src/openai/chat_completions/routes/mod.rs, apis/src/openai/conversations/handlers.rs, apis/src/openai/conversations/mod.rs, apis/src/openai/conversations/openapi.rs, apis/src/openai/conversations/rate_limit.rs, apis/src/openai/conversations/routes.rs, apis/src/openai/conversations/tests.rs, apis/src/openai/error.rs, apis/src/openai/files/contracts.rs, apis/src/openai/files/mod.rs, apis/src/openai/files/openapi.rs
-- **DTOs:** new experimental `openai-files` feature (in `openai-all`). `files/contracts.rs` holds the wire types.
-- **Registry:** each `files_operations!` entry declares its contract...
-- #1941 feat(release): publish a per-release support report (+3049/-27) by @nathan-weinberg files: .github/scripts/support_report.py, .github/scripts/vllm_qualification.py, .github/workflows/release.yaml, Makefile, docs/conformance/openresponses-coverage.json, docs/conformance/translation-matrix.json, docs/release.md, tests/qualification/test_support_report.py, tests/qualification/test_vllm_qualification.py, xtask/src/openresponses_coverage.rs, xtask/src/translation_matrix.rs
-- `docs/conformance/translation-matrix.json` — declared native and translation behavior, generated from...
-- #1979 feat(conformance): add OpenAI verification badges (+687/-48) by @leseb files: .github/workflows/openai-conformance.yaml, README.md, apis/src/openai/responses/rehydrate/tests.rs, apis/src/openai/responses/store/tests.rs, docs/README.md, docs/conformance/README.md, docs/conformance/badges/responses-lifecycle.svg, docs/conformance/badges/responses-persistence.svg, docs/conformance/badges/responses-rehydration.svg, docs/conformance/openai-conformance-report.json, tests/integration/sdk/openai/test_openai_responses_vllm.py, xtask/src/openai_conformance.rs
-- #1950 fix(conversations): complete exact API contract conformance (+1475/-605) by @leseb files: apis/src/openai/conversations/error.rs, apis/src/openai/conversations/filter.rs, apis/src/openai/conversations/handlers.rs, apis/src/openai/conversations/mod.rs, apis/src/openai/conversations/rate_limit.rs, apis/src/openai/conversations/routes.rs, apis/src/openai/conversations/tests.rs, docs/conformance/README.md, docs/conformance/openai-conformance-report.json, docs/filters/openai_conversations.md, examples/configs/openai/conversations/conversations.yaml, store-backends/src/postgres.rs
--> trusted owner check
--> op...
-- #1870 fix(anthropic): configure translated Messages API version (+892/-43) by @EleanorWho files: apis/src/anthropic/mod.rs, apis/src/anthropic/openai_chat_completions_to_anthropic/config.rs, apis/src/anthropic/openai_chat_completions_to_anthropic/mod.rs, apis/src/anthropic/openai_chat_completions_to_anthropic/tests.rs, apis/src/anthropic/protocol/config.rs, apis/src/anthropic/protocol/mod.rs, apis/src/anthropic/protocol/tests.rs, docs/anthropic-messages.md, docs/developing/openai-anthropic-compatibility.md, docs/filters/openai_chat_completions_to_anthropic.md, examples/README.md, examples/configs/openai-selected-provider-legacy-translation.yaml
+## Features
+
+- Add per-release support report generation to automate documentation of release compatibility and qualification status (#1941).
+- Introduce OpenAI verification badges in README and conformance pages to highlight API conformance achievements (#1979).
+
+## Fixes
+
+- Achieve exact API contract conformance for all locally owned Conversations operations against the OpenAI reference (#1950).
+- Make Anthropic API version configurable for translated OpenAI Chat Completions requests, with support for `2026-10-21` (#1870).
+
+## Infra
+
+- Include the Conversations API in the FIPS compliance profile to ensure alignment with security and compliance standards (#1960).
 
 
 ### Highlights
@@ -96,31 +120,39 @@ Summary unavailable (null LLM). Source items:
 
 ### crates
 
-Summary unavailable (null LLM). Source items:
-- #1552 fix(policy): compose metadata response context (+25/-0) by @mkoushni files: crates/filter/src/builtins/http/security/policy/context.rs
-- `cargo ...
-- #1424 feat(policy): add a config surface for the host-supplied context slots2 (+326/-66) by @aviavissar files: CHANGELOG.md, crates/filter/src/builtins/http/security/policy/filter.rs, crates/filter/src/builtins/http/security/policy/tests.rs, tests/integration/fixtures/context-policy.yaml, tests/integration/tests/suite/examples/policy_context.rs
-- [ ] Signed off all commits (`git commit -s`)
-- [ ] Tests added or updated
-- [ ] Documentation updated (if applicable)
-- [ ] CHANGELOG.md updated (if the change is user-visible)
-- [ ] `make lint && make test && make test-integration` passes locally
-- #1535 refactor(filter): make filter_metadata a bounded FilterMetadata type (+1017/-380) by @alexsnaps files: CHANGELOG.md, crates/filter/src/builtins/http/observability/access_log/mod.rs, crates/filter/src/builtins/http/observability/access_log/tests.rs, crates/filter/src/builtins/http/observability/cloud_events.rs, crates/filter/src/builtins/http/payload_processing/grpc_web/mod.rs, crates/filter/src/builtins/http/payload_processing/grpc_web/tests.rs, crates/filter/src/builtins/http/payload_processing/json_body/tests.rs, crates/filter/src/builtins/http/security/policy/filter.rs, crates/filter/src/builtins/http/security/policy/mod.rs, crates/filter/src/builtins/http/security/policy/rate_limit_tests.rs, crates/filter/src/builtins/http/security/policy/request_input_tests.rs, crates/filter/src/builtins/http/security/policy/tests.rs
-- #1517 fix(tls): poll certificate files for missed reloads (+1186/-46) by @cooktheryan files: CHANGELOG.md, crates/protocol/src/tls_setup.rs, crates/tls/Cargo.toml, crates/tls/src/setup.rs, crates/tls/src/watcher.rs, crates/tls/tests/reload_resumption.rs, docs/operating/tls.md, tests/integration/tests/suite/body_filter_failures.rs
-- Fingerprint the watched certificate, key, CA, and CRL files on a 10-second
-- Keep the watcher alive when `notify` cannot be constructed for the watched
+## Features
+
+- Add readiness-first delayed handoff for shutdown lifecycle (#1499).
+- Introduce `FilterMetadata` as a bounded type to improve filtering metadata handling (#1535).
+- Enable explicit configuration for host-supplied context slots in policy filters (#1424).
+
+## Fixes
+
+- Improve certificate reload detection by fingerprinting files at 10-second intervals (#1517).
+- Make rate limit filter configuration require an explicit `scope: local` to avoid ambiguity (#1539).
+- Allow composing metadata response context in policy filters without overwriting existing data (#1552).
+
+## Infra
+
+- Clarify policy filter capabilities and diagnostics with updated documentation and configuration notes (#1549).
 
 **First-time contributors:** alexsnaps, averevki
 ### crates-core
 
-Summary unavailable (null LLM). Source items:
-- #1499 feat(shutdown): add readiness-first delayed handoff (+3058/-216) by @cooktheryan files: CHANGELOG.md, Cargo.lock, crates/core/Cargo.toml, crates/core/src/config.rs, crates/core/src/config/admin.rs, crates/core/src/config/validate/rules.rs, crates/core/src/server.rs, crates/core/src/server/contract.rs, crates/core/src/server/hyper.rs, crates/core/src/server/lifecycle.rs, crates/core/src/server/pingora.rs, crates/core/src/server/unavailable.rs
+## Features
+
+- Added readiness-first delayed handoff mechanism to improve shutdown reliability (#1499).
 
 ### xtask
 
-Summary unavailable (null LLM). Source items:
-- #1427 Catch dead doc links and run lint-extra in CI#1391 (+1768/-46) by @aviavissar files: .github/workflows/tests.yaml, .markdownlint.yaml, Makefile, examples/configs/branching/README.md, examples/configs/observability/README.md, examples/configs/payload-processing/README.md, examples/configs/pipeline/README.md, examples/configs/protocols/README.md, examples/configs/traffic-management/README.md, examples/configs/transformation/README.md, xtask/src/lint_doc_links.rs, xtask/src/main.rs
-- #1499 feat(shutdown): add readiness-first delayed handoff (+3058/-216) by @cooktheryan files: CHANGELOG.md, Cargo.lock, crates/core/Cargo.toml, crates/core/src/config.rs, crates/core/src/config/admin.rs, crates/core/src/config/validate/rules.rs, crates/core/src/server.rs, crates/core/src/server/contract.rs, crates/core/src/server/hyper.rs, crates/core/src/server/lifecycle.rs, crates/core/src/server/pingora.rs, crates/core/src/server/unavailable.rs
+## Features
+
+- Added readiness-first delayed handoff mechanism for shutdown lifecycle (#1499)
+- Enhanced documentation link checking and CI linting with `lint-extra` (#1427)
+
+## Fixes
+
+- Resolved 14 dead links in example configuration README files (#1427)
 
 
 
@@ -129,10 +161,9 @@ Summary unavailable (null LLM). Source items:
 
 ### Changes
 
-Summary unavailable (null LLM). Source items:
-- #46 docs(maintainers): add Twinkll Sisodia as AI reviewer (+2/-0) by @tsisodia10 files: MAINTAINERS.md
-- `make lint` (via the repository pre-commit hook)
-- `git diff --check`
+## Infra
+
+- Added Twinkll Sisodia as an AI reviewer to the Praxis conventions repository to enhance documentation review processes (#46).
 
 
 ## praxis-proxy/enhancements (watch)
@@ -140,9 +171,13 @@ Summary unavailable (null LLM). Source items:
 
 ### Changes
 
-Summary unavailable (null LLM). Source items:
-- #26 build(deps): Bump actions/create-github-app-token from 3.2.0 to 3.3.0 in the actions group across 1 directory [dependencies, github_actions] (+3/-3) by @dependabot files: .github/workflows/proposal-validation.yaml, .github/workflows/stale-proposals.yaml, .github/workflows/status-tracking.yaml
-- #36 docs: add background jobs proposal (+155/-0) by @cdoern files: proposals/00807_background-jobs.md
+## Features
+
+- Propose adding a bounded job queue with worker pool and per-job timeout to enable background job processing in core (#36).
+
+## Infra
+
+- Update GitHub Actions dependency `actions/create-github-app-token` from 3.2.0 to 3.3.0 to ensure compatibility and security (#26).
 
 
 ## praxis-proxy/experimental (watch)
@@ -150,11 +185,11 @@ Summary unavailable (null LLM). Source items:
 
 ### Changes
 
-Summary unavailable (null LLM). Source items:
-- #67 build(deps): bump docker/login-action from 4.6.0 to 4.8.0 [dependencies, github_actions] (+2/-2) by @dependabot files: .github/workflows/publish.yaml
-- #72 build(deps): bump ubi9/ubi-minimal from 9.8 to 9.9 [dependencies, docker] (+1/-1) by @dependabot files: Containerfile
-- #74 ci: repair audit and Markdown checks (+14/-13) by @nerdalert files: Cargo.lock, GOVERNANCE.md, MAINTAINERS.md
-- Update only the affected lockfile packages: `rmcp` 3.4.1 → 3.9.0, `rustix` 1.1.4 → 1.1.6, and the yanked `chacha20` 0.10.1 → 0.10.2. The pinned Praxis AI revision is unchanged, and no advisory ignores were add...
+## Infra
+
+- Repaired supply-chain and Markdown checks in CI to ensure consistency across open PRs (#74).
+- Updated `docker/login-action` dependency to version 4.8.0 for improved GitHub Actions integration (#67).
+- Upgraded `ubi9/ubi-minimal` base image to version 9.9 for potential security and performance improvements (#72).
 
 
 ## praxis-proxy/gateway-controller (watch)
@@ -162,19 +197,28 @@ Summary unavailable (null LLM). Source items:
 
 ### Changes
 
-Summary unavailable (null LLM). Source items:
-- #76 chore: consolidate test targets into comprehensive make test (+16/-13) by @mikenairn files: .github/pull_request_template.md, .github/workflows/tests.yaml, AGENTS.md, CONTRIBUTING.md, Makefile, README.md
-- [x] I have read every l...
-- #74 Fix joinValidationErrors truncation and improve integration tests (+86/-2) by @philbrookes files: internal/controller/proxy_validation.go, internal/controller/proxy_validation_test.go, test/integration/proxy_controller_test.go
-- Fix `joinValidationErrors` truncation to preserve first error content alongside the `(and N more)` suffix
-- Count fully omitted errors in the remainder suffix and recalculate the byte budget
-- Truncate to UTF-8 rune boundaries to avoid splitting multi-byte characters
-- Add regression test for three-error truncation with separator handling
-- #73 fix(test): stop e2e runs reporting false success (+13/-4) by @mikenairn files: Makefile, hack/setup-kind.sh, test/e2e/e2e_suite_test.go
-* Fail e2e test suite if it can't connect to a cluster.
-* Update controller deployment in kind-up to roll out the deployment and wait on the new ReplicaSet.
-- #69 add guard rails and limits as v1alpha1 scope. (+70/-10) by @maleck13 files: docs/design/api-v1alpha1.md
-- #29 Implement Proxy spec validation (+615/-7) by @philbrookes files: internal/controller/proxy_controller.go, internal/controller/proxy_validation.go, internal/controller/proxy_validation_test.go, test/integration/crd_test.go, test/integration/integration_suite_test.go, test/integration/policy_controller_test.go, test/integration/proxy_controller_test.go
+## Features
+
+- Add Tenant CRD with optional authorized identities/credentials and Ready condition in status (#58).
+- Introduce guard rails and limits as part of v1alpha1 API scope for future implementation (#69).
+
+## Performance
+
+- Consolidate test targets into a comprehensive `make test` suite to streamline verification and testing processes (#76).
+
+## Fixes
+
+- Fix `joinValidationErrors` truncation to preserve first error content and improve error reporting (#74).
+- Ensure e2e test suite fails if it cannot connect to a cluster and improve deployment reliability in kind-up (#73).
+
+## Breaking or deprecations
+
+- Move away from generic protocols to specific inference and MCP config definitions in API design (#31).
+
+## Infra
+
+- Add automated container image building and publishing to GHCR via GitHub Actions (#57).
+- Enable ginkgo with race detection and test randomization for more robust testing (#47).
 
 
 ## praxis-proxy/grid (watch)
@@ -183,19 +227,24 @@ Summary unavailable (null LLM). Source items:
 - [v0.3.1](https://github.com/praxis-proxy/grid/releases/tag/v0.3.1) — 2026-11-13: Grid v0.3.1
 ### Changes
 
-Summary unavailable (null LLM). Source items:
-- #603 fix(ci): restore reliable dependency checks on Rust 1.96 (+180/-13) by @nerdalert files: .github/workflows/gateway.yaml, .github/workflows/release.yaml, .github/workflows/tests.yaml, Makefile, crates/gateway/Cargo.toml, crates/gateway/deny.toml, deny.toml, scripts/check-unused-dependencies.py, scripts/test-gateway-dependencies.py
-- Pin cargo-machete to the published 0.9.2 release. The newer 0.10.1 release fails to compile on Rust 1.96; Praxis AI uses the same pin.
-- Fix the Gateway manifest declarations so cargo-machete checks the package instead of silently skipping it. Dependency versions, features, and lockfiles ...
-- #366 feat(api): publish AgentToAgentProvider contract and install artifacts (+2055/-96) by @liavweiss files: .github/workflows/tests.yaml, Makefile, charts/grid-operator/README.md, charts/grid-operator/templates/clusterrole-crd.yaml, charts/grid-operator/templates/crds/agenttoagentprovider.yaml, charts/grid-operator/tests/clusterrole-crd_test.yaml, charts/grid-operator/tests/crds_test.yaml, charts/grid-operator/values.schema.json, charts/grid-operator/values.yaml, config/samples/agent-to-agent-provider.yaml, crates/operator/Cargo.toml, crates/operator/src/bin/generate_crds.rs
-- Replaced the placeholder `AgentToAgentProvider` type with a bounded `v1al...
-- #575 ci: make FIPS optional for combined-site qualification (+1208/-73) by @nerdalert files: .github/workflows/triggered-integration-test.yaml, crates/xtask/src/env/combined_site_demo.rs, docs/release.md, scripts/combined-site-cleanup-ownership.sh, scripts/test-combined-site-cleanup-ownership.sh, tests/e2e/topologies/grid-combined-site/README.md
-- Make the FIPS operator image optional so full combined-site/SWIM qualification runs by default with the standard image on GitHub-hosted Ubuntu runners. Keep FIPS as an explicit option for a FIPS-enabled self-hosted runner.
-- Guard FIPS mode with a host kernel check and reject PR merge sources on the self-hosted runner. Record the selected image mode in the image manifest, artifact...
-- #592 test(e2e): add and remove models and a site under Local membership (+312/-78) by @hexfusion files: scripts/e2e-acm-path.sh
-- A site declares a provider with two models. Then it gains a model, loses a model, gains a second provider, and loses that provider. ...
-- #594 chore(release): prepare v0.3.1 (+120/-120) by @hexfusion files: Cargo.lock, Cargo.toml, charts/grid-enrollment/Chart.yaml, charts/grid-mock-providers/Chart.yaml, charts/grid-operator/Chart.yaml, charts/grid-site/Chart.yaml, charts/praxis-gateway/Chart.yaml, charts/praxis-gateway/README.md, charts/praxis-gateway/values.yaml, crates/fleet-dashboard/charts/grid-fleet-dashboard/Chart.yaml, crates/fleet-dashboard/charts/grid-fleet-dashboard/tests/golden/central-monitor-demo.yaml, crates/fleet-dashboard/charts/grid-fleet-dashboard/tests/golden/default.yaml
-* **Release**
+## Features
+
+- Publish the `AgentToAgentProvider` CRD contract and installation artifacts for the first A2A control-plane integration (#366).
+- Allow local TLS dial to present the grid certificate for mtls_only InferenceProviders (#593).
+
+## Performance
+
+- Invalidate metrics cache when InferenceProviders change to ensure accurate reporting (#578).
+
+## Fixes
+
+- Restore reliable dependency checks on Rust 1.96 to ensure nested Gateway workspace analysis (#603).
+- Add model and site change coverage for Local membership in e2e tests (#592).
+
+## Infra
+
+- Prepare release v0.3.1 with fixes for Local membership states and legacy Service Endpoints (#594).
+- Make FIPS optional for combined-site qualification to enable default testing with standard images (#575).
 
 ### Highlights
 - New release **v0.3.1** — Grid v0.3.1
@@ -205,17 +254,14 @@ Summary unavailable (null LLM). Source items:
 
 ### Changes
 
-Summary unavailable (null LLM). Source items:
-- #24 feat(k8s): add operator rollout acceptance (+2394/-313) by @cooktheryan files: .github/workflows/conformance.yaml, .github/workflows/integration.yaml, .github/workflows/rollout.yaml, CHANGELOG.md, deploy/rollout-test/backend.yaml, deploy/rollout-test/gateway.yaml, deploy/rollout-test/httproute.yaml, deploy/rollout-test/kustomization.yaml, deploy/rollout-test/namespace.yaml, deploy/rollout-test/service.yaml, docs/architecture.md, docs/configuration.md
-- Add the operator-owned rollout reference resources consumed by praxis-proxy/praxis#1494.
-- Preserve one replica by default; support the `praxis.sh/replicas` annotation, zero-unavailable rolling updates, a PodDisruptionBudget, hostname/zone spread, and a five-second preStop delay within the existing grace period.
-- Generate Praxis `0.7.5`-compatible listener-scoped configuration with ...
-- #20 Add license scan report and status (+5/-0) by @fossabot files: README.md
-- [CircleCI](https://docs.fossa.com/docs/circleci)
-- [TravisCI](https://docs.fossa.com/docs/travisci)
-- [Jenkins](https://github.com/fossas/fossa-jenkins-plugin)
-- [Other](https://github.com/fossas/fossa...
-- #18 chore(deps): bump the patch-and-minor group across 1 directory with 2 updates [dependencies, rust] (+4/-4) by @dependabot files: Cargo.lock
+## Features
+
+- Added operator-owned rollout reference resources to support praxis-proxy/praxis#1494, including default replica preservation and support for `praxis.sh/replicas` annotation (#24).
+
+## Infra
+
+- Updated dependencies including `serde_json` and `tokio` via Dependabot (#18).
+- Added FOSSA license scan report and status badge to README for improved compliance tracking (#20).
 
 
 ## praxis-proxy/policy (watch)
@@ -223,9 +269,13 @@ Summary unavailable (null LLM). Source items:
 
 ### Changes
 
-Summary unavailable (null LLM). Source items:
-- #287 feat(apl): execute fetch before policy decisions [enhancement, area/security] (+1779/-88) by @mkoushni files: CHANGELOG.md, crates/ppe-apl-core/src/attributes.rs, crates/ppe-apl-core/src/evaluator.rs, crates/ppe-apl-core/src/parser.rs, crates/ppe-apl-core/src/rules.rs, crates/ppe-apl-core/src/step.rs, crates/ppe-apl-runtime/src/cmf_invoker.rs, crates/ppe-apl-runtime/src/dispatch_plan.rs, crates/ppe-apl-runtime/src/route_handler.rs, crates/ppe-apl-runtime/src/visitor.rs, crates/ppe-apl-runtime/tests/cmf_invoker_dispatch.rs, crates/ppe-apl-runtime/tests/fetch_metadata_e2e.rs
-- #284 docs(brainstorms): revocation and transaction tokens requirements. (+1062/-0) by @terylt files: docs/brainstorms/2026-10-26-revocation-transaction-tokens-requirements.md
+## Features
+
+- Added support to fetch request-time facts before making policy decisions, enabling more accurate authorization based on dynamic data like account state or risk results (#287).
+
+## Docs/Brainstorming
+
+- Documented requirements and design considerations for revocation and transaction tokens, serving as a foundation for future implementation (#284).
 
 
 ## praxis-proxy/praxis-proxy.github.io (watch)
@@ -233,18 +283,29 @@ Summary unavailable (null LLM). Source items:
 
 ### Changes
 
-Summary unavailable (null LLM). Source items:
-- #47 feat(website): publish enhancement proposals from the enhancements repo [approved, needs-kind] (+931/-4) by @leseb files: .gitmodules, Makefile, README.md, assets/scss/_styles_project.scss, content/enhancements/_index.md, data/enhancements.json, layouts/_partials/enhancements/criteria-heading.html, layouts/_partials/enhancements/lifecycle.html, layouts/_partials/navbar.html, layouts/enhancements/baseof.html, layouts/enhancements/list.html, layouts/enhancements/single.html
-- #44 chore(website): update docs versions to latest releases [needs-kind] (+15/-8) by @github-actions files: data/docs_versions.json, packages/hugoautogen/hugo_packagemeta.json, sources/ai
-- Promotes each project's docs default to the latest release eligible under each project’s configured policy and moves the matching submodule pointer.
-- Refreshes the development channel SHAs (`development` in
-- #46 feat(ci): auto-merge docs update pull requests [approved, needs-kind] (+10/-0) by @leseb files: .github/workflows/update-docs.yml
-- **Before:** The docs updater opens a PR and dispatches checks, but leaves merge action to a person.
-- **After:** The updater requests squash auto-merge for its generated PR. The repository auto-merge setting is enabled; the main ruleset r...
-- #45 fix(ci): sign off automated docs update commits [approved, needs-kind] (+2/-1) by @leseb files: .github/workflows/update-docs.yml
-- automated commits omit DCO sign-off
-- **Before:** Release update PR #44 failed DCO on the workflow-generated snapshot commit.
-- **After:** The workflow now signs off both the validation snapshot commit and the commit created by `create-pull-request`. CI will verify the updated automation...
-- #34 chore: update contributing links to go directly to document [approved, kind/cleanup] (+4/-4) by @nathan-weinberg files: content/community/_index.md
+# Summary of Recent Changes in `_ungrouped` Module
+
+## Features
+- Added a guided setup path from first setup to configuration, improving user onboarding (#37).
+- Published enhancement proposals from the enhancements repo, enabling centralized proposal tracking (#47).
+- Introduced metadata-driven discovery cards for AI APIs, providers, and operator recipes, making them easier to find (#42).
+
+## Fixes
+- Aligned onboarding links and release context to ensure consistency in AI setup flows (#36).
+- Enabled tracking of AI 0.10 and alpha releases in documentation, ensuring up-to-date content (#41).
+
+## Infra
+- Updated `sass-embedded` to version 1.107.1 for improved CSS processing (#40).
+- Auto-merged documentation update pull requests once checks pass, streamlining the release process (#46).
+- Validated refreshed documentation snapshots to ensure consistency in CI/CD workflows (#43).
+
+## Dependencies
+- Updated `cncf/prow-github-actions` to version 3.5.0 for improved CI/CD integration (#39).
+- Updated `zizmorcore/zizmor-action` to version 0.8.1 for improved automation (#38).
+- Updated `gohugoio/hugo` to version 0.169.0 for improved static site generation (#30).
+
+## Other
+- Updated contributing links to point directly to the dedicated `CONTRIBUTING.md` documents (#34).
+- Ensured automated commits for documentation updates include DCO sign-off (#45).
 
 
