@@ -26,6 +26,15 @@
 {% endfor %}
 </ul>
 
+<h2>Blogs</h2>
+<ul>
+{% for d in project.blogs %}
+  <li><a href="{{ d.file }}">{{ d.label }}</a></li>
+{% else %}
+  <li><em>No blog reports yet.</em></li>
+{% endfor %}
+</ul>
+
 <h2>People</h2>
 <ul>
 {% for d in project.people %}

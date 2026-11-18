@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterator
 
-SCHEMA_VERSION = 1
+SCHEMA_VERSION = 2
 
 SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS runs (
@@ -145,9 +145,25 @@ CREATE TABLE IF NOT EXISTS sync_state (
   updated_at TEXT NOT NULL
 );
 
+CREATE TABLE IF NOT EXISTS blog_posts (
+  id INTEGER PRIMARY KEY,
+  project TEXT NOT NULL,
+  feed_url TEXT NOT NULL,
+  guid TEXT NOT NULL,
+  title TEXT NOT NULL,
+  url TEXT NOT NULL,
+  published_at TEXT,
+  author TEXT,
+  summary_src TEXT,
+  summary TEXT,
+  UNIQUE(project, guid)
+);
+
 CREATE INDEX IF NOT EXISTS idx_prs_repo_merged ON pull_requests(repo_id, merged_at);
 CREATE INDEX IF NOT EXISTS idx_issues_repo_signal ON issues(repo_id, signal);
 CREATE INDEX IF NOT EXISTS idx_repos_project ON repos(project);
+CREATE INDEX IF NOT EXISTS idx_blog_posts_project_pub
+  ON blog_posts(project, published_at);
 """
 
 
@@ -170,7 +186,7 @@ class Database:
             self._conn.executescript(SCHEMA_SQL)
             self._conn.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
             self._conn.commit()
-        # Lightweight forward-compatible column adds
+        # Lightweight forward-compatible column adds / new tables
         cols = {
             r["name"]
             for r in self.execute("PRAGMA table_info(pull_requests)").fetchall()
@@ -179,6 +195,34 @@ class Database:
             self.execute(
                 "ALTER TABLE pull_requests ADD COLUMN reviewers_json TEXT"
             )
+            self.commit()
+        tables = {
+            r[0]
+            for r in self.execute(
+                "SELECT name FROM sqlite_master WHERE type='table'"
+            ).fetchall()
+        }
+        if "blog_posts" not in tables:
+            self._conn.executescript(
+                """
+                CREATE TABLE IF NOT EXISTS blog_posts (
+                  id INTEGER PRIMARY KEY,
+                  project TEXT NOT NULL,
+                  feed_url TEXT NOT NULL,
+                  guid TEXT NOT NULL,
+                  title TEXT NOT NULL,
+                  url TEXT NOT NULL,
+                  published_at TEXT,
+                  author TEXT,
+                  summary_src TEXT,
+                  summary TEXT,
+                  UNIQUE(project, guid)
+                );
+                CREATE INDEX IF NOT EXISTS idx_blog_posts_project_pub
+                  ON blog_posts(project, published_at);
+                """
+            )
+            self._conn.execute(f"PRAGMA user_version = {SCHEMA_VERSION}")
             self.commit()
 
     def close(self) -> None:
@@ -596,5 +640,64 @@ class Database:
             self.execute(
                 "SELECT * FROM proposal_files WHERE repo_id = ? ORDER BY path",
                 (repo_id,),
+            ).fetchall()
+        )
+
+    def upsert_blog_post(self, project: str, post: dict[str, Any]) -> None:
+        self.execute(
+            """
+            INSERT INTO blog_posts (
+              project, feed_url, guid, title, url, published_at,
+              author, summary_src, summary
+            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+            ON CONFLICT(project, guid) DO UPDATE SET
+              feed_url=excluded.feed_url,
+              title=excluded.title,
+              url=excluded.url,
+              published_at=excluded.published_at,
+              author=excluded.author,
+              summary_src=excluded.summary_src,
+              summary=COALESCE(excluded.summary, blog_posts.summary)
+            """,
+            (
+                project,
+                post["feed_url"],
+                post["guid"],
+                post["title"],
+                post["url"],
+                post.get("published_at"),
+                post.get("author"),
+                post.get("summary_src"),
+                post.get("summary"),
+            ),
+        )
+
+    def update_blog_summary(
+        self, project: str, guid: str, summary: str
+    ) -> None:
+        self.execute(
+            "UPDATE blog_posts SET summary = ? WHERE project = ? AND guid = ?",
+            (summary, project, guid),
+        )
+        self.commit()
+
+    def list_blog_posts_since(
+        self, project: str, since_iso: str
+    ) -> list[sqlite3.Row]:
+        return list(
+            self.execute(
+                "SELECT * FROM blog_posts WHERE project = ? "
+                "AND published_at IS NOT NULL AND published_at >= ? "
+                "ORDER BY published_at DESC, title",
+                (project, since_iso),
+            ).fetchall()
+        )
+
+    def list_blog_posts(self, project: str, limit: int = 50) -> list[sqlite3.Row]:
+        return list(
+            self.execute(
+                "SELECT * FROM blog_posts WHERE project = ? "
+                "ORDER BY published_at DESC, title LIMIT ?",
+                (project, limit),
             ).fetchall()
         )
