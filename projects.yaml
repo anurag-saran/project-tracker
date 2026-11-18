@@ -23,6 +23,8 @@ projects:
     docs_urls:
       - "https://docs.vllm.ai"
       - "https://vllm.ai/blog"
+    blog_urls:
+      - "https://vllm.ai/blog"
 
   - name: llm-d
     description: Kubernetes-native distributed LLM inference (built around vLLM)
@@ -49,3 +51,5 @@ projects:
     docs_urls:
       - "https://llm-d.ai"
       - "https://github.com/llm-d/llm-d/tree/main/docs/proposals"
+    blog_urls:
+      - "https://llm-d.ai/blog"

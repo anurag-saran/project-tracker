@@ -79,10 +79,22 @@ class ProjectConfig(BaseModel):
     name: str
     description: str | None = None
     docs_urls: list[str] = Field(default_factory=list)
+    blog_urls: list[str] = Field(
+        default_factory=list,
+        description="Blog index URLs; RSS is resolved as <url>/rss.xml when needed",
+    )
     tier: Tier | None = None
     sources: list[OrgSource | RepoSource]
     pipeline_signals: PipelineSignals = Field(default_factory=PipelineSignals)
     people_signals: PeopleSignals = Field(default_factory=PeopleSignals)
+
+    def resolved_blog_urls(self) -> list[str]:
+        """blog_urls, plus any docs_urls that look like blogs."""
+        seen: list[str] = []
+        for u in [*self.blog_urls, *self.docs_urls]:
+            if "/blog" in u.rstrip("/").lower() and u not in seen:
+                seen.append(u.rstrip("/"))
+        return seen
 
     @field_validator("name")
     @classmethod
@@ -284,6 +296,8 @@ projects:
     docs_urls:
       - "https://docs.vllm.ai"
       - "https://vllm.ai/blog"
+    blog_urls:
+      - "https://vllm.ai/blog"
 
   - name: llm-d
     description: Kubernetes-native distributed LLM inference (built around vLLM)
@@ -309,4 +323,6 @@ projects:
     docs_urls:
       - "https://llm-d.ai"
       - "https://github.com/llm-d/llm-d/tree/main/docs/proposals"
+    blog_urls:
+      - "https://llm-d.ai/blog"
 """

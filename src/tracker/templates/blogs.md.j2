@@ -1,0 +1,29 @@
+# {{ project }} blogs — {{ date }}
+
+_Since {{ since }} · generated {{ generated_at }}_
+{% if blog_home %}
+Blog index: [{{ blog_home }}]({{ blog_home }})
+{% endif %}
+
+## TL;DR for this week
+
+{% for bullet in tldr %}
+- {{ bullet }}
+{% else %}
+- No new blog posts in this period.
+{% endfor %}
+
+## New posts
+
+{% for post in posts %}
+### [{{ post.title }}]({{ post.url }})
+
+{% if post.published_at %}_{{ post.published_at[:10] }}_{% endif %}{% if post.author %} · {{ post.author }}{% endif %}
+
+{{ post.summary }}
+
+**[Read the full post →]({{ post.url }})**
+
+{% else %}
+_No new posts since {{ since }}._
+{% endfor %}

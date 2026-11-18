@@ -82,8 +82,27 @@ def build_weekly_rollup(
 
         digest = _latest(pdir, "digest")
         pipeline = _latest(pdir, "pipeline")
+        blogs = _latest(pdir, "blogs")
         people = _latest(pdir, "people")
         mmap = pdir / "module-map.md"
+
+        if blogs and blogs.exists():
+            if blogs.name != "latest-blogs.md":
+                publish_latest(blogs, "blogs")
+                blogs = pdir / "latest-blogs.md"
+            btldr = _extract_tldr(blogs.read_text())
+            parts.append("**New blogs**")
+            parts.append("")
+            if btldr:
+                for b in btldr:
+                    parts.append(f"- {b}")
+            else:
+                parts.append("- _(none this period)_")
+            parts.append("")
+            parts.append(
+                f"→ [`reports/{project.name}/latest-blogs.md`]({project.name}/latest-blogs.md)"
+            )
+            parts.append("")
 
         if digest and digest.exists():
             # ensure stable latest path exists for diffs

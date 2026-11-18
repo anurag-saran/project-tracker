@@ -506,6 +506,38 @@ def map_cmd(
 
 
 @app.command()
+def blogs(
+    ctx: typer.Context,
+    project: str = typer.Argument("all", help="Project name or 'all'"),
+    since: Optional[str] = typer.Option(None, "--since"),
+    dry_run: bool = typer.Option(
+        False, "--dry-run", help="Skip LLM; use feed excerpts as summaries"
+    ),
+    skip_fetch: bool = typer.Option(
+        False, "--skip-fetch", help="Summarize from SQLite only"
+    ),
+) -> None:
+    """Fetch project blogs (RSS) and write weekly summaries with post links."""
+    from tracker.stages.blogs import build_blogs
+
+    root = _root(ctx)
+    cfg = _config(ctx)
+    db = _db(ctx)
+    for name in _projects(ctx, project):
+        console.rule(f"[bold]blogs {name}")
+        build_blogs(
+            db,
+            cfg,
+            name,
+            since=since,
+            dry_run=dry_run,
+            workspace=root,
+            skip_fetch=skip_fetch,
+        )
+    db.close()
+
+
+@app.command()
 def rollup(ctx: typer.Context) -> None:
     """Write reports/WEEKLY.md + ensure latest-* copies for week-over-week diffs."""
     from tracker.stages.rollup import build_weekly_rollup

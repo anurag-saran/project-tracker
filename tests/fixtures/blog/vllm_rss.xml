@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>vLLM Blog</title>
+    <link>https://vllm.ai/blog</link>
+    <item>
+      <title>DeepSeek on Vera Rubin</title>
+      <link>https://vllm.ai/blog/2026-11-12-deepseek</link>
+      <guid isPermaLink="true">https://vllm.ai/blog/2026-11-12-deepseek</guid>
+      <pubDate>Thu, 12 Nov 2026 00:00:00 GMT</pubDate>
+      <description>vLLM serves DeepSeek-V4.1-Flash on Vera Rubin with big throughput gains.</description>
+      <dc:creator>vLLM Team</dc:creator>
+    </item>
+    <item>
+      <title>Old post</title>
+      <link>https://vllm.ai/blog/2025-01-01-old</link>
+      <guid>https://vllm.ai/blog/2025-01-01-old</guid>
+      <pubDate>Wed, 01 Jan 2025 00:00:00 GMT</pubDate>
+      <description>Ancient history.</description>
+    </item>
+  </channel>
+</rss>

@@ -31,6 +31,10 @@ def test_build_weekly_rollup(tmp_workspace: Path):
     (pdir / "2025-11-10-pipeline.md").write_text(
         "# pipeline\n\n## TL;DR for this week\n\n- 1 new RFC\n"
     )
+    (pdir / "2025-11-10-blogs.md").write_text(
+        "# blogs\n\n## TL;DR for this week\n\n"
+        "- [New post](https://vllm.ai/blog/x)\n"
+    )
     out = build_weekly_rollup(cfg, workspace=tmp_workspace, date="2025-11-10")
     assert out.name == "WEEKLY.md"
     text = out.read_text()
@@ -38,5 +42,7 @@ def test_build_weekly_rollup(tmp_workspace: Path):
     assert "### vllm" in text
     assert "Faster scheduler" in text
     assert "1 new RFC" in text
+    assert "New blogs" in text
+    assert "New post" in text
     assert (pdir / "latest-digest.md").exists()
     assert (tmp_workspace / "reports" / "2025-11-10-WEEKLY.md").exists()

@@ -33,6 +33,7 @@ tracker discover <project>           # rank repos, propose modules → modules.g
 tracker fetch <project|all> [--since 7d]
 tracker digest <project|all> [--since 7d] [--dry-run] [--skip-fetch]
 tracker pipeline <project|all> [--since 7d] [--dry-run]
+tracker blogs <project|all> [--since 7d] [--dry-run]   # RSS → summaries + links
 tracker people <project>
 tracker map <project> [--dry-run]
 tracker site                         # static HTML under site/
@@ -44,9 +45,10 @@ Reports land in `reports/<project>/`:
 
 - `YYYY-MM-DD-digest.md` (archive) and `latest-digest.md` (stable, for diffs)
 - `YYYY-MM-DD-pipeline.md` / `latest-pipeline.md`
+- `YYYY-MM-DD-blogs.md` / `latest-blogs.md` — new posts with summaries + **Read full post** links
 - `YYYY-MM-DD-people.md` / `latest-people.md`
 - `module-map.md`
-- `reports/WEEKLY.md` — cross-project TL;DR rollup
+- `reports/WEEKLY.md` — cross-project TL;DR rollup (includes blogs)
 
 ## Adding a project
 
@@ -102,16 +104,19 @@ uv run tracker notify vllm --channel slack
 
 [`.github/workflows/weekly.yml`](.github/workflows/weekly.yml) runs Mondays ~7am ET and on `workflow_dispatch`:
 
-1. Fetches GitHub data and builds digests / pipelines (module map on the first Monday or manual runs)
+1. Fetches GitHub data and builds digests / pipelines / **blog summaries** (module map on the first Monday or manual runs)
 2. Writes `reports/WEEKLY.md` plus stable `latest-*.md` files per project
 3. Opens (or updates) a PR: **Weekly tracker — YYYY-MM-DD**
+
+Configure blogs with `blog_urls` in `projects.yaml` (vLLM → `https://vllm.ai/blog`, llm-d → `https://llm-d.ai/blog`). Feeds are read from `/rss.xml`.
 
 **How to read it**
 
 | Where | What you get |
 |-------|----------------|
-| PR description | TL;DRs for every project |
-| PR **Files changed** | Week-over-week diff of each project section (`latest-digest.md`, `latest-pipeline.md`, …) |
+| PR description | TL;DRs for every project (code + **new blogs**) |
+| PR **Files changed** | Week-over-week diff of each project section (`latest-digest.md`, `latest-blogs.md`, …) |
+| `latest-blogs.md` | Short summary per new post + link to the full article |
 | Dated `YYYY-MM-DD-*.md` files | Full history archive |
 | GitHub Pages `weekly.html` | Same rollup on the static site |
 
