@@ -1,6 +1,6 @@
 # Weekly tracker — 2026-11-18
 
-_Generated 2026-11-18T14:03:46Z_
+_Generated 2026-11-18T14:05:17Z_
 
 Open the **Files changed** tab on the weekly PR to diff each project's `latest-digest.md` / `latest-pipeline.md` section against last week.
 
@@ -20,7 +20,26 @@ High-throughput and memory-efficient inference engine for LLMs
 
 → [`reports/vllm/latest-blogs.md`](vllm/latest-blogs.md)
 
-_No digest yet._
+**Digest TL;DR**
+
+- Release vllm-project/llm-compressor@0.9.0.6
+- Release vllm-project/humming@v0.1.20
+- Release vllm-project/vllm@v0.34.0
+- vllm-project/vllm/.buildkite: 41 PRs merged
+- vllm-project/vllm/.pre-commit-config.yaml: 2 PRs merged
+
+→ [`reports/vllm/latest-digest.md`](vllm/latest-digest.md)
+
+**Pipeline TL;DR**
+
+- 38 new RFC/proposal issue(s)
+- 497 significant open PR(s)
+- 17 roadmap issue(s) tracked
+- 160 ongoing RFC(s)
+
+→ [`reports/vllm/latest-pipeline.md`](vllm/latest-pipeline.md)
+
+Also: [module map](vllm/module-map.md)
 
 ---
 
@@ -34,6 +53,25 @@ Kubernetes-native distributed LLM inference (built around vLLM)
 
 → [`reports/llm-d/latest-blogs.md`](llm-d/latest-blogs.md)
 
-_No digest yet._
+**Digest TL;DR**
+
+- Release llm-d/llm-d-inference-sim@v1.2.0-rc1
+- Release llm-d/llm-d-inference-sim@v1.2.0-rc.2
+- Release llm-d/llm-d-inference-sim@v1.2.0
+- Release llm-d/llm-d-batch-gateway@v1.1.0-rc1
+- Release llm-d/llm-d-batch-gateway@v1.0.1-rc1
+
+→ [`reports/llm-d/latest-digest.md`](llm-d/latest-digest.md)
+
+**Pipeline TL;DR**
+
+- 1 new RFC/proposal issue(s)
+- 212 significant open PR(s)
+- 7 roadmap issue(s) tracked
+- 19 ongoing RFC(s)
+
+→ [`reports/llm-d/latest-pipeline.md`](llm-d/latest-pipeline.md)
+
+Also: [module map](llm-d/module-map.md)
 
 ---

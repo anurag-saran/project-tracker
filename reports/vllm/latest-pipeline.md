@@ -1,0 +1,1308 @@
+# vllm pipeline — 2026-11-17
+
+_Generated 2026-11-17T02:42:59Z_
+
+## TL;DR for this week
+
+- 38 new RFC/proposal issue(s)
+- 497 significant open PR(s)
+- 17 roadmap issue(s) tracked
+- 160 ongoing RFC(s)
+
+## RFCs & proposals
+
+### New this period
+- [#68034 [RFC]: Shared residual boundary contracts across model architectures](https://github.com/vllm-project/vllm/issues/68034) — [RFC]: Shared residual boundary contracts across model architectures _(OPEN, heat=0)_
+- [#66858 [RFC]: One rule for tools + response_format under tool_choice="auto" (Python and Rust frontends disagree)](https://github.com/vllm-project/vllm/issues/66858) — [RFC]: One rule for tools + response_format under tool_choice="auto" (Python and Rust frontends disagree) _(OPEN, heat=4)_
+- [#67696 [RFC]: CPU Backend support for VLLM_BATCH_INVARIANT=1](https://github.com/vllm-project/vllm/issues/67696) — [RFC]: CPU Backend support for VLLM_BATCH_INVARIANT=1 _(OPEN, heat=2)_
+- [#68016 [RFC]: Numerical testing for specialized decode — plan, status, and PR sequence](https://github.com/vllm-project/vllm/issues/68016) — [RFC]: Numerical testing for specialized decode — plan, status, and PR sequence _(OPEN, heat=2)_
+- [#66782 [RFC]: [KV Offload] Request-level KV promotions: decide at promotion time, pin until load](https://github.com/vllm-project/vllm/issues/66782) — [RFC]: [KV Offload] Request-level KV promotions: decide at promotion time, pin until load _(OPEN, heat=15)_
+- [#67334 [RFC]: Bidirectional attention spans, set per request](https://github.com/vllm-project/vllm/issues/67334) — [RFC]: Bidirectional attention spans, set per request _(OPEN, heat=2)_
+- [#67197 [RFC]: Resource bound for the `/tokenize` endpoint](https://github.com/vllm-project/vllm/issues/67197) — [RFC]: Resource bound for the `/tokenize` endpoint _(OPEN, heat=3)_
+- [#67909 [RFC]: CPU offloading cache lifecycle metrics](https://github.com/vllm-project/vllm/issues/67909) — [RFC]: CPU offloading cache lifecycle metrics _(OPEN, heat=4)_
+- [#67934 [RFC]: Expose EPLB expert topology and per-expert token load metrics](https://github.com/vllm-project/vllm/issues/67934) — [RFC]: Expose EPLB expert topology and per-expert token load metrics _(OPEN, heat=0)_
+- [#67922 [RFC]: PLE Connector for Disaggregated Embedding Serving](https://github.com/vllm-project/vllm/issues/67922) — [RFC]: PLE Connector for Disaggregated Embedding Serving _(OPEN, heat=1)_
+- [#67892 [RFC] Declarative metrics hooks, metric levels, and a runtime level control plane](https://github.com/vllm-project/vllm/issues/67892) — [RFC] Declarative metrics hooks, metric levels, and a runtime level control plane _(OPEN, heat=0)_
+- [#67874 [RFC][HiSparse] On-Demand KV Gather and Layerwise Two-Slot Reuse for Sparse-MLA (DSA) Prefill](https://github.com/vllm-project/vllm/issues/67874) — [RFC][HiSparse] On-Demand KV Gather and Layerwise Two-Slot Reuse for Sparse-MLA (DSA) Prefill _(OPEN, heat=0)_
+- [#67865 [RFC]: Opt-in online quantization of the target model LM head](https://github.com/vllm-project/vllm/issues/67865) — [RFC]: Opt-in online quantization of the target model LM head _(OPEN, heat=1)_
+- [#67176 [RFC]: UltraQuant: the scale constant c = 0.156 is MSE-optimal before the UE8M0 snap, not after; c ≈ 0.2 cuts KV-quantization KL by 40–56% at no cost](https://github.com/vllm-project/vllm/issues/67176) — [RFC]: UltraQuant: the scale constant c = 0.156 is MSE-optimal before the UE8M0 snap, not after; c ≈ 0.2 cuts KV-quan... _(OPEN, heat=3)_
+- [#67769 [RFC]: MLP-only pruning of unconsumed rows in the final dense Llama layer](https://github.com/vllm-project/vllm/issues/67769) — [RFC]: MLP-only pruning of unconsumed rows in the final dense Llama layer _(OPEN, heat=0)_
+- [#66974 [RFC]: Shared stream conformance cases for `vllm bench serve` and `vllm-bench`](https://github.com/vllm-project/vllm/issues/66974) — [RFC]: Shared stream conformance cases for `vllm bench serve` and `vllm-bench` _(OPEN, heat=7)_
+- [#66873 [RFC]: Replicate selected blocks across TP ranks for tensor parallelism over slow inter-node links](https://github.com/vllm-project/vllm/issues/66873) — [RFC]: Replicate selected blocks across TP ranks for tensor parallelism over slow inter-node links _(OPEN, heat=0)_
+- [#67207 [RFC]: add chunked push for NixlPushConnector](https://github.com/vllm-project/vllm/issues/67207) — [RFC]: add chunked push for NixlPushConnector _(OPEN, heat=0)_
+- [#67261 [RFC]: Clarify AMD target and architecture semantics across vLLM](https://github.com/vllm-project/vllm/issues/67261) — [RFC]: Clarify AMD target and architecture semantics across vLLM _(OPEN, heat=2)_
+- [#66949 [RFC]: DWDP: Distributed Weight Data Parallelism for MoE Prefill](https://github.com/vllm-project/vllm/issues/66949) — [RFC]: DWDP: Distributed Weight Data Parallelism for MoE Prefill _(OPEN, heat=1)_
+- [#67103 [RFC]: int8-key / int4-value per-token-head KV cache dtype (between int8 and int4)](https://github.com/vllm-project/vllm/issues/67103) — [RFC]: int8-key / int4-value per-token-head KV cache dtype (between int8 and int4) _(OPEN, heat=0)_
+- [#66751 [RFC]: Draft Window KV: Dual-Boundary Recovery and Sparse P/D Page Fill](https://github.com/vllm-project/vllm/issues/66751) — [RFC]: Draft Window KV: Dual-Boundary Recovery and Sparse P/D Page Fill _(OPEN, heat=0)_
+- [#67275 [RFC][Performance] Generic batch-size-aware matmul configs for untuned batch-invariant shapes](https://github.com/vllm-project/vllm/issues/67275) — [RFC][Performance] Generic batch-size-aware matmul configs for untuned batch-invariant shapes _(OPEN, heat=2)_
+- [#67357 [RFC]: Decoder Append-Prefill for Multi-Turn Workloads in P/D Disaggregated Serving](https://github.com/vllm-project/vllm/issues/67357) — [RFC]: Decoder Append-Prefill for Multi-Turn Workloads in P/D Disaggregated Serving _(OPEN, heat=0)_
+- [#67330 [RFC]: Kernel-owned LoRA fusion for quantized linear layers, starting with gfx1151 W4A16](https://github.com/vllm-project/vllm/issues/67330) — [RFC]: Kernel-owned LoRA fusion for quantized linear layers, starting with gfx1151 W4A16 _(OPEN, heat=2)_
+- [#67217 [RFC] Reuse vLLM vocab-parallel TopK for DFlash2 on Ascend](https://github.com/vllm-project/vllm/issues/67217) — [RFC] Reuse vLLM vocab-parallel TopK for DFlash2 on Ascend _(CLOSED, heat=0)_
+- [#66844 [RFC]: Exact-end Mamba states and whole-state eviction for hybrid prefix caching](https://github.com/vllm-project/vllm/issues/66844) — [RFC]: Exact-end Mamba states and whole-state eviction for hybrid prefix caching _(OPEN, heat=0)_
+- [#67019 [RFC]: Async EPLB: one owner for all state, worker runs self-contained jobs](https://github.com/vllm-project/vllm/issues/67019) — [RFC]: Async EPLB: one owner for all state, worker runs self-contained jobs _(OPEN, heat=0)_
+- [#66942 [RFC]: KV Trace monitoring](https://github.com/vllm-project/vllm/issues/66942) — [RFC]: KV Trace monitoring _(OPEN, heat=0)_
+- [#66753 [RFC]: Tree speculative decoding in vLLM](https://github.com/vllm-project/vllm/issues/66753) — [RFC]: Tree speculative decoding in vLLM _(OPEN, heat=1)_
+- [#66794 [RFC]: extract_hidden_states — stream hidden states to CPU pages with token-hash prefix backfill](https://github.com/vllm-project/vllm/issues/66794) — [RFC]: extract_hidden_states — stream hidden states to CPU pages with token-hash prefix backfill _(OPEN, heat=0)_
+- [#573 [RFC]: Track and reduce GPU Attention-side vLLM patches.](https://github.com/vllm-project/afd-plugin/issues/573) — [RFC]: Track and reduce GPU Attention-side vLLM patches. _(OPEN, heat=1)_
+- [#566 [RFC]: Organize and simplify AFD GPU recipes](https://github.com/vllm-project/afd-plugin/issues/566) — [RFC]: Organize and simplify AFD GPU recipes _(CLOSED, heat=1)_
+- [#3442 [RFC]: Read cross-gateway running counts from aibrix:rrq and drop the 100 ms gateway snapshot sync](https://github.com/vllm-project/aibrix/issues/3442) — [RFC]: Read cross-gateway running counts from aibrix:rrq and drop the 100 ms gateway snapshot sync _(OPEN, heat=9)_
+- [#3463 [RFC]: Remaining Redis cost after the candidate stage: inflight filter ordering and per-request counters](https://github.com/vllm-project/aibrix/issues/3463) — [RFC]: Remaining Redis cost after the candidate stage: inflight filter ordering and per-request counters _(OPEN, heat=14)_
+- [#3508 [RFC][Perf] Simulated quantized forwards for calibration](https://github.com/vllm-project/llm-compressor/issues/3508) — [RFC][Perf] Simulated quantized forwards for calibration _(OPEN, heat=4)_
+- [#574 [RFC] Direct Mooncake Store event ingestion for shared KV-aware routing](https://github.com/vllm-project/router/issues/574) — [RFC] Direct Mooncake Store event ingestion for shared KV-aware routing _(OPEN, heat=0)_
+- [#560 [RFC] E/P/D Phase 2: Failure and Cancellation Timing Tests](https://github.com/vllm-project/router/issues/560) — [RFC] E/P/D Phase 2: Failure and Cancellation Timing Tests _(OPEN, heat=1)_
+
+### Ongoing
+- [#54477 [RFC]: Direct Weight Reload for RL Training](https://github.com/vllm-project/vllm/issues/54477) — [RFC]: Direct Weight Reload for RL Training _(OPEN, heat=17)_
+- [#64418 [RFC]: Load plan — an engine-neutral API for sharded weight transfer](https://github.com/vllm-project/vllm/issues/64418) — [RFC]: Load plan — an engine-neutral API for sharded weight transfer _(OPEN, heat=5)_
+- [#60904 [RFC]: A standard for Specialized (MonoKernels) Decodes in vllm/models](https://github.com/vllm-project/vllm/issues/60904) — [RFC]: A standard for Specialized (MonoKernels) Decodes in vllm/models _(OPEN, heat=25)_
+- [#66411 [RFC]: Breakdown PR time to signal from ~73 to ~30 minutes](https://github.com/vllm-project/vllm/issues/66411) — [RFC]: Breakdown PR time to signal from ~73 to ~30 minutes _(OPEN, heat=8)_
+- [#38175 [RFC]: Support ViT Full CUDA Graph (Tracker)](https://github.com/vllm-project/vllm/issues/38175) — [RFC]: Support ViT Full CUDA Graph (Tracker) _(OPEN, heat=51)_
+- [#60931 WIP [RFC]: SupportsReload, a single post-load contract and reload verifier (follow-up to #59502)](https://github.com/vllm-project/vllm/issues/60931) — WIP [RFC]: SupportsReload, a single post-load contract and reload verifier (follow-up to #59502) _(OPEN, heat=1)_
+- [#53684 [RFC]: Allow the DSA Indexer to Use Context Parallelism Independently](https://github.com/vllm-project/vllm/issues/53684) — [RFC]: Allow the DSA Indexer to Use Context Parallelism Independently _(OPEN, heat=1)_
+- [#38256 [RFC]: Incremental MoE Expert Offloading — GPU Cache + Async Pipeline](https://github.com/vllm-project/vllm/issues/38256) — [RFC]: Incremental MoE Expert Offloading — GPU Cache + Async Pipeline _(OPEN, heat=35)_
+- [#59773 [RFC]: Octave KV, a native 3-bit KV cache for AMD GPUs](https://github.com/vllm-project/vllm/issues/59773) — [RFC]: Octave KV, a native 3-bit KV cache for AMD GPUs _(OPEN, heat=11)_
+- [#65913 [RFC]: Deprecate and remove the torchao reload decorator in favor of reload_weights](https://github.com/vllm-project/vllm/issues/65913) — [RFC]: Deprecate and remove the torchao reload decorator in favor of reload_weights _(OPEN, heat=1)_
+- [#66570 [RFC]: Async CPU tier setup for OffloadingConnector](https://github.com/vllm-project/vllm/issues/66570) — [RFC]: Async CPU tier setup for OffloadingConnector _(OPEN, heat=2)_
+- [#65545 [RFC]: Lifecycle hooks for endpoint plugins (readiness, graceful drain and teardown)](https://github.com/vllm-project/vllm/issues/65545) — [RFC]: Lifecycle hooks for endpoint plugins (readiness, graceful drain and teardown) _(OPEN, heat=6)_
+- [#65543 [RFC]: Scheduler-owned persistent state, initially for cache-aware streaming RNN-T ASR](https://github.com/vllm-project/vllm/issues/65543) — [RFC]: Scheduler-owned persistent state, initially for cache-aware streaming RNN-T ASR _(OPEN, heat=0)_
+- [#65560 [Tracking] Replace Marlin with Humming across NVIDIA architectures](https://github.com/vllm-project/vllm/issues/65560) — [Tracking] Replace Marlin with Humming across NVIDIA architectures _(OPEN, heat=17)_
+- [#65502 [RFC]: First-class, trusted forwarded prompt token IDs on the chat, Messages, and Responses routes](https://github.com/vllm-project/vllm/issues/65502) — [RFC]: First-class, trusted forwarded prompt token IDs on the chat, Messages, and Responses routes _(OPEN, heat=2)_
+- [#39583 [RFC]: Migrate bitsandbytes and GGUF quantization support to OOT plugin](https://github.com/vllm-project/vllm/issues/39583) — [RFC]: Migrate bitsandbytes and GGUF quantization support to OOT plugin _(OPEN, heat=33)_
+- [#36998 [RFC]: Observation Plugin for Intercepting & Routing on Activations](https://github.com/vllm-project/vllm/issues/36998) — [RFC]: Observation Plugin for Intercepting & Routing on Activations _(OPEN, heat=30)_
+- [#64401 [RFC]: Large-page KV cache allocator: one KV cache group per spec](https://github.com/vllm-project/vllm/issues/64401) — [RFC]: Large-page KV cache allocator: one KV cache group per spec _(OPEN, heat=11)_
+- [#49288 [RFC]: Multimodal Asynchronous Collaborative Architecture Sidecar](https://github.com/vllm-project/vllm/issues/49288) — [RFC]: Multimodal Asynchronous Collaborative Architecture Sidecar _(OPEN, heat=11)_
+- [#34303 [RFC]: CUDA Checkpoint/Restore for Near-Zero Cold Starts](https://github.com/vllm-project/vllm/issues/34303) — [RFC]: CUDA Checkpoint/Restore for Near-Zero Cold Starts _(OPEN, heat=64)_
+- [#44223 [RFC]: Semantic KV Cache Reuse Interface](https://github.com/vllm-project/vllm/issues/44223) — [RFC]: Semantic KV Cache Reuse Interface _(OPEN, heat=5)_
+- [#47572 [RFC]: ReplaySSM: cache SSM inputs instead of state for faster standard and speculative decode (Mamba2 + GDN)](https://github.com/vllm-project/vllm/issues/47572) — [RFC]: ReplaySSM: cache SSM inputs instead of state for faster standard and speculative decode (Mamba2 + GDN) _(OPEN, heat=9)_
+- [#64267 [RFC]: Prefix caching of Decision 3.0 `prefix_bidir` state blocks (hit cap, in-block checkpoints, CPU offload)](https://github.com/vllm-project/vllm/issues/64267) — [RFC]: Prefix caching of Decision 3.0 `prefix_bidir` state blocks (hit cap, in-block checkpoints, CPU offload) _(OPEN, heat=2)_
+- [#53421 [RFC]: First-Class, Orchestrator-Agnostic KV Hint Envelope for Agentic Workloads](https://github.com/vllm-project/vllm/issues/53421) — [RFC]: First-Class, Orchestrator-Agnostic KV Hint Envelope for Agentic Workloads _(OPEN, heat=9)_
+- [#63640 [RFC]: Attention Backend Test Suites](https://github.com/vllm-project/vllm/issues/63640) — [RFC]: Attention Backend Test Suites _(OPEN, heat=5)_
+- [#65969 [RFC][HiSparse] Selective shared KV offloading for DeepSeek V4.1](https://github.com/vllm-project/vllm/issues/65969) — [RFC][HiSparse] Selective shared KV offloading for DeepSeek V4.1 _(OPEN, heat=2)_
+- [#54333 [RFC]: Reduced sampling for tensor-parallel decoding](https://github.com/vllm-project/vllm/issues/54333) — [RFC]: Reduced sampling for tensor-parallel decoding _(OPEN, heat=2)_
+- [#49702 [RFC]: Expose narrow EPLB extension hooks for out-of-tree accelerators](https://github.com/vllm-project/vllm/issues/49702) — [RFC]: Expose narrow EPLB extension hooks for out-of-tree accelerators _(OPEN, heat=1)_
+- [#49413 [RFC]: KV offload event path refactor — provenance-carrying events and key-only removals](https://github.com/vllm-project/vllm/issues/49413) — [RFC]: KV offload event path refactor — provenance-carrying events and key-only removals _(OPEN, heat=12)_
+- [#51639 [RFC]: Generic Control RPC for KV Connectors](https://github.com/vllm-project/vllm/issues/51639) — [RFC]: Generic Control RPC for KV Connectors _(OPEN, heat=3)_
+- [#51940 [RFC]: Per-request activation of multiple LoRA adapters with static scales](https://github.com/vllm-project/vllm/issues/51940) — [RFC]: Per-request activation of multiple LoRA adapters with static scales _(OPEN, heat=2)_
+- [#52202 [RFC]: fp8_ds_mla KV cache on pre-SM89 (Ampere) GPUs via software-dequant TritonMLA decode](https://github.com/vllm-project/vllm/issues/52202) — [RFC]: fp8_ds_mla KV cache on pre-SM89 (Ampere) GPUs via software-dequant TritonMLA decode _(OPEN, heat=1)_
+- [#54779 [RFC] Bounded, restart-safe capacity management for the filesystem KV offload tier](https://github.com/vllm-project/vllm/issues/54779) — [RFC] Bounded, restart-safe capacity management for the filesystem KV offload tier _(OPEN, heat=3)_
+- [#66344 [RFC]: Word-level timestamps for speech models from per-request encoder outputs](https://github.com/vllm-project/vllm/issues/66344) — [RFC]: Word-level timestamps for speech models from per-request encoder outputs _(OPEN, heat=3)_
+- [#63140 [RFC] Report per-request prefill progress over gRPC](https://github.com/vllm-project/vllm/issues/63140) — [RFC] Report per-request prefill progress over gRPC _(OPEN, heat=0)_
+- [#65172 [RFC]: Holemiss: Selective Recovery of Partially Lost LLM Cache State](https://github.com/vllm-project/vllm/issues/65172) — [RFC]: Holemiss: Selective Recovery of Partially Lost LLM Cache State _(OPEN, heat=2)_
+- [#65548 [RFC]: Source Identity and Semantic Metadata for KV Cache Events](https://github.com/vllm-project/vllm/issues/65548) — [RFC]: Source Identity and Semantic Metadata for KV Cache Events _(OPEN, heat=4)_
+- [#52916 [RFC] Adaptive spin grace + bounded arch waits (aarch64 WFET, x86 WAITPKG) for shm_broadcast](https://github.com/vllm-project/vllm/issues/52916) — [RFC] Adaptive spin grace + bounded arch waits (aarch64 WFET, x86 WAITPKG) for shm_broadcast _(OPEN, heat=8)_
+- [#64600 [RFC]: Accept already-decoded images over NIXL in the vllm-rs gRPC API](https://github.com/vllm-project/vllm/issues/64600) — [RFC]: Accept already-decoded images over NIXL in the vllm-rs gRPC API _(OPEN, heat=0)_
+- [#66467 [RFC]: Faster Engram / PLE `disk_offload`: io_uring + O_DIRECT row reader and read/compute overlap](https://github.com/vllm-project/vllm/issues/66467) — [RFC]: Faster Engram / PLE `disk_offload`: io_uring + O_DIRECT row reader and read/compute overlap _(OPEN, heat=1)_
+- [#51963 [RFC]: Report characters/second alongside tokens/second in vllm bench serve](https://github.com/vllm-project/vllm/issues/51963) — [RFC]: Report characters/second alongside tokens/second in vllm bench serve _(OPEN, heat=1)_
+- [#52038 [RFC]: LoRA adapter support for DFlash speculative decoding draft models](https://github.com/vllm-project/vllm/issues/52038) — [RFC]: LoRA adapter support for DFlash speculative decoding draft models _(OPEN, heat=1)_
+- [#66650 [RFC]: Classify GPU faults in fault-tolerance status and mark sticky CUDA errors dead](https://github.com/vllm-project/vllm/issues/66650) — [RFC]: Classify GPU faults in fault-tolerance status and mark sticky CUDA errors dead _(OPEN, heat=2)_
+- [#54363 [RFC]: Data integrity and I/O liveness for the filesystem KV offload tier](https://github.com/vllm-project/vllm/issues/54363) — [RFC]: Data integrity and I/O liveness for the filesystem KV offload tier _(OPEN, heat=21)_
+- [#65959 [RFC]: Switch Rust regex engine for response parsing](https://github.com/vllm-project/vllm/issues/65959) — [RFC]: Switch Rust regex engine for response parsing _(OPEN, heat=9)_
+- [#66163 [RFC][ROCm]: Batch-invariant kernels for Kimi-K3.1 on MI355X (KDA, DSA/indexer, MXFP4 MoE, LoRA, all-reduce)](https://github.com/vllm-project/vllm/issues/66163) — [RFC][ROCm]: Batch-invariant kernels for Kimi-K3.1 on MI355X (KDA, DSA/indexer, MXFP4 MoE, LoRA, all-reduce) _(OPEN, heat=2)_
+- [#60523 [RFC]: Improving MooncakeConnector](https://github.com/vllm-project/vllm/issues/60523) — [RFC]: Improving MooncakeConnector _(OPEN, heat=30)_
+- [#64002 [RFC] [DSV4.1] [Engram]: Share immutable host-backed Engram tables across independent instances](https://github.com/vllm-project/vllm/issues/64002) — [RFC] [DSV4.1] [Engram]: Share immutable host-backed Engram tables across independent instances _(OPEN, heat=3)_
+- [#59542 [RFC]: Opt-in return of the last hidden state at sampled positions, per request (Model Runner V2)](https://github.com/vllm-project/vllm/issues/59542) — [RFC]: Opt-in return of the last hidden state at sampled positions, per request (Model Runner V2) _(OPEN, heat=5)_
+- [#66290 [RFC]: Pipeline-parallel equivalence tests for every model that declares `SupportsPP`](https://github.com/vllm-project/vllm/issues/66290) — [RFC]: Pipeline-parallel equivalence tests for every model that declares `SupportsPP` _(OPEN, heat=1)_
+- [#65967 [RFC]: Compute-free prefix KV lookup-and-pin for router-driven peer KV reuse](https://github.com/vllm-project/vllm/issues/65967) — [RFC]: Compute-free prefix KV lookup-and-pin for router-driven peer KV reuse _(OPEN, heat=3)_
+- [#66556 [RFC]: Define an Optional In-Tree Integration Path for Hardware Backends](https://github.com/vllm-project/vllm/issues/66556) — [RFC]: Define an Optional In-Tree Integration Path for Hardware Backends _(OPEN, heat=0)_
+- [#64295 [RFC]: Let replicas read each other's GPU KV cache (L1 sharing)](https://github.com/vllm-project/vllm/issues/64295) — [RFC]: Let replicas read each other's GPU KV cache (L1 sharing) _(OPEN, heat=3)_
+- [#66491 [RFC]: Packed-weight INT4 GEMM (W4A16 / W4A8) for RDNA4 (gfx1200/gfx1201)](https://github.com/vllm-project/vllm/issues/66491) — [RFC]: Packed-weight INT4 GEMM (W4A16 / W4A8) for RDNA4 (gfx1200/gfx1201) _(OPEN, heat=1)_
+- [#65650 [RFC]: Using Backend-Owned KV Cache Runtime Shapes](https://github.com/vllm-project/vllm/issues/65650) — [RFC]: Using Backend-Owned KV Cache Runtime Shapes _(OPEN, heat=2)_
+- [#66418 [RFC]: DBO support for the DeepEP v2 backend in Model Runner V2](https://github.com/vllm-project/vllm/issues/66418) — [RFC]: DBO support for the DeepEP v2 backend in Model Runner V2 _(OPEN, heat=1)_
+- [#65122 [RFC]: Zero-copy DeepEP low-latency combine, safe under DBO](https://github.com/vllm-project/vllm/issues/65122) — [RFC]: Zero-copy DeepEP low-latency combine, safe under DBO _(OPEN, heat=0)_
+- [#65121 [RFC]: DBO with the allgather_reducescatter all2all backend on CUDA](https://github.com/vllm-project/vllm/issues/65121) — [RFC]: DBO with the allgather_reducescatter all2all backend on CUDA _(OPEN, heat=0)_
+- [#65120 [RFC]: DBO for the decoder of multimodal MoE models in Model Runner V2](https://github.com/vllm-project/vllm/issues/65120) — [RFC]: DBO for the decoder of multimodal MoE models in Model Runner V2 _(OPEN, heat=0)_
+- [#65119 [RFC]: DBO for the MTP/EAGLE drafter forward in Model Runner V2](https://github.com/vllm-project/vllm/issues/65119) — [RFC]: DBO for the MTP/EAGLE drafter forward in Model Runner V2 _(OPEN, heat=0)_
+- [#64780 [RFC]: DBO support for FlashInfer NVLink all-to-all backends (single-node H200/B200 first)](https://github.com/vllm-project/vllm/issues/64780) — [RFC]: DBO support for FlashInfer NVLink all-to-all backends (single-node H200/B200 first) _(OPEN, heat=0)_
+- [#64776 [RFC]: Single Batch Overlap (down GEMM ↔ combine) for DeepEP LL](https://github.com/vllm-project/vllm/issues/64776) — [RFC]: Single Batch Overlap (down GEMM ↔ combine) for DeepEP LL _(OPEN, heat=0)_
+- [#63666 [RFC]: Tiered MoE Expert Offload with Lookahead Expert Scheduling (LES) for single-GPU Intel XPU (dGPU: VRAM ↔ Host RAM, iGPU: Memory ↔ SSD)](https://github.com/vllm-project/vllm/issues/63666) — [RFC]: Tiered MoE Expert Offload with Lookahead Expert Scheduling (LES) for single-GPU Intel XPU (dGPU: VRAM ↔ Host R... _(OPEN, heat=1)_
+- [#66231 [RFC]: P/D disaggregation for continuous RL rollouts (S1): order-free, seconds-long weight-update pauses](https://github.com/vllm-project/vllm/issues/66231) — [RFC]: P/D disaggregation for continuous RL rollouts (S1): order-free, seconds-long weight-update pauses _(OPEN, heat=3)_
+- [#49705 [RFC]: Support router-driven mixtures of multiple LoRA adapters](https://github.com/vllm-project/vllm/issues/49705) — [RFC]: Support router-driven mixtures of multiple LoRA adapters _(OPEN, heat=2)_
+- [#25700 [RFC]: Limit the use of envvars in vLLM](https://github.com/vllm-project/vllm/issues/25700) — [RFC]: Limit the use of envvars in vLLM _(OPEN, heat=27)_
+- [#64374 [RFC]: Bounded, retryable NCCL weight updates](https://github.com/vllm-project/vllm/issues/64374) — [RFC]: Bounded, retryable NCCL weight updates _(OPEN, heat=6)_
+- [#61698 [RFC]: Bring-Your-Own-GPU (BYOG) reproducible evals and benchmarks for PRs](https://github.com/vllm-project/vllm/issues/61698) — [RFC]: Bring-Your-Own-GPU (BYOG) reproducible evals and benchmarks for PRs _(OPEN, heat=33)_
+- [#65707 [RFC]: [Draft] Split FusedMoEQuantConfig into static schema and runtime state](https://github.com/vllm-project/vllm/issues/65707) — [RFC]: [Draft] Split FusedMoEQuantConfig into static schema and runtime state _(OPEN, heat=0)_
+- [#485 [RFC]: Elastic AFD: independently scale Attention and FFN capacity](https://github.com/vllm-project/afd-plugin/issues/485) — [RFC]: Elastic AFD: independently scale Attention and FFN capacity _(OPEN, heat=0)_
+- [#478 [RFC]: deploy-afd-k8s: self-healing deployments and StatefulSet-based pod identity](https://github.com/vllm-project/afd-plugin/issues/478) — [RFC]: deploy-afd-k8s: self-healing deployments and StatefulSet-based pod identity _(OPEN, heat=0)_
+- [#552 [RFC]: GPU support for the standalone FFN runner](https://github.com/vllm-project/afd-plugin/issues/552) — [RFC]: GPU support for the standalone FFN runner _(OPEN, heat=1)_
+- [#522 [RFC]: External routing and MXFP8 pass-through for synchronous AFD on Ascend 950 (A5)](https://github.com/vllm-project/afd-plugin/issues/522) — [RFC]: External routing and MXFP8 pass-through for synchronous AFD on Ascend 950 (A5) _(OPEN, heat=0)_
+- [#391 [RFC]: FFN as a service: a standalone FFN Server with pluggable FFN backends](https://github.com/vllm-project/afd-plugin/issues/391) — [RFC]: FFN as a service: a standalone FFN Server with pluggable FFN backends _(OPEN, heat=7)_
+- [#565 [RFC]: Clarify AFD connector, model, and validation boundaries](https://github.com/vllm-project/afd-plugin/issues/565) — [RFC]: Clarify AFD connector, model, and validation boundaries _(OPEN, heat=0)_
+- [#537 [RFC]: Support DeepSeek-V4.1 Flash AFD on Ascend A5 with async-megamoe](https://github.com/vllm-project/afd-plugin/issues/537) — [RFC]: Support DeepSeek-V4.1 Flash AFD on Ascend A5 with async-megamoe _(OPEN, heat=0)_
+- [#540 [RFC]: Add CAMAsyncMegamoeAFDConnector with async-megamoe on Ascend A5](https://github.com/vllm-project/afd-plugin/issues/540) — [RFC]: Add CAMAsyncMegamoeAFDConnector with async-megamoe on Ascend A5 _(OPEN, heat=0)_
+- [#541 [RFC]: Support DeepSeek-V4-Flash with CAMAsyncAFDConnector and CAMAsyncMegamoeAFDConnector on Ascend A5](https://github.com/vllm-project/afd-plugin/issues/541) — [RFC]: Support DeepSeek-V4-Flash with CAMAsyncAFDConnector and CAMAsyncMegamoeAFDConnector on Ascend A5 _(OPEN, heat=0)_
+- [#526 [RFC]: Enable EPLB for the GPU AFD connectors (P2P NCCL and DeepEP M2N)](https://github.com/vllm-project/afd-plugin/issues/526) — [RFC]: Enable EPLB for the GPU AFD connectors (P2P NCCL and DeepEP M2N) _(OPEN, heat=4)_
+- [#397 [RFC]: Integrate FastAFD with a dedicated AFDConnector and FFN megakernel backend](https://github.com/vllm-project/afd-plugin/issues/397) — [RFC]: Integrate FastAFD with a dedicated AFDConnector and FFN megakernel backend _(OPEN, heat=4)_
+- [#491 [RFC]: Use a recursive query instead of copying history ID lists into every stored response](https://github.com/vllm-project/agentic-api/issues/491) — [RFC]: Use a recursive query instead of copying history ID lists into every stored response _(OPEN, heat=3)_
+- [#241 [RFC]: one linear ingest pipeline for the executor streaming path](https://github.com/vllm-project/agentic-api/issues/241) — [RFC]: one linear ingest pipeline for the executor streaming path _(OPEN, heat=1)_
+- [#3433 [RFC]: Runtime Manager For Durable Runtime Lifecycle Reconciliation](https://github.com/vllm-project/aibrix/issues/3433) — [RFC]: Runtime Manager For Durable Runtime Lifecycle Reconciliation _(OPEN, heat=0)_
+- [#3390 [RFC]: Gateway-side pod ejection with pluggable reasons (failure rate, saturation, restart churn)](https://github.com/vllm-project/aibrix/issues/3390) — [RFC]: Gateway-side pod ejection with pluggable reasons (failure rate, saturation, restart churn) _(OPEN, heat=6)_
+- [#3187 [RFC]: Traffic-Aware Scale-Down and Proactive Draining](https://github.com/vllm-project/aibrix/issues/3187) — [RFC]: Traffic-Aware Scale-Down and Proactive Draining _(OPEN, heat=22)_
+- [#3305 [RFC] Deploy vLLM-Omni multi-stage pipelines with StormService](https://github.com/vllm-project/aibrix/issues/3305) — [RFC] Deploy vLLM-Omni multi-stage pipelines with StormService _(OPEN, heat=18)_
+- [#3296 [RFC] Review and merge rules for a fast-growing, AI-assisted contributor base](https://github.com/vllm-project/aibrix/issues/3296) — [RFC] Review and merge rules for a fast-growing, AI-assisted contributor base _(OPEN, heat=6)_
+- [#3189 [RFC]: Queuing, Autoscaling, and Request Deadlines](https://github.com/vllm-project/aibrix/issues/3189) — [RFC]: Queuing, Autoscaling, and Request Deadlines _(OPEN, heat=4)_
+- [#2962 [RFC]: Support Encode/Prefill/Decode (EPD) Disaggregation in AIBrix Gateway](https://github.com/vllm-project/aibrix/issues/2962) — [RFC]: Support Encode/Prefill/Decode (EPD) Disaggregation in AIBrix Gateway _(OPEN, heat=13)_
+- [#3220 [RFC]: Hybrid-model KV offloading with incremental state/span records](https://github.com/vllm-project/aibrix/issues/3220) — [RFC]: Hybrid-model KV offloading with incremental state/span records _(OPEN, heat=6)_
+- [#3188 [RFC]: Don’t Rank the Entire Fleet for Every Request](https://github.com/vllm-project/aibrix/issues/3188) — [RFC]: Don’t Rank the Entire Fleet for Every Request _(OPEN, heat=8)_
+- [#3247 [RFC]: Support asynchronous video generation in the Batch API](https://github.com/vllm-project/aibrix/issues/3247) — [RFC]: Support asynchronous video generation in the Batch API _(OPEN, heat=1)_
+- [#2290 [RFC]: Control-plane orchestration of vLLM sleep mode and kvcached for warm standby and multi-model GPU pooling](https://github.com/vllm-project/aibrix/issues/2290) — [RFC]: Control-plane orchestration of vLLM sleep mode and kvcached for warm standby and multi-model GPU pooling _(OPEN, heat=9)_
+- [#2001 [RFC] Support trtllm engine in AIBrix](https://github.com/vllm-project/aibrix/issues/2001) — [RFC] Support trtllm engine in AIBrix _(OPEN, heat=2)_
+- [#1966 [RFC]: AIBrix Multi-Modality: Best-in-Class Omni-Modal Serving Platform](https://github.com/vllm-project/aibrix/issues/1966) — [RFC]: AIBrix Multi-Modality: Best-in-Class Omni-Modal Serving Platform _(OPEN, heat=1)_
+- [#1595 [RFC]: xDiT Video Generation API](https://github.com/vllm-project/aibrix/issues/1595) — [RFC]: xDiT Video Generation API _(OPEN, heat=2)_
+- [#2814 [RFC]: Agent-Aware KV Cache Affinity Scheduling and Lifecycle Management](https://github.com/vllm-project/aibrix/issues/2814) — [RFC]: Agent-Aware KV Cache Affinity Scheduling and Lifecycle Management _(OPEN, heat=2)_
+- [#2825 [RFC]: Autoscaler-driven elastic EP: observe-first staging, membership semantics, and failure rules](https://github.com/vllm-project/aibrix/issues/2825) — [RFC]: Autoscaler-driven elastic EP: observe-first staging, membership semantics, and failure rules _(OPEN, heat=1)_
+- [#2609 [RFC][Batch] Product requirements for unattended, durable, and elastic batch execution](https://github.com/vllm-project/aibrix/issues/2609) — [RFC][Batch] Product requirements for unattended, durable, and elastic batch execution _(OPEN, heat=0)_
+- [#1416 [RFC]: AIBrix Documentation and samples improvement](https://github.com/vllm-project/aibrix/issues/1416) — [RFC]: AIBrix Documentation and samples improvement _(OPEN, heat=3)_
+- [#3487 [RFC] NVFP4+ support: FP4 E2M1 with UE5M3 block scales](https://github.com/vllm-project/llm-compressor/issues/3487) — [RFC] NVFP4+ support: FP4 E2M1 with UE5M3 block scales _(OPEN, heat=1)_
+- [#3479 [RFC] [Perf] [Help Wanted] Automatic batch size selection, better data collators](https://github.com/vllm-project/llm-compressor/issues/3479) — [RFC] [Perf] [Help Wanted] Automatic batch size selection, better data collators _(OPEN, heat=2)_
+- [#3452 [RFC] Sequential Pipeline Calibration Performance Improvements](https://github.com/vllm-project/llm-compressor/issues/3452) — [RFC] Sequential Pipeline Calibration Performance Improvements _(OPEN, heat=4)_
+- [#3387 [RFC] QuaRot and FlexSmooth integration in llm-compressor](https://github.com/vllm-project/llm-compressor/issues/3387) — [RFC] QuaRot and FlexSmooth integration in llm-compressor _(OPEN, heat=8)_
+- [#3484 [RFC] A command-line interface for llm-compressor: `llmcompressor <verb>` over the existing Python entrypoints](https://github.com/vllm-project/llm-compressor/issues/3484) — [RFC] A command-line interface for llm-compressor: `llmcompressor <verb>` over the existing Python entrypoints _(OPEN, heat=0)_
+- [#3386 [RFC] Custom PyTorch Definition Support](https://github.com/vllm-project/llm-compressor/issues/3386) — [RFC] Custom PyTorch Definition Support _(OPEN, heat=2)_
+- [#3412 [RFC] Add OSFP4 to LLM Compressor](https://github.com/vllm-project/llm-compressor/issues/3412) — [RFC] Add OSFP4 to LLM Compressor _(OPEN, heat=6)_
+- [#3268 Q4 Roadmap](https://github.com/vllm-project/llm-compressor/issues/3268) — Q4 Roadmap _(OPEN, heat=3)_
+- [#3368 [RFC] IterSmooth preprocessing in llm-compressor](https://github.com/vllm-project/llm-compressor/issues/3368) — [RFC] IterSmooth preprocessing in llm-compressor _(OPEN, heat=0)_
+- [#2974 [RFC] Reasoning-Aware Compression (RAC): on-policy CoT calibration for reasoning models](https://github.com/vllm-project/llm-compressor/issues/2974) — [RFC] Reasoning-Aware Compression (RAC): on-policy CoT calibration for reasoning models _(OPEN, heat=13)_
+- [#3126 [RFC] Weight Streaming and Offload Performance improvements](https://github.com/vllm-project/llm-compressor/issues/3126) — [RFC] Weight Streaming and Offload Performance improvements _(OPEN, heat=2)_
+- [#3279 [RFC] Lifecycle Refactors for Lazy-Linearization](https://github.com/vllm-project/llm-compressor/issues/3279) — [RFC] Lifecycle Refactors for Lazy-Linearization _(OPEN, heat=1)_
+- [#1128 [RFC] Add Moore Threads MUSA / MTT S5000 support to vLLM Recipes](https://github.com/vllm-project/recipes/issues/1128) — [RFC] Add Moore Threads MUSA / MTT S5000 support to vLLM Recipes _(OPEN, heat=1)_
+- [#522 [RFC] KV-Pressure-Aware Routing with Prefix Affinity](https://github.com/vllm-project/router/issues/522) — [RFC] KV-Pressure-Aware Routing with Prefix Affinity _(OPEN, heat=3)_
+- [#530 [RFC] Service-based Kubernetes discovery for multi-model KV-aware routing](https://github.com/vllm-project/router/issues/530) — [RFC] Service-based Kubernetes discovery for multi-model KV-aware routing _(OPEN, heat=2)_
+- [#402 [RFC] Workflow-Conditioned Output Prediction for KV-Capacity Admission](https://github.com/vllm-project/router/issues/402) — [RFC] Workflow-Conditioned Output Prediction for KV-Capacity Admission _(OPEN, heat=13)_
+- [#296 [RFC] E/P/D follow-up: contract alignment, static Encode pool, and staged productionization](https://github.com/vllm-project/router/issues/296) — [RFC] E/P/D follow-up: contract alignment, static Encode pool, and staged productionization _(OPEN, heat=6)_
+- [#412 [RFC]: Static Encode registry and independent policy (Phase 1)](https://github.com/vllm-project/router/issues/412) — [RFC]: Static Encode registry and independent policy (Phase 1) _(OPEN, heat=0)_
+- [#295 [RFC]: Generation-safe exact-KV routing and bounded fallback for Regular/PD](https://github.com/vllm-project/router/issues/295) — [RFC]: Generation-safe exact-KV routing and bounded fallback for Regular/PD _(OPEN, heat=2)_
+- [#294 [RFC]: Event-driven Exact KV-aware Routing](https://github.com/vllm-project/router/issues/294) — [RFC]: Event-driven Exact KV-aware Routing _(OPEN, heat=3)_
+- [#34 [RFC] Support Multimodal EPD/EPDG Architecture](https://github.com/vllm-project/router/issues/34) — [RFC] Support Multimodal EPD/EPDG Architecture _(OPEN, heat=8)_
+- [#51 [RFC] Multi-Dimensional Load Balancing with Request-Aware Metrics](https://github.com/vllm-project/router/issues/51) — [RFC] Multi-Dimensional Load Balancing with Request-Aware Metrics _(OPEN, heat=0)_
+- [#219 [RFC]: Cache-aware chat routing with exact-match session affinity](https://github.com/vllm-project/router/issues/219) — [RFC]: Cache-aware chat routing with exact-match session affinity _(OPEN, heat=7)_
+- [#249 [RFC] Production gRPC Engine-Client Backend: Comprehensive System Design](https://github.com/vllm-project/router/issues/249) — [RFC] Production gRPC Engine-Client Backend: Comprehensive System Design _(OPEN, heat=3)_
+- [#273 [RFC]: CI system design — L1–L3 (ready/merge/nightly), unified pre-commit, and hardware-aware GPU lanes](https://github.com/vllm-project/router/issues/273) — [RFC]: CI system design — L1–L3 (ready/merge/nightly), unified pre-commit, and hardware-aware GPU lanes _(OPEN, heat=0)_
+- [#317 [RFC]: Preserve Cached-Token Usage and Upstream HTTP Errors in vLLM PD Routing](https://github.com/vllm-project/router/issues/317) — [RFC]: Preserve Cached-Token Usage and Upstream HTTP Errors in vLLM PD Routing _(OPEN, heat=2)_
+- [#348 [Help Wanted][RFC]: CPU-side inference fast path execution](https://github.com/vllm-project/router/issues/348) — [Help Wanted][RFC]: CPU-side inference fast path execution _(OPEN, heat=14)_
+- [#351 [RFC] Workflow-Aware Prediction Signals for Program-level Scheduling](https://github.com/vllm-project/router/issues/351) — [RFC] Workflow-Aware Prediction Signals for Program-level Scheduling _(OPEN, heat=2)_
+- [#372 [RFC] Paired P/D health probe: verify the full prefill→decode path](https://github.com/vllm-project/router/issues/372) — [RFC] Paired P/D health probe: verify the full prefill→decode path _(OPEN, heat=0)_
+- [#376 [RFC]: Program Scheduling for Prefill–Decode Disaggregated Serving](https://github.com/vllm-project/router/issues/376) — [RFC]: Program Scheduling for Prefill–Decode Disaggregated Serving _(OPEN, heat=0)_
+- [#393 [RFC]: Agent/Program-Aware Scheduling: An Explainable and Reproducible Research Plan](https://github.com/vllm-project/router/issues/393) — [RFC]: Agent/Program-Aware Scheduling: An Explainable and Reproducible Research Plan _(OPEN, heat=3)_
+- [#408 [RFC]:Program-level Progress-TTL Scheduling with Exact Token Facts](https://github.com/vllm-project/router/issues/408) — [RFC]:Program-level Progress-TTL Scheduling with Exact Token Facts _(OPEN, heat=2)_
+- [#414 [RFC] Mooncake Conductor as an external KV-cache index provider for vllm-router](https://github.com/vllm-project/router/issues/414) — [RFC] Mooncake Conductor as an external KV-cache index provider for vllm-router _(OPEN, heat=2)_
+- [#416 [RFC] End-to-end bounded streaming for HTTP workers](https://github.com/vllm-project/router/issues/416) — [RFC] End-to-end bounded streaming for HTTP workers _(OPEN, heat=0)_
+- [#417 [RFC] General heterogeneous stage-graph scheduling](https://github.com/vllm-project/router/issues/417) — [RFC] General heterogeneous stage-graph scheduling _(OPEN, heat=0)_
+- [#418 [RFC] Conditional cache-hot Decode routing and Prefill bypass](https://github.com/vllm-project/router/issues/418) — [RFC] Conditional cache-hot Decode routing and Prefill bypass _(OPEN, heat=0)_
+- [#419 [RFC] Tenant-scoped quotas and admission control](https://github.com/vllm-project/router/issues/419) — [RFC] Tenant-scoped quotas and admission control _(OPEN, heat=0)_
+- [#420 [RFC] Token-cost-aware QoS fairness for request scheduling](https://github.com/vllm-project/router/issues/420) — [RFC] Token-cost-aware QoS fairness for request scheduling _(OPEN, heat=0)_
+- [#421 [RFC] Topology-aware routing constraints and locality preferences](https://github.com/vllm-project/router/issues/421) — [RFC] Topology-aware routing constraints and locality preferences _(OPEN, heat=0)_
+- [#422 [RFC] Offline fleet capacity simulation and configuration search](https://github.com/vllm-project/router/issues/422) — [RFC] Offline fleet capacity simulation and configuration search _(OPEN, heat=0)_
+- [#423 [RFC] Hierarchical routing across clusters and downstream PD Routers](https://github.com/vllm-project/router/issues/423) — [RFC] Hierarchical routing across clusters and downstream PD Routers _(OPEN, heat=0)_
+- [#425 [RFC] Standalone KV placement service and portable remote index provider](https://github.com/vllm-project/router/issues/425) — [RFC] Standalone KV placement service and portable remote index provider _(OPEN, heat=0)_
+- [#426 [RFC] Source-scoped KV index snapshot and cold-start recovery](https://github.com/vllm-project/router/issues/426) — [RFC] Source-scoped KV index snapshot and cold-start recovery _(OPEN, heat=5)_
+- [#427 [RFC] Engine-confirmed physical KV retention and release hints](https://github.com/vllm-project/router/issues/427) — [RFC] Engine-confirmed physical KV retention and release hints _(OPEN, heat=6)_
+- [#428 [RFC] Workflow OSL hints and speculative next-turn KV prefetch](https://github.com/vllm-project/router/issues/428) — [RFC] Workflow OSL hints and speculative next-turn KV prefetch _(OPEN, heat=5)_
+- [#429 [RFC] Multi-Router state recovery and warm-standby HA](https://github.com/vllm-project/router/issues/429) — [RFC] Multi-Router state recovery and warm-standby HA _(OPEN, heat=0)_
+- [#430 [RFC] In-flight generation migration and token continuity](https://github.com/vllm-project/router/issues/430) — [RFC] In-flight generation migration and token continuity _(OPEN, heat=0)_
+- [#431 [RFC] SLO-driven Prefill/Decode autoscaling control loop](https://github.com/vllm-project/router/issues/431) — [RFC] SLO-driven Prefill/Decode autoscaling control loop _(OPEN, heat=0)_
+- [#432 [RFC] Same-host IPC worker backend for vLLM Router](https://github.com/vllm-project/router/issues/432) — [RFC] Same-host IPC worker backend for vLLM Router _(OPEN, heat=0)_
+- [#433 [RFC] Native API compatibility and specialized endpoint routing contract](https://github.com/vllm-project/router/issues/433) — [RFC] Native API compatibility and specialized endpoint routing contract _(OPEN, heat=0)_
+- [#434 [RFC] Kubernetes worker discovery and deployment contract](https://github.com/vllm-project/router/issues/434) — [RFC] Kubernetes worker discovery and deployment contract _(OPEN, heat=0)_
+- [#435 [RFC] Worker overload admission, bounded backpressure, and load shedding](https://github.com/vllm-project/router/issues/435) — [RFC] Worker overload admission, bounded backpressure, and load shedding _(OPEN, heat=0)_
+- [#437 [RFC] Decision observability for exact KV-aware routing](https://github.com/vllm-project/router/issues/437) — [RFC] Decision observability for exact KV-aware routing _(OPEN, heat=5)_
+- [#438 [RFC] KV-aware routing and prefill load for gRPC P/D](https://github.com/vllm-project/router/issues/438) — [RFC] KV-aware routing and prefill load for gRPC P/D _(OPEN, heat=0)_
+- [#439 [RFC] Support DeepInfer as a Router backend](https://github.com/vllm-project/router/issues/439) — [RFC] Support DeepInfer as a Router backend _(OPEN, heat=0)_
+- [#443 [RFC] Worker-reported prefill load for colocated KV-aware routing](https://github.com/vllm-project/router/issues/443) — [RFC] Worker-reported prefill load for colocated KV-aware routing _(OPEN, heat=0)_
+- [#451 [RFC]: Consul service discovery for Router workers](https://github.com/vllm-project/router/issues/451) — [RFC]: Consul service discovery for Router workers _(OPEN, heat=2)_
+- [#473 [RFC]: Hard session affinity with least-in-flight placement for PD serving](https://github.com/vllm-project/router/issues/473) — [RFC]: Hard session affinity with least-in-flight placement for PD serving _(OPEN, heat=0)_
+- [#542 [RFC] Discovery state preservation and held-KV reclamation for P/D](https://github.com/vllm-project/router/issues/542) — [RFC] Discovery state preservation and held-KV reclamation for P/D _(OPEN, heat=2)_
+- [#548 [RFC]: budget the KV index from engine block capacity instead of an unbounded tree or a hardcoded cap](https://github.com/vllm-project/router/issues/548) — [RFC]: budget the KV index from engine block capacity instead of an unbounded tree or a hardcoded cap _(OPEN, heat=0)_
+
+
+## Significant open PRs
+
+- [#62840 [DSv4][Kernel] Add DSpark confidence-head fused TileLang kernel](https://github.com/vllm-project/vllm/pull/62840) — [DSv4][Kernel] Add DSpark confidence-head fused TileLang kernel
+  - author: panpan0000 · age: 26d · reviewers: — · last activity: 2026-11-17
+- [#65338 [Bugfix][Kernel] Align packed GDN decode with speculative recurrence](https://github.com/vllm-project/vllm/pull/65338) — [Bugfix][Kernel] Align packed GDN decode with speculative recurrence
+  - author: Alex-ai-future · age: 13d · reviewers: claude · last activity: 2026-11-17
+- [#64722 [ROCm][MoRIIO] Support DCP for decode instance in PD disaggregated serving with MoRI WRITE mode](https://github.com/vllm-project/vllm/pull/64722) — [ROCm][MoRIIO] Support DCP for decode instance in PD disaggregated serving with MoRI WRITE mode
+  - author: kliuae · age: 17d · reviewers: claude, kliuae, tjtanaa · last activity: 2026-11-17
+- [#66146 [Bugfix][EPLB] Report async EPLB worker failures to fault tolerance instead of stalling](https://github.com/vllm-project/vllm/pull/66146) — [Bugfix][EPLB] Report async EPLB worker failures to fault tolerance instead of stalling
+  - author: latioswang · age: 10d · reviewers: chatgpt-codex-connector, claude, ilmarkov, latioswang · last activity: 2026-11-17
+- [#67740 [Perf][Qwen4Exp] Use DeepGEMM for FP8 QSA prefill scoring](https://github.com/vllm-project/vllm/pull/67740) — [Perf][Qwen4Exp] Use DeepGEMM for FP8 QSA prefill scoring
+  - author: gau-nernst · age: 1d · reviewers: — · last activity: 2026-11-17
+- [#67020 [EPLB] Run async EPLB transfers as functions returning futures](https://github.com/vllm-project/vllm/pull/67020) — [EPLB] Run async EPLB transfers as functions returning futures
+  - author: latioswang · age: 5d · reviewers: — · last activity: 2026-11-17
+- [#68041 [RL][Model Loader] Direct weight reload by default; refuse unsupported setups at update time](https://github.com/vllm-project/vllm/pull/68041) — [RL][Model Loader] Direct weight reload by default; refuse unsupported setups at update time
+  - author: hao-aaron · age: 0d · reviewers: — · last activity: 2026-11-17
+- [#65706 [Perf][GLM-5.3] Add FlashInfer warp split-K and ll_bf16 GEMMs to the SM107 low-latency table](https://github.com/vllm-project/vllm/pull/65706) — [Perf][GLM-5.3] Add FlashInfer warp split-K and ll_bf16 GEMMs to the SM107 low-latency table
+  - author: csahithi · age: 12d · reviewers: LopezCastroRoberto, claude · last activity: 2026-11-17
+- [#66522 [Frontend][Perf] Add --tokenize-backend recipe for Rust segmented parallel prompt tokenization](https://github.com/vllm-project/vllm/pull/66522) — [Frontend][Perf] Add --tokenize-backend recipe for Rust segmented parallel prompt tokenization
+  - author: imlixy · age: 7d · reviewers: claude · last activity: 2026-11-17
+- [#67588 [Kimi K3][Specialized decode] Run causal DSpark draft blocks on CAKE (TP / DEP)](https://github.com/vllm-project/vllm/pull/67588) — [Kimi K3][Specialized decode] Run causal DSpark draft blocks on CAKE (TP / DEP)
+  - author: ZJY0516 · age: 2d · reviewers: chatgpt-codex-connector, claude · last activity: 2026-11-17
+- [#63113 [Bugfix][Core] Drop streaming updates that would overflow max_model_len](https://github.com/vllm-project/vllm/pull/63113) — [Bugfix][Core] Drop streaming updates that would overflow max_model_len
+  - author: potoior · age: 25d · reviewers: claude · last activity: 2026-11-17
+- [#66342 [Feature][Quantization] Rewrite compressed-tensors regex targets on load](https://github.com/vllm-project/vllm/pull/66342) — [Feature][Quantization] Rewrite compressed-tensors regex targets on load
+  - author: GOavi101 · age: 9d · reviewers: claude · last activity: 2026-11-17
+- [#62913 [ROCm][Attention] Accelerate ROCm Prefill Attention with FP8 Triton Kernels](https://github.com/vllm-project/vllm/pull/62913) — [ROCm][Attention] Accelerate ROCm Prefill Attention with FP8 Triton Kernels
+  - author: phambinhfin · age: 26d · reviewers: claude, frida-andersson, mjkvaak-amd, phambinhfin · last activity: 2026-11-17
+- [#68043 [RL][Weight Transfer] Packed NCCL: shared chunk layout with opt-in wire segments, planned producer and planned receive](https://github.com/vllm-project/vllm/pull/68043) — [RL][Weight Transfer] Packed NCCL: shared chunk layout with opt-in wire segments, planned producer and planned receive
+  - author: hao-aaron · age: 0d · reviewers: — · last activity: 2026-11-17
+- [#65941 [MM] Nemotron VL: resize images and video frames on the GPU with CV-CUDA](https://github.com/vllm-project/vllm/pull/65941) — [MM] Nemotron VL: resize images and video frames on the GPU with CV-CUDA
+  - author: brandonpelfrey · age: 11d · reviewers: Isotr0py, brandonpelfrey, claude, mgoin, milesial, ywang96 · last activity: 2026-11-17
+- [#65787 [Bugfix][Mooncake] Reclaim unclaimed transfer placeholders](https://github.com/vllm-project/vllm/pull/65787) — [Bugfix][Mooncake] Reclaim unclaimed transfer placeholders
+  - author: staryxchen · age: 12d · reviewers: claude, copilot-pull-request-reviewer, dtcccc, staryxchen · last activity: 2026-11-17
+- [#57379 [Model][Perf] Add LLaVA-OneVision encoder CUDA graph support](https://github.com/vllm-project/vllm/pull/57379) — [Model][Perf] Add LLaVA-OneVision encoder CUDA graph support
+  - author: trueoneplusone · age: 60d · reviewers: claude · last activity: 2026-11-17
+- [#65069 [BI][DSv4.1] Add opt-in Mega kernels under batch invariance](https://github.com/vllm-project/vllm/pull/65069) — [BI][DSv4.1] Add opt-in Mega kernels under batch invariance
+  - author: 0z5a · age: 14d · reviewers: — · last activity: 2026-11-17
+- [#65067 [BI][DSv4.1] Support DSpark speculative decoding under batch invariance](https://github.com/vllm-project/vllm/pull/65067) — [BI][DSv4.1] Support DSpark speculative decoding under batch invariance
+  - author: 0z5a · age: 14d · reviewers: — · last activity: 2026-11-17
+- [#65068 [BI][DSv4.1] Add opt-in tensor-core GEMM tiers under batch invariance](https://github.com/vllm-project/vllm/pull/65068) — [BI][DSv4.1] Add opt-in tensor-core GEMM tiers under batch invariance
+  - author: 0z5a · age: 14d · reviewers: — · last activity: 2026-11-17
+- [#65065 [BI] Make DeepSeek MoE and the EP exchange batch invariant](https://github.com/vllm-project/vllm/pull/65065) — [BI] Make DeepSeek MoE and the EP exchange batch invariant
+  - author: 0z5a · age: 14d · reviewers: — · last activity: 2026-11-17
+- [#67180 [Frontend] Add chat and multimodal options to offline pooling APIs](https://github.com/vllm-project/vllm/pull/67180) — [Frontend] Add chat and multimodal options to offline pooling APIs
+  - author: noooop · age: 4d · reviewers: claude, noooop · last activity: 2026-11-17
+- [#53073 [Bugfix][KV Offload] Fix shared-region ownership and startup cleanup](https://github.com/vllm-project/vllm/pull/53073) — [Bugfix][KV Offload] Fix shared-region ownership and startup cleanup
+  - author: Alex-ai-future · age: 88d · reviewers: Alex-ai-future, Etelis, claude, coderabbitai · last activity: 2026-11-17
+- [#67583 [Core] Persistent state: model hooks for CUDA graph capture, warmup, shutdown and memory contributors](https://github.com/vllm-project/vllm/pull/67583) — [Core] Persistent state: model hooks for CUDA graph capture, warmup, shutdown and memory contributors
+  - author: pdtgct · age: 2d · reviewers: chatgpt-codex-connector, claude · last activity: 2026-11-17
+- [#67374 [Core] Persistent state: state pool, scheduling and release fence](https://github.com/vllm-project/vllm/pull/67374) — [Core] Persistent state: state pool, scheduling and release fence
+  - author: pdtgct · age: 3d · reviewers: claude · last activity: 2026-11-17
+- [#67375 [Core] Persistent state: stream admission and admitted streams in AsyncLLM](https://github.com/vllm-project/vllm/pull/67375) — [Core] Persistent state: stream admission and admitted streams in AsyncLLM
+  - author: pdtgct · age: 3d · reviewers: claude · last activity: 2026-11-17
+- [#67976 [MM][CG] Add encoder CUDA graph support for LFM3-VL](https://github.com/vllm-project/vllm/pull/67976) — [MM][CG] Add encoder CUDA graph support for LFM3-VL
+  - author: shuoyue21 · age: 0d · reviewers: claude, copilot-pull-request-reviewer · last activity: 2026-11-17
+- [#65303 [Bugfix][Parser] Preserve token IDs in non-streaming engine parsing](https://github.com/vllm-project/vllm/pull/65303) — [Bugfix][Parser] Preserve token IDs in non-streaming engine parsing
+  - author: KocKaan · age: 13d · reviewers: claude · last activity: 2026-11-17
+- [#66882 [Model][GLM-5.3] Load ModelOpt mixed-precision checkpoints into BF16 attention and vision](https://github.com/vllm-project/vllm/pull/66882) — [Model][GLM-5.3] Load ModelOpt mixed-precision checkpoints into BF16 attention and vision
+  - author: Kh4L · age: 6d · reviewers: claude · last activity: 2026-11-17
+- [#64395 [Model][Engram] Share Engram via RDMA to reduce DRAM redundancy cross instances](https://github.com/vllm-project/vllm/pull/64395) — [Model][Engram] Share Engram via RDMA to reduce DRAM redundancy cross instances
+  - author: foraxe · age: 19d · reviewers: Juntian777, claude, foraxe · last activity: 2026-11-17
+- [#64082 [Model][DSv4.1][Engram] Share host tables across independent instances](https://github.com/vllm-project/vllm/pull/64082) — [Model][DSv4.1][Engram] Share host tables across independent instances
+  - author: foraxe · age: 20d · reviewers: claude · last activity: 2026-11-17
+- [#64687 [Models][XPU] Port eager Qwen3.5 models and fuse MoE decode](https://github.com/vllm-project/vllm/pull/64687) — [Models][XPU] Port eager Qwen3.5 models and fuse MoE decode
+  - author: hzjane · age: 17d · reviewers: claude, hzjane, jikunshang, mayuyuace, zufangzhu, zxd1997066 · last activity: 2026-11-17
+- [#68038 [RL] Sharded RDT on the load plan](https://github.com/vllm-project/vllm/pull/68038) — [RL] Sharded RDT on the load plan
+  - author: hao-aaron · age: 0d · reviewers: — · last activity: 2026-11-17
+- [#62480 [ROCm][Kernel] Add W4A8 MoE decode kernel for RDNA3/RDNA3.5 (gfx11)](https://github.com/vllm-project/vllm/pull/62480) — [ROCm][Kernel] Add W4A8 MoE decode kernel for RDNA3/RDNA3.5 (gfx11)
+  - author: xiao-llm · age: 28d · reviewers: claude, fxmarty-amd, xiao-llm · last activity: 2026-11-17
+- [#67338 [Attention] Decide the sparse MLA prefill route once in the metadata builder](https://github.com/vllm-project/vllm/pull/67338) — [Attention] Decide the sparse MLA prefill route once in the metadata builder
+  - author: Pb314314 · age: 4d · reviewers: MatthewBonanni, claude, zyongye · last activity: 2026-11-17
+- [#67610 [Spec Decode] Per-position acceptance rate over the drafts that reached each position](https://github.com/vllm-project/vllm/pull/67610) — [Spec Decode] Per-position acceptance rate over the drafts that reached each position
+  - author: LantaoJin · age: 2d · reviewers: LantaoJin, claude, tomasruizt · last activity: 2026-11-17
+- [#66154 [KV Offload] Bound PUT staging and schedule aligned batches](https://github.com/vllm-project/vllm/pull/66154) — [KV Offload] Bound PUT staging and schedule aligned batches
+  - author: hxieustc · age: 10d · reviewers: — · last activity: 2026-11-17
+- [#66135 [Bugfix][Parser] DeepSeek DSML: keep a closer inside a tool-argument value](https://github.com/vllm-project/vllm/pull/66135) — [Bugfix][Parser] DeepSeek DSML: keep a closer inside a tool-argument value
+  - author: jmeadlock · age: 10d · reviewers: claude · last activity: 2026-11-17
+- [#68045 [Recipe] Add B300 Dynamo AgentX presets for DeepSeek-V4.1-Flash](https://github.com/vllm-project/vllm/pull/68045) — [Recipe] Add B300 Dynamo AgentX presets for DeepSeek-V4.1-Flash
+  - author: functionstackx · age: 0d · reviewers: claude · last activity: 2026-11-17
+- [#67850 [DNM][Wait for Aiter][ROCm][MiniMax-M3.1] amd_kernels routes for MiniMax-M3.1-Flash TP4 on MI355X](https://github.com/vllm-project/vllm/pull/67850) — [DNM][Wait for Aiter][ROCm][MiniMax-M3.1] amd_kernels routes for MiniMax-M3.1-Flash TP4 on MI355X
+  - author: benenzhu · age: 0d · reviewers: claude · last activity: 2026-11-17
+- [#64109 [Core][Spec Decode] Back only the tail of DFlash/DSpark sliding-window drafter KV](https://github.com/vllm-project/vllm/pull/64109) — [Core][Spec Decode] Back only the tail of DFlash/DSpark sliding-window drafter KV
+  - author: Dao007forever · age: 20d · reviewers: Dao007forever, TheEpicDolphin, claude, ivanium · last activity: 2026-11-17
+- [#57736 feat: capture selected hidden-state rows for rollout windows and teacher scoring](https://github.com/vllm-project/vllm/pull/57736) — feat: capture selected hidden-state rows for rollout windows and teacher scoring
+  - author: vx120 · age: 58d · reviewers: aoshen02, claude · last activity: 2026-11-17
+- [#68044 [Feature] Report per-request prefill progress over gRPC](https://github.com/vllm-project/vllm/pull/68044) — [Feature] Report per-request prefill progress over gRPC
+  - author: KaisennHu · age: 0d · reviewers: claude · last activity: 2026-11-17
+- [#66943 [Model][ROCm][Inkling]: Add support for Lamport P2P(hip kernels) collective on ROCm/AMD](https://github.com/vllm-project/vllm/pull/66943) — [Model][ROCm][Inkling]: Add support for Lamport P2P(hip kernels) collective on ROCm/AMD
+  - author: rahulbatra85 · age: 5d · reviewers: claude · last activity: 2026-11-17
+- [#61902 [ROCm][Perf] Opt-in flag for the act+MXFP4 quant fusion](https://github.com/vllm-project/vllm/pull/61902) — [ROCm][Perf] Opt-in flag for the act+MXFP4 quant fusion
+  - author: fyun89 · age: 32d · reviewers: claude, fyun89, vllmellm · last activity: 2026-11-17
+- [#66675 [Perf] Optimize GB10 Mamba2 projections and ReplaySSM dispatch](https://github.com/vllm-project/vllm/pull/66675) — [Perf] Optimize GB10 Mamba2 projections and ReplaySSM dispatch
+  - author: hnover-nv · age: 7d · reviewers: — · last activity: 2026-11-17
+- [#61690 [Feature] Add optional GPU timing to iteration metrics](https://github.com/vllm-project/vllm/pull/61690) — [Feature] Add optional GPU timing to iteration metrics
+  - author: tedzhouhk · age: 33d · reviewers: benchislett, claude, tedzhouhk · last activity: 2026-11-17
+- [#65595 [ROCm][DSv4.1] Share Engram host tables across DP ranks with HIP VMM](https://github.com/vllm-project/vllm/pull/65595) — [ROCm][DSv4.1] Share Engram host tables across DP ranks with HIP VMM
+  - author: AndreasKaratzas · age: 12d · reviewers: claude, mawong-amd · last activity: 2026-11-17
+- [#66566 [Feature][KV Connector][Mooncake] Add a verified-transfer debug mode](https://github.com/vllm-project/vllm/pull/66566) — [Feature][KV Connector][Mooncake] Add a verified-transfer debug mode
+  - author: sohom-cs · age: 7d · reviewers: apex-mochen, chatgpt-codex-connector, claude, sohom-cs · last activity: 2026-11-17
+- [#63544 [Perf][GLM-5.3-Flash] KDA decode and prefill through FlashInfer](https://github.com/vllm-project/vllm/pull/63544) — [Perf][GLM-5.3-Flash] KDA decode and prefill through FlashInfer
+  - author: suiyoubi · age: 22d · reviewers: claude, suiyoubi, wzhao18 · last activity: 2026-11-17
+- [#65101 [Kernel] Exact top-p cutoffs and kept log-sum-exps for bf16 logits](https://github.com/vllm-project/vllm/pull/65101) — [Kernel] Exact top-p cutoffs and kept log-sum-exps for bf16 logits
+  - author: zyongye · age: 14d · reviewers: claude · last activity: 2026-11-17
+- [#67964 [CI] Only use trust_remote_code for checkpoints that need it](https://github.com/vllm-project/vllm/pull/67964) — [CI] Only use trust_remote_code for checkpoints that need it
+  - author: hmellor · age: 0d · reviewers: claude, khluu · last activity: 2026-11-17
+- [#60153 [ROCm][DSv4.1][Perf] Fuse the gfx942 mHC seam in the V4.1 AMD model](https://github.com/vllm-project/vllm/pull/60153) — [ROCm][DSv4.1][Perf] Fuse the gfx942 mHC seam in the V4.1 AMD model
+  - author: frida-andersson · age: 42d · reviewers: claude, frida-andersson, simondanielsson · last activity: 2026-11-17
+- [#67385 [Bugfix][Scheduler] Don't let later image requests overtake a request deferred for encoder limits](https://github.com/vllm-project/vllm/pull/67385) — [Bugfix][Scheduler] Don't let later image requests overtake a request deferred for encoder limits
+  - author: jjbuck · age: 3d · reviewers: claude · last activity: 2026-11-17
+- [#68033 [ROCm][DSv4.1] gfx942 large-step MoE for decode steps above the mono limit](https://github.com/vllm-project/vllm/pull/68033) — [ROCm][DSv4.1] gfx942 large-step MoE for decode steps above the mono limit
+  - author: maeehart · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#64998 [Rust Frontend] add `/v1/messages` support](https://github.com/vllm-project/vllm/pull/64998) — [Rust Frontend] add `/v1/messages` support
+  - author: sagearc · age: 15d · reviewers: claude, copilot-pull-request-reviewer · last activity: 2026-11-16
+- [#62117 [Attention] Support NVFP4 KV cache at head_dim 512 (Gemma 4) on SM100](https://github.com/vllm-project/vllm/pull/62117) — [Attention] Support NVFP4 KV cache at head_dim 512 (Gemma 4) on SM100
+  - author: xuanzic · age: 31d · reviewers: claude · last activity: 2026-11-16
+- [#64486 [Mooncake] Route KV transfers through a backend interface and support TENT](https://github.com/vllm-project/vllm/pull/64486) — [Mooncake] Route KV transfers through a backend interface and support TENT
+  - author: CAICAIIs · age: 18d · reviewers: claude · last activity: 2026-11-16
+- [#61733 [Bugfix] Reject prompts that cannot be scheduled without chunked prefill](https://github.com/vllm-project/vllm/pull/61733) — [Bugfix] Reject prompts that cannot be scheduled without chunked prefill
+  - author: pst2154 · age: 33d · reviewers: LinzeShi, claude, pst2154 · last activity: 2026-11-16
+- [#65749 [ROCm][Perf][DSv4.1] Split-K BF16 router GEMM for gfx950 decode batches](https://github.com/vllm-project/vllm/pull/65749) — [ROCm][Perf][DSv4.1] Split-K BF16 router GEMM for gfx950 decode batches
+  - author: davzhuAMD · age: 12d · reviewers: claude, davzhuAMD, okorzh-amd · last activity: 2026-11-16
+- [#63510 [Beam 1.0] Consolidating shared AMD and NVIDIA utils into `common`](https://github.com/vllm-project/vllm/pull/63510) — [Beam 1.0] Consolidating shared AMD and NVIDIA utils into `common`
+  - author: jamesETsmith · age: 23d · reviewers: claude, jamesETsmith, okorzh-amd · last activity: 2026-11-16
+- [#62909 [ROCm][Kernel] Tune the GatedDeltaNet Triton prefill kernels on gfx942](https://github.com/vllm-project/vllm/pull/62909) — [ROCm][Kernel] Tune the GatedDeltaNet Triton prefill kernels on gfx942
+  - author: phambinhfin · age: 26d · reviewers: frida-andersson, phambinhfin · last activity: 2026-11-16
+- [#64089 [ROCm][Kernel] Add AITER Triton MXFP8 linear kernel for CDNA4](https://github.com/vllm-project/vllm/pull/64089) — [ROCm][Kernel] Add AITER Triton MXFP8 linear kernel for CDNA4
+  - author: afriedri · age: 20d · reviewers: Rohan138, claude, micah-wil, simondanielsson · last activity: 2026-11-16
+- [#67421 [ROCm][Perf][Qwen3.8] Specialized decode up to 64 rows for Qwen3.8-2.4T on MI355X (--monokernel)](https://github.com/vllm-project/vllm/pull/67421) — [ROCm][Perf][Qwen3.8] Specialized decode up to 64 rows for Qwen3.8-2.4T on MI355X (--monokernel)
+  - author: mjkvaak-amd · age: 3d · reviewers: claude · last activity: 2026-11-16
+- [#67262 [HiSparse][Kimi K3.1] Support Kimi-K3.1's hybrid KDA + DSA layout](https://github.com/vllm-project/vllm/pull/67262) — [HiSparse][Kimi K3.1] Support Kimi-K3.1's hybrid KDA + DSA layout
+  - author: MatthewBonanni · age: 4d · reviewers: claude · last activity: 2026-11-16
+- [#67819 [Model] Support LoRA for Nemotron Labs Diffusion](https://github.com/vllm-project/vllm/pull/67819) — [Model] Support LoRA for Nemotron Labs Diffusion
+  - author: pst2154 · age: 1d · reviewers: claude · last activity: 2026-11-16
+- [#65268 [Feature] Segment attention layout for one-pass multi-candidate scoring](https://github.com/vllm-project/vllm/pull/65268) — [Feature] Segment attention layout for one-pass multi-candidate scoring
+  - author: pst2154 · age: 14d · reviewers: claude · last activity: 2026-11-16
+- [#61734 [Feat][Stacked] Add bidirectional single-forward reads for Nemotron fine-tunes](https://github.com/vllm-project/vllm/pull/61734) — [Feat][Stacked] Add bidirectional single-forward reads for Nemotron fine-tunes
+  - author: pst2154 · age: 33d · reviewers: DarkLight1337, claude, pst2154 · last activity: 2026-11-16
+- [#60287 [Bugfix] Nemotron diffusion: per-request reveal-time logprobs](https://github.com/vllm-project/vllm/pull/60287) — [Bugfix] Nemotron diffusion: per-request reveal-time logprobs
+  - author: pst2154 · age: 41d · reviewers: claude · last activity: 2026-11-16
+- [#67526 [Core] Log the backends each kind of layer selected after model load](https://github.com/vllm-project/vllm/pull/67526) — [Core] Log the backends each kind of layer selected after model load
+  - author: mgoin · age: 3d · reviewers: MatthewBonanni, NickLucche, claude, fxmarty-amd, taneem-ibrahim · last activity: 2026-11-16
+- [#63078 [Bugfix][Muse Spark] Keep the FP32 RoPE tables in FP32](https://github.com/vllm-project/vllm/pull/63078) — [Bugfix][Muse Spark] Keep the FP32 RoPE tables in FP32
+  - author: fanxingran · age: 25d · reviewers: claude, dllehr-amd, fanxingran, mawong-amd, micah-wil · last activity: 2026-11-16
+- [#65215 [Docs] Generate quantization method, scheme, and linear backend tables](https://github.com/vllm-project/vllm/pull/65215) — [Docs] Generate quantization method, scheme, and linear backend tables
+  - author: mgoin · age: 14d · reviewers: claude · last activity: 2026-11-16
+- [#62238 [DeepSeek-V4.1] Enable Engram disk offload for memory-constrained nodes](https://github.com/vllm-project/vllm/pull/62238) — [DeepSeek-V4.1] Enable Engram disk offload for memory-constrained nodes
+  - author: abdmalik-amd · age: 30d · reviewers: claude, stecasta · last activity: 2026-11-16
+- [#58387 [Model] Add NemotronLabsDiffusion support with tri-mode inference](https://github.com/vllm-project/vllm/pull/58387) — [Model] Add NemotronLabsDiffusion support with tri-mode inference
+  - author: sajadn · age: 54d · reviewers: LucasWilkinson, claude, pst2154 · last activity: 2026-11-16
+- [#66275 [Feature][Spec Decode] Add Ampere (SM80) Native Specialized Decode for DeepSeek-V4.1-Flash](https://github.com/vllm-project/vllm/pull/66275) — [Feature][Spec Decode] Add Ampere (SM80) Native Specialized Decode for DeepSeek-V4.1-Flash
+  - author: JimiZhou · age: 9d · reviewers: claude · last activity: 2026-11-16
+- [#61311 [Core] Shared abstractions for specialized decode kernels](https://github.com/vllm-project/vllm/pull/61311) — [Core] Shared abstractions for specialized decode kernels
+  - author: simondanielsson · age: 34d · reviewers: ChuanLi1101, benchislett, claude, hmellor, shen-shanshan, simondanielsson, whx-sjtu · last activity: 2026-11-16
+- [#66719 [Bugfix][KV Offload] Store the chunks that fit when a request exceeds the CPU tier](https://github.com/vllm-project/vllm/pull/66719) — [Bugfix][KV Offload] Store the chunks that fit when a request exceeds the CPU tier
+  - author: lnvitesace · age: 6d · reviewers: claude, orozery · last activity: 2026-11-16
+- [#68009 [Kernel] Restructure DSA kernels](https://github.com/vllm-project/vllm/pull/68009) — [Kernel] Restructure DSA kernels
+  - author: LopezCastroRoberto · age: 0d · reviewers: claude · last activity: 2026-11-16
+- [#63612 [ROCm][Perf] Use AITER single-launch KDA decode in GLM-5.3-Flash](https://github.com/vllm-project/vllm/pull/63612) — [ROCm][Perf] Use AITER single-launch KDA decode in GLM-5.3-Flash
+  - author: eppaneamd · age: 22d · reviewers: akii96, claude, eppaneamd, okorzh-amd, simondanielsson · last activity: 2026-11-16
+- [#63402 [ROCm][Quantization] Add int8 lm_head quantization (per-channel and per-group-32) for RDNA (gfx11/gfx12)](https://github.com/vllm-project/vllm/pull/63402) — [ROCm][Quantization] Add int8 lm_head quantization (per-channel and per-group-32) for RDNA (gfx11/gfx12)
+  - author: zohaibm-amd · age: 24d · reviewers: claude, fxmarty-amd, mgehre-amd, xiao-llm, zohaibm-amd · last activity: 2026-11-16
+- [#65723 [Kernel] Add per-phase linear activation precision to quantization_config](https://github.com/vllm-project/vllm/pull/65723) — [Kernel] Add per-phase linear activation precision to quantization_config
+  - author: puririshi98 · age: 12d · reviewers: claude, fxmarty-amd, puririshi98 · last activity: 2026-11-16
+- [#67135 [CI][ROCm] float64 reference + specialized decode format primitives (T1 of #68016)](https://github.com/vllm-project/vllm/pull/67135) — [CI][ROCm] float64 reference + specialized decode format primitives (T1 of #68016)
+  - author: divakar-amd · age: 5d · reviewers: claude, copilot-pull-request-reviewer, divakar-amd, fxmarty-amd · last activity: 2026-11-16
+- [#65716 [ROCm] More gfx1250 models, di, and perf fixes ](https://github.com/vllm-project/vllm/pull/65716) — [ROCm] More gfx1250 models, di, and perf fixes
+  - author: jpvillam-amd · age: 12d · reviewers: claude, dllehr-amd, jpvillam-amd, simondanielsson · last activity: 2026-11-16
+- [#67341 [ROCm][gfx12][Do Not Merge] mxfp4 HIP kernel dense + moe](https://github.com/vllm-project/vllm/pull/67341) — [ROCm][gfx12][Do Not Merge] mxfp4 HIP kernel dense + moe
+  - author: amd-xavierwang · age: 4d · reviewers: — · last activity: 2026-11-16
+- [#67529 [Online quantization] Deprecate `VLLM_FP8_MOE_REQUANT`/`VLLM_FP8_MOE_REQUANT_ACT`/`VLLM_ROCM_MUSE_MOE_ONLINE_QUANT` in favor of standard online quantization API](https://github.com/vllm-project/vllm/pull/67529) — [Online quantization] Deprecate `VLLM_FP8_MOE_REQUANT`/`VLLM_FP8_MOE_REQUANT_ACT`/`VLLM_ROCM_MUSE_MOE_ONLINE_QUANT` i...
+  - author: fxmarty-amd · age: 3d · reviewers: claude, fxmarty-amd · last activity: 2026-11-16
+- [#63334 [2/3][Spec Decode] Run own-KV drafts on a standalone GPU](https://github.com/vllm-project/vllm/pull/63334) — [2/3][Spec Decode] Run own-KV drafts on a standalone GPU
+  - author: seo-rii · age: 24d · reviewers: claude, copilot-pull-request-reviewer · last activity: 2026-11-16
+- [#63335 [3/3][Spec Decode] Add bounded CUDA IPC feature transport](https://github.com/vllm-project/vllm/pull/63335) — [3/3][Spec Decode] Add bounded CUDA IPC feature transport
+  - author: seo-rii · age: 24d · reviewers: claude, copilot-pull-request-reviewer · last activity: 2026-11-16
+- [#67844 [ROCm] Enable Octave KV on RDNA4 with native HIP kernels](https://github.com/vllm-project/vllm/pull/67844) — [ROCm] Enable Octave KV on RDNA4 with native HIP kernels
+  - author: big-yellow-duck · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#63114 [Model] Serve Base Labs mammoth-1 / elephant-1 with their trained block-bidirectional mask](https://github.com/vllm-project/vllm/pull/63114) — [Model] Serve Base Labs mammoth-1 / elephant-1 with their trained block-bidirectional mask
+  - author: simon-veitner-redhat · age: 25d · reviewers: LucasWilkinson, MatthewBonanni, claude, khluu, simon-veitner-redhat, yuzisun · last activity: 2026-11-16
+- [#59209 [Hisparse] Support HiSparse for QSA ](https://github.com/vllm-project/vllm/pull/59209) — [Hisparse] Support HiSparse for QSA
+  - author: lHrHenry233 · age: 48d · reviewers: MatthewBonanni, claude, lHrHenry233 · last activity: 2026-11-16
+- [#65421 [ROCm][Perf][DSv4.1] Asm decode layers for 17-256-row decode steps (gfx950, TP4)](https://github.com/vllm-project/vllm/pull/65421) — [ROCm][Perf][DSv4.1] Asm decode layers for 17-256-row decode steps (gfx950, TP4)
+  - author: tvirolai-amd · age: 13d · reviewers: claude, fxmarty-amd, simondanielsson, tvirolai-amd · last activity: 2026-11-16
+- [#66011 [Bugfix][NIXL] Decline remote prefill reads after the producer's KV lease expired](https://github.com/vllm-project/vllm/pull/66011) — [Bugfix][NIXL] Decline remote prefill reads after the producer's KV lease expired
+  - author: hugoabonizio · age: 11d · reviewers: NickLucche, claude · last activity: 2026-11-16
+- [#58962 [ROCM][KVConnector][MoRIIO] Add WRITE-mode consumer timeout](https://github.com/vllm-project/vllm/pull/58962) — [ROCM][KVConnector][MoRIIO] Add WRITE-mode consumer timeout
+  - author: amirakb89 · age: 49d · reviewers: ErliCai, amirakb89, claude, okorzh-amd, simondanielsson · last activity: 2026-11-16
+- [#68020 [KV Offload] Support pipeline parallelism in the canonical layout](https://github.com/vllm-project/vllm/pull/68020) — [KV Offload] Support pipeline parallelism in the canonical layout
+  - author: xsxszab · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#66884 [Perf][GLM-5.3-Flash] KDA: planar short conv for chunked prefill on SM10x](https://github.com/vllm-project/vllm/pull/66884) — [Perf][GLM-5.3-Flash] KDA: planar short conv for chunked prefill on SM10x
+  - author: BolinSNLHM · age: 6d · reviewers: claude · last activity: 2026-11-16
+- [#67570 [ROCm][Perf][Qwen4Exp] Allow replicated MoE with --monokernel](https://github.com/vllm-project/vllm/pull/67570) — [ROCm][Perf][Qwen4Exp] Allow replicated MoE with --monokernel
+  - author: eppaneamd · age: 3d · reviewers: — · last activity: 2026-11-16
+- [#67569 [ROCm][Perf][Qwen4Exp] Add --enable-hc-sp-replicated-moe](https://github.com/vllm-project/vllm/pull/67569) — [ROCm][Perf][Qwen4Exp] Add --enable-hc-sp-replicated-moe
+  - author: eppaneamd · age: 3d · reviewers: — · last activity: 2026-11-16
+- [#63676 [Bugfix][ROCm] Keep extend context when model runner v2 reorders the batch](https://github.com/vllm-project/vllm/pull/63676) — [Bugfix][ROCm] Keep extend context when model runner v2 reorders the batch
+  - author: tjtanaa · age: 21d · reviewers: amd-mghanimi, claude, simondanielsson · last activity: 2026-11-16
+- [#68010 [Refactor] Remove multiple dead code in models](https://github.com/vllm-project/vllm/pull/68010) — [Refactor] Remove multiple dead code in models
+  - author: yewentao256 · age: 0d · reviewers: claude, sfeng33 · last activity: 2026-11-16
+- [#65208 [Kernel] Add opt-in NVFP4 activations for long prefills to b12x NVFP4 W4A16 linears](https://github.com/vllm-project/vllm/pull/65208) — [Kernel] Add opt-in NVFP4 activations for long prefills to b12x NVFP4 W4A16 linears
+  - author: puririshi98 · age: 14d · reviewers: claude, fxmarty-amd, puririshi98 · last activity: 2026-11-16
+- [#67363 [ROCm][Perf][DSv4.1] Build the MXFP4 indexer decode metadata in one launch](https://github.com/vllm-project/vllm/pull/67363) — [ROCm][Perf][DSv4.1] Build the MXFP4 indexer decode metadata in one launch
+  - author: okorzh-amd · age: 3d · reviewers: claude · last activity: 2026-11-16
+- [#67815 [Bugfix][NIXL] Acknowledge heartbeats so the reader never reads past the lease](https://github.com/vllm-project/vllm/pull/67815) — [Bugfix][NIXL] Acknowledge heartbeats so the reader never reads past the lease
+  - author: njhill · age: 1d · reviewers: NickLucche · last activity: 2026-11-16
+- [#65740 [CI] Enable mypy for tests/v1/core and tests/v1/engine](https://github.com/vllm-project/vllm/pull/65740) — [CI] Enable mypy for tests/v1/core and tests/v1/engine
+  - author: ashraf-bhuiyan · age: 12d · reviewers: ashraf-bhuiyan, claude, yewentao256 · last activity: 2026-11-16
+- [#64027 [Frontend] Support output logprobs for gpt-oss in the Responses API](https://github.com/vllm-project/vllm/pull/64027) — [Frontend] Support output logprobs for gpt-oss in the Responses API
+  - author: ArkVex · age: 20d · reviewers: claude, smiyamoto3, yzong-rh · last activity: 2026-11-16
+- [#63424 [CPU] Share FP8 MoE projections and enable native MXFP4 W4A8](https://github.com/vllm-project/vllm/pull/63424) — [CPU] Share FP8 MoE projections and enable native MXFP4 W4A8
+  - author: tianmu-li · age: 24d · reviewers: claude · last activity: 2026-11-16
+- [#67364 [ROCm][Perf][DSv4.1] Insert the compressed KV cache inside the compression launch](https://github.com/vllm-project/vllm/pull/67364) — [ROCm][Perf][DSv4.1] Insert the compressed KV cache inside the compression launch
+  - author: okorzh-amd · age: 3d · reviewers: claude · last activity: 2026-11-16
+- [#65436 [Perf][Sampling] Gather vocab-parallel logits into their final layout in one pass](https://github.com/vllm-project/vllm/pull/65436) — [Perf][Sampling] Gather vocab-parallel logits into their final layout in one pass
+  - author: MrGeva · age: 13d · reviewers: claude · last activity: 2026-11-16
+- [#63199 [ROCm] Add gfx1151 W8A8 blockscale skinny GEMM](https://github.com/vllm-project/vllm/pull/63199) — [ROCm] Add gfx1151 W8A8 blockscale skinny GEMM
+  - author: keneoneth · age: 25d · reviewers: claude, keneoneth, simondanielsson · last activity: 2026-11-16
+- [#64603 [Kernel] --linear-backend=flashinfer: use FI backend="auto" with default settings for linear GEMMs](https://github.com/vllm-project/vllm/pull/64603) — [Kernel] --linear-backend=flashinfer: use FI backend="auto" with default settings for linear GEMMs
+  - author: arpera · age: 18d · reviewers: arpera, claude, vadiklyutiy · last activity: 2026-11-16
+- [#67980 [Model] Bidirectional spans on Gemma 4's sliding-window layers, without the window](https://github.com/vllm-project/vllm/pull/67980) — [Model] Bidirectional spans on Gemma 4's sliding-window layers, without the window
+  - author: jjbuck · age: 0d · reviewers: claude · last activity: 2026-11-16
+- [#67711 [Feature][Frontend] `bidirectional_spans` on the OpenAI-compatible APIs](https://github.com/vllm-project/vllm/pull/67711) — [Feature][Frontend] `bidirectional_spans` on the OpenAI-compatible APIs
+  - author: jjbuck · age: 2d · reviewers: claude · last activity: 2026-11-16
+- [#67710 [Feature][Core] Request-level bidirectional attention spans](https://github.com/vllm-project/vllm/pull/67710) — [Feature][Core] Request-level bidirectional attention spans
+  - author: jjbuck · age: 2d · reviewers: claude · last activity: 2026-11-16
+- [#66908 [Bugfix][Rust Frontend] Preserve system-message tool declarations](https://github.com/vllm-project/vllm/pull/66908) — [Bugfix][Rust Frontend] Preserve system-message tool declarations
+  - author: surgepower · age: 6d · reviewers: claude · last activity: 2026-11-16
+- [#66907 [Bugfix][Rust Frontend] Honor top-level thinking controls](https://github.com/vllm-project/vllm/pull/66907) — [Bugfix][Rust Frontend] Honor top-level thinking controls
+  - author: surgepower · age: 6d · reviewers: claude · last activity: 2026-11-16
+- [#65254 [MoE][RL] MegaMoE NVFP4: load each scale on its own, combine after loading](https://github.com/vllm-project/vllm/pull/65254) — [MoE][RL] MegaMoE NVFP4: load each scale on its own, combine after loading
+  - author: hao-aaron · age: 14d · reviewers: claude · last activity: 2026-11-16
+- [#66067 [Refactor][Multimodal] Share encoder CUDA graph code: Qwen2-VL-style mixin + default budget range](https://github.com/vllm-project/vllm/pull/66067) — [Refactor][Multimodal] Share encoder CUDA graph code: Qwen2-VL-style mixin + default budget range
+  - author: Pb314314 · age: 10d · reviewers: Isotr0py, claude, khluu · last activity: 2026-11-16
+- [#67300 [Spec Decode] Add BF16 hierarchical LM head backends for Nemotron MTP](https://github.com/vllm-project/vllm/pull/67300) — [Spec Decode] Add BF16 hierarchical LM head backends for Nemotron MTP
+  - author: jiaji-huang · age: 4d · reviewers: claude · last activity: 2026-11-16
+- [#62518 [ROCm][Perf] Fuse AITER split-K GEMM reduce into add + RMSNorm](https://github.com/vllm-project/vllm/pull/62518) — [ROCm][Perf] Fuse AITER split-K GEMM reduce into add + RMSNorm
+  - author: eky-amd · age: 28d · reviewers: claude, dllehr-amd, simondanielsson · last activity: 2026-11-16
+- [#62746 [Model][Hardware][AMD] Fuse DSR1 Input Projection with Dual RMS + Quant](https://github.com/vllm-project/vllm/pull/62746) — [Model][Hardware][AMD] Fuse DSR1 Input Projection with Dual RMS + Quant
+  - author: farlukas · age: 27d · reviewers: claude, dllehr-amd, farlukas, tpopp · last activity: 2026-11-16
+- [#65691 [Perf][Spec Decode] Fused logits gather for the DSpark draft head of opted-in models](https://github.com/vllm-project/vllm/pull/65691) — [Perf][Spec Decode] Fused logits gather for the DSpark draft head of opted-in models
+  - author: MrGeva · age: 12d · reviewers: claude · last activity: 2026-11-16
+- [#67750 [Sampler] Fused in-register top-k/top-p sampler for seeded requests (#54425)](https://github.com/vllm-project/vllm/pull/67750) — [Sampler] Fused in-register top-k/top-p sampler for seeded requests (#54425)
+  - author: bandham-manikanta · age: 1d · reviewers: claude · last activity: 2026-11-16
+- [#65313 [CI/Build] Make Python 3.14 the default for images and CI](https://github.com/vllm-project/vllm/pull/65313) — [CI/Build] Make Python 3.14 the default for images and CI
+  - author: njhill · age: 13d · reviewers: AndreasKaratzas, claude, mgoin, njhill, yewentao256 · last activity: 2026-11-16
+- [#67327 UltraQuant MTP verify and FlyDSL T2 decode](https://github.com/vllm-project/vllm/pull/67327) — UltraQuant MTP verify and FlyDSL T2 decode
+  - author: amd-preetesh · age: 4d · reviewers: aditi-amd · last activity: 2026-11-16
+- [#67983 [Perf][Attention] Run PrefixLM steps as FlashAttention 4 varlen rows on Hopper](https://github.com/vllm-project/vllm/pull/67983) — [Perf][Attention] Run PrefixLM steps as FlashAttention 4 varlen rows on Hopper
+  - author: jjbuck · age: 0d · reviewers: claude · last activity: 2026-11-16
+- [#62933 [KV Offload] Mirror CPU offload region slots across nodes](https://github.com/vllm-project/vllm/pull/62933) — [KV Offload] Mirror CPU offload region slots across nodes
+  - author: javieratomic · age: 26d · reviewers: chatgpt-codex-connector, claude, javieratomic · last activity: 2026-11-16
+- [#63555 [ROCm] GLM-5.3-Flash MonoKernel: MTP verify step](https://github.com/vllm-project/vllm/pull/63555) — [ROCm] GLM-5.3-Flash MonoKernel: MTP verify step
+  - author: amd-sriram · age: 22d · reviewers: — · last activity: 2026-11-16
+- [#63830 [Core][Mamba] Remove mamba_cache_mode](https://github.com/vllm-project/vllm/pull/63830) — [Core][Mamba] Remove mamba_cache_mode
+  - author: ZJY0516 · age: 21d · reviewers: — · last activity: 2026-11-16
+- [#67095 [ROCm][GLM-5.3] Specialized decode for GLM-5.3, on top of #60889](https://github.com/vllm-project/vllm/pull/67095) — [ROCm][GLM-5.3] Specialized decode for GLM-5.3, on top of #60889
+  - author: amd-sriram · age: 5d · reviewers: — · last activity: 2026-11-16
+- [#62955 [Feature][Kernel] Triton autotune lora](https://github.com/vllm-project/vllm/pull/62955) — [Feature][Kernel] Triton autotune lora
+  - author: giuseppegrossi · age: 26d · reviewers: indivats · last activity: 2026-11-16
+- [#61214 [ROCm][MoE] Add AITER Triton MXFP8 MoE backend for gfx942](https://github.com/vllm-project/vllm/pull/61214) — [ROCm][MoE] Add AITER Triton MXFP8 MoE backend for gfx942
+  - author: akii96 · age: 35d · reviewers: akii96, claude, dllehr-amd, fxmarty-amd, okorzh-amd, olka-amd, phambinhfin · last activity: 2026-11-16
+- [#53823 [ROCm][Perf] Prequantized FP8 attention for Qwen3NextAttention with an FP8 KV cache](https://github.com/vllm-project/vllm/pull/53823) — [ROCm][Perf] Prequantized FP8 attention for Qwen3NextAttention with an FP8 KV cache
+  - author: nholmber · age: 82d · reviewers: claude, damien-lejeune, jhartika-amd, mjkvaak-amd, nholmber, simondanielsson, tjtanaa, tpopp · last activity: 2026-11-16
+- [#40792 [Perf][Attention][TurboQuant] Group GQA query heads in k8v4 decode attention](https://github.com/vllm-project/vllm/pull/40792) — [Perf][Attention][TurboQuant] Group GQA query heads in k8v4 decode attention
+  - author: hoseung2 · age: 206d · reviewers: claude, gemini-code-assist, hoseung2, liulanze · last activity: 2026-11-16
+- [#66867 [DSA] Experimental: replicate sparse-MLA attention across TP ranks, with per-step routing](https://github.com/vllm-project/vllm/pull/66867) — [DSA] Experimental: replicate sparse-MLA attention across TP ranks, with per-step routing
+  - author: aijanai · age: 6d · reviewers: — · last activity: 2026-11-16
+- [#66378 [MiniMax-M3] Experimental: replicate attention across TP ranks for slow inter-node TP](https://github.com/vllm-project/vllm/pull/66378) — [MiniMax-M3] Experimental: replicate attention across TP ranks for slow inter-node TP
+  - author: aijanai · age: 8d · reviewers: claude · last activity: 2026-11-16
+- [#66157 [Frontend] Serve PelaAI/KnowLine-35B-A3B-Gen1.5 on /v1/systemone](https://github.com/vllm-project/vllm/pull/66157) — [Frontend] Serve PelaAI/KnowLine-35B-A3B-Gen1.5 on /v1/systemone
+  - author: rooty0 · age: 10d · reviewers: claude, rooty0, simon-veitner-redhat, simveit · last activity: 2026-11-16
+- [#65066 [BI][DSv4.1] Run mHC on fixed-split TileLang kernels under batch invariance](https://github.com/vllm-project/vllm/pull/65066) — [BI][DSv4.1] Run mHC on fixed-split TileLang kernels under batch invariance
+  - author: 0z5a · age: 14d · reviewers: — · last activity: 2026-11-16
+- [#58838 [vLLM IR][RoPE] Port base RotaryEmbedding to a vLLM IR op (CUDA + ROCm/AITER)](https://github.com/vllm-project/vllm/pull/58838) — [vLLM IR][RoPE] Port base RotaryEmbedding to a vLLM IR op (CUDA + ROCm/AITER)
+  - author: mpashkovskii · age: 51d · reviewers: claude, okorzh-amd, olka-amd, simondanielsson · last activity: 2026-11-16
+- [#67285 [Qwen3.5] Experimental: replicate the dense MLP across TP ranks (VLLM_QWEN3_5_REPLICATE_FFN)](https://github.com/vllm-project/vllm/pull/67285) — [Qwen3.5] Experimental: replicate the dense MLP across TP ranks (VLLM_QWEN3_5_REPLICATE_FFN)
+  - author: aijanai · age: 4d · reviewers: — · last activity: 2026-11-16
+- [#66869 [DeepSeek-V4.1] Experimental: replicate attention across TP ranks for slow inter-node TP](https://github.com/vllm-project/vllm/pull/66869) — [DeepSeek-V4.1] Experimental: replicate attention across TP ranks for slow inter-node TP
+  - author: aijanai · age: 6d · reviewers: — · last activity: 2026-11-16
+- [#66868 [GLM-5.x-Next] Experimental: replicate KDA and MLA mixers across TP ranks for slow inter-node TP](https://github.com/vllm-project/vllm/pull/66868) — [GLM-5.x-Next] Experimental: replicate KDA and MLA mixers across TP ranks for slow inter-node TP
+  - author: aijanai · age: 6d · reviewers: — · last activity: 2026-11-16
+- [#67044 [Determinism] Canonical sparse-indexer top-k: deterministic set and order behind VLLM_DETERMINISTIC_SPARSE_TOPK](https://github.com/vllm-project/vllm/pull/67044) — [Determinism] Canonical sparse-indexer top-k: deterministic set and order behind VLLM_DETERMINISTIC_SPARSE_TOPK
+  - author: aijanai · age: 5d · reviewers: claude · last activity: 2026-11-16
+- [#67715 [Bugfix][LoRA] Fail only the request when an adapter cannot be loaded](https://github.com/vllm-project/vllm/pull/67715) — [Bugfix][LoRA] Fail only the request when an adapter cannot be loaded
+  - author: BitlyTwiser · age: 2d · reviewers: BitlyTwiser, LinzeShi, claude · last activity: 2026-11-16
+- [#62516 [Attention][FlashInfer] DiffusionGemma: mixed causal/bidirectional attention on TRTLLM-Gen, default for text-only SM100/SM103](https://github.com/vllm-project/vllm/pull/62516) — [Attention][FlashInfer] DiffusionGemma: mixed causal/bidirectional attention on TRTLLM-Gen, default for text-only SM1...
+  - author: jhaotingc · age: 28d · reviewers: claude, jhaotingc, simon-veitner-redhat · last activity: 2026-11-16
+- [#67990 Waqahmed/silotiger 1364 base (do not merge)](https://github.com/vllm-project/vllm/pull/67990) — Waqahmed/silotiger 1364 base (do not merge)
+  - author: waqahmed-amd-fi · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#67977 [CI][ROCm] Check the monokernel transcendentals, reductions and MFMA](https://github.com/vllm-project/vllm/pull/67977) — [CI][ROCm] Check the monokernel transcendentals, reductions and MFMA
+  - author: divakar-amd · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#67559 [KV Connector] Spec-driven TP slicing for NIXL](https://github.com/vllm-project/vllm/pull/67559) — [KV Connector] Spec-driven TP slicing for NIXL
+  - author: ZhanqiuHu · age: 3d · reviewers: — · last activity: 2026-11-16
+- [#61962 [AMD][DSV4.1Flash] Quantize MoE activations to MXFP8 before the MoRI dispatch](https://github.com/vllm-project/vllm/pull/61962) — [AMD][DSV4.1Flash] Quantize MoE activations to MXFP8 before the MoRI dispatch
+  - author: heachary · age: 31d · reviewers: Rohan138, bnellnm, claude, fxmarty-amd, heachary, okorzh-amd · last activity: 2026-11-16
+- [#60648 feat: Add Omni support to the Transformers backend](https://github.com/vllm-project/vllm/pull/60648) — feat: Add Omni support to the Transformers backend
+  - author: harshaljanjani · age: 39d · reviewers: claude, harshaljanjani, hmellor, zucchini-nlp · last activity: 2026-11-16
+- [#66707 [Bugfix][Benchmark] Keep vllm-bench warmups and ready check out of the prefix cache](https://github.com/vllm-project/vllm/pull/66707) — [Bugfix][Benchmark] Keep vllm-bench warmups and ready check out of the prefix cache
+  - author: devanshi-code18 · age: 6d · reviewers: apex-mochen, claude, devanshi-code18, dilberx · last activity: 2026-11-16
+- [#58672 [Refactor][MoE] Migrate Quark static INT8 to the MoE oracle](https://github.com/vllm-project/vllm/pull/58672) — [Refactor][MoE] Migrate Quark static INT8 to the MoE oracle
+  - author: Taimys · age: 52d · reviewers: Taimys, bnellnm, claude, fxmarty-amd · last activity: 2026-11-16
+- [#67678 [ROCm][Qwen3.8] Specialized decode: MTP verify steps for Qwen3.8-2.4T (--monokernel)](https://github.com/vllm-project/vllm/pull/67678) — [ROCm][Qwen3.8] Specialized decode: MTP verify steps for Qwen3.8-2.4T (--monokernel)
+  - author: mjkvaak-amd · age: 2d · reviewers: — · last activity: 2026-11-16
+- [#66872 [NemotronH] Experimental: replicate Mamba2 and attention mixers across TP ranks for slow inter-node TP](https://github.com/vllm-project/vllm/pull/66872) — [NemotronH] Experimental: replicate Mamba2 and attention mixers across TP ranks for slow inter-node TP
+  - author: aijanai · age: 6d · reviewers: — · last activity: 2026-11-16
+- [#66871 [Muse Spark] Experimental: replicate attention across TP ranks for slow inter-node TP](https://github.com/vllm-project/vllm/pull/66871) — [Muse Spark] Experimental: replicate attention across TP ranks for slow inter-node TP
+  - author: aijanai · age: 6d · reviewers: — · last activity: 2026-11-16
+- [#66870 [Qwen4Exp] Experimental: replicate GDN and QSA mixers across TP ranks for slow inter-node TP](https://github.com/vllm-project/vllm/pull/66870) — [Qwen4Exp] Experimental: replicate GDN and QSA mixers across TP ranks for slow inter-node TP
+  - author: aijanai · age: 6d · reviewers: — · last activity: 2026-11-16
+- [#66734 [Bugfix] DBO and async EP fixes: Quark MoE shared experts, text-only multimodal DBO, padding-only DBO microbatch](https://github.com/vllm-project/vllm/pull/66734) — [Bugfix] DBO and async EP fixes: Quark MoE shared experts, text-only multimodal DBO, padding-only DBO microbatch
+  - author: ChengYM5685 · age: 6d · reviewers: ChengYM5685, claude, okorzh-amd · last activity: 2026-11-16
+- [#66916 [Bugfix] TP ranks agree on the sampler backend and refuse mismatched sampling config](https://github.com/vllm-project/vllm/pull/66916) — [Bugfix] TP ranks agree on the sampler backend and refuse mismatched sampling config
+  - author: aijanai · age: 6d · reviewers: claude · last activity: 2026-11-16
+- [#66526 [Misc] VLLM_TRITON_SYNC_AUTOTUNE_TP: same Triton autotune choice on every TP rank](https://github.com/vllm-project/vllm/pull/66526) — [Misc] VLLM_TRITON_SYNC_AUTOTUNE_TP: same Triton autotune choice on every TP rank
+  - author: aijanai · age: 7d · reviewers: claude · last activity: 2026-11-16
+- [#65224 [ROCm][Perf][GLM-5.3-Flash] Split decodes off the AITER FlashKDA prefill on gfx950](https://github.com/vllm-project/vllm/pull/65224) — [ROCm][Perf][GLM-5.3-Flash] Split decodes off the AITER FlashKDA prefill on gfx950
+  - author: waqahmed-amd-fi · age: 14d · reviewers: — · last activity: 2026-11-16
+- [#66456 [MoE][Kernel] Support MXFP8 in FlashInfer CuteDSL batched experts for DeepEP low-latency](https://github.com/vllm-project/vllm/pull/66456) — [MoE][Kernel] Support MXFP8 in FlashInfer CuteDSL batched experts for DeepEP low-latency
+  - author: Aneureka · age: 7d · reviewers: Aneureka, claude, qiching · last activity: 2026-11-16
+- [#66749 [Kernel][MoE] Add FlashInfer CuTe-DSL unquantized MoE backend for Hopper (SM90)](https://github.com/vllm-project/vllm/pull/66749) — [Kernel][MoE] Add FlashInfer CuTe-DSL unquantized MoE backend for Hopper (SM90)
+  - author: Aneureka · age: 6d · reviewers: Aneureka, claude, qiching · last activity: 2026-11-16
+- [#67965 [KV Connector] Let a KV connector receive hidden states](https://github.com/vllm-project/vllm/pull/67965) — [KV Connector] Let a KV connector receive hidden states
+  - author: olka-amd · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#67523 [Test][ROCm] Move Kimi-K3 AMD tests and added parity to nvidia](https://github.com/vllm-project/vllm/pull/67523) — [Test][ROCm] Move Kimi-K3 AMD tests and added parity to nvidia
+  - author: giuseppegrossi · age: 3d · reviewers: claude · last activity: 2026-11-16
+- [#60988 [Feature][Frontend] Add optional fastapi-guard security middleware](https://github.com/vllm-project/vllm/pull/60988) — [Feature][Frontend] Add optional fastapi-guard security middleware
+  - author: rennf93 · age: 37d · reviewers: claude · last activity: 2026-11-16
+- [#67737 [Core][KVConnector] P/D pauses for RL weight updates: transfer ledger + mode-keyed pause table (RFC #66231, variant A)](https://github.com/vllm-project/vllm/pull/67737) — [Core][KVConnector] P/D pauses for RL weight updates: transfer ledger + mode-keyed pause table (RFC #66231, variant A)
+  - author: BeichenHuang · age: 1d · reviewers: — · last activity: 2026-11-16
+- [#61276 [Transformers backend] Run the output head of causal models](https://github.com/vllm-project/vllm/pull/61276) — [Transformers backend] Run the output head of causal models
+  - author: hmellor · age: 35d · reviewers: — · last activity: 2026-11-16
+- [#66221 [Quantization] feat: add support for lossless NF12 online quantization](https://github.com/vllm-project/vllm/pull/66221) — [Quantization] feat: add support for lossless NF12 online quantization
+  - author: AlpinDale · age: 9d · reviewers: AlpinDale, chatgpt-codex-connector, claude, mgoin · last activity: 2026-11-16
+- [#66088 [Bugfix] Make GLM-5.3 sparse MLA batch invariant under VLLM_BATCH_INVARIANT](https://github.com/vllm-project/vllm/pull/66088) — [Bugfix] Make GLM-5.3 sparse MLA batch invariant under VLLM_BATCH_INVARIANT
+  - author: Wangyuaneee123 · age: 10d · reviewers: claude, yewentao256 · last activity: 2026-11-16
+- [#62728 [Frontend] Port the Muse Spark parsers to the streaming parser engine](https://github.com/vllm-project/vllm/pull/62728) — [Frontend] Port the Muse Spark parsers to the streaming parser engine
+  - author: samayp01 · age: 27d · reviewers: chaunceyjiang, claude · last activity: 2026-11-16
+- [#67811 [Scheduler][RFC] Opt-in adaptive prefill time budget](https://github.com/vllm-project/vllm/pull/67811) — [Scheduler][RFC] Opt-in adaptive prefill time budget
+  - author: matrixarkai · age: 1d · reviewers: — · last activity: 2026-11-16
+- [#67939 [KV Connector] Validate Mooncake results and complete failed transfers](https://github.com/vllm-project/vllm/pull/67939) — [KV Connector] Validate Mooncake results and complete failed transfers
+  - author: hj-mistral · age: 0d · reviewers: NickLucche, claude · last activity: 2026-11-16
+- [#64893 [Perf][DSv4.1] DeepSeek-V4.1-Flash specialized decode on Hopper (H200 TP4)](https://github.com/vllm-project/vllm/pull/64893) — [Perf][DSv4.1] DeepSeek-V4.1-Flash specialized decode on Hopper (H200 TP4)
+  - author: mgoin · age: 16d · reviewers: claude · last activity: 2026-11-16
+- [#67325 [Model] Add Inkling 2 Small](https://github.com/vllm-project/vllm/pull/67325) — [Model] Add Inkling 2 Small
+  - author: WoosukKwon · age: 4d · reviewers: BugenZhao, benthecarman, claude, jamesETsmith · last activity: 2026-11-16
+- [#63674 [Feature][ROCm] Add MoRI-IO data transport for the EC CPU connector](https://github.com/vllm-project/vllm/pull/63674) — [Feature][ROCm] Add MoRI-IO data transport for the EC CPU connector
+  - author: nitsingh2 · age: 21d · reviewers: claude, nitsingh2, vcave · last activity: 2026-11-16
+- [#67978 [Model] Add Lara Mini support](https://github.com/vllm-project/vllm/pull/67978) — [Model] Add Lara Mini support
+  - author: ValeGian · age: 0d · reviewers: claude · last activity: 2026-11-16
+- [#63568 [ROCm][Perf] Add AITER FlashKDA prefill backend for GLM KDA](https://github.com/vllm-project/vllm/pull/63568) — [ROCm][Perf] Add AITER FlashKDA prefill backend for GLM KDA
+  - author: eppaneamd · age: 22d · reviewers: claude, eppaneamd, jhartika-amd, vviitani-amd · last activity: 2026-11-16
+- [#60014 [Refactor] Add declarative env var registry (stage 1 of #31249)](https://github.com/vllm-project/vllm/pull/60014) — [Refactor] Add declarative env var registry (stage 1 of #31249)
+  - author: Varun072006 · age: 42d · reviewers: claude · last activity: 2026-11-16
+- [#61091 [ROCm][Perf] Add native per-token FP8 Triton linear backend and RDNA4 tuning](https://github.com/vllm-project/vllm/pull/61091) — [ROCm][Perf] Add native per-token FP8 Triton linear backend and RDNA4 tuning
+  - author: big-yellow-duck · age: 36d · reviewers: big-yellow-duck, claude, simondanielsson · last activity: 2026-11-16
+- [#58650 [ROCm][Attention] Shape-aware split-KV and launch config for Triton DiffKV (gfx950)](https://github.com/vllm-project/vllm/pull/58650) — [ROCm][Attention] Shape-aware split-KV and launch config for Triton DiffKV (gfx950)
+  - author: akii96 · age: 53d · reviewers: akii96, claude, okorzh-amd, simondanielsson · last activity: 2026-11-16
+- [#66068 [ROCm][Quantization] Add tuned W8A8 block-FP8 Triton GEMM configs for MI355X](https://github.com/vllm-project/vllm/pull/66068) — [ROCm][Quantization] Add tuned W8A8 block-FP8 Triton GEMM configs for MI355X
+  - author: ZhengGong-amd · age: 10d · reviewers: claude, simondanielsson · last activity: 2026-11-16
+- [#67536 [Perf][GLM-5.3-Flash] Specialized decode on Hopper (H200 TP4)](https://github.com/vllm-project/vllm/pull/67536) — [Perf][GLM-5.3-Flash] Specialized decode on Hopper (H200 TP4)
+  - author: ischencheng · age: 3d · reviewers: claude · last activity: 2026-11-16
+- [#67560 [ROCm][DSv4.1] Enable Tensor scale FP8 KV Cache for Sparse MLA of Mono Kernel](https://github.com/vllm-project/vllm/pull/67560) — [ROCm][DSv4.1] Enable Tensor scale FP8 KV Cache for Sparse MLA of Mono Kernel
+  - author: cagrikymk · age: 3d · reviewers: claude · last activity: 2026-11-16
+- [#66234 [Refactor][KV Cache] Remove EAGLE block dropping and default to lookahead hashes](https://github.com/vllm-project/vllm/pull/66234) — [Refactor][KV Cache] Remove EAGLE block dropping and default to lookahead hashes
+  - author: andakai · age: 9d · reviewers: ZJY0516, andakai, claude · last activity: 2026-11-16
+- [#67902 [1/4][Rust Frontend] Add rust shm obj storage implementation](https://github.com/vllm-project/vllm/pull/67902) — [1/4][Rust Frontend] Add rust shm obj storage implementation
+  - author: Isotr0py · age: 0d · reviewers: claude · last activity: 2026-11-16
+- [#65613 [KV Transfer] Integrate layerwise transfer into MooncakeConnector](https://github.com/vllm-project/vllm/pull/65613) — [KV Transfer] Integrate layerwise transfer into MooncakeConnector
+  - author: yiz-liu · age: 12d · reviewers: claude, nwpu-zxr, wangxiyuan, yiz-liu · last activity: 2026-11-16
+- [#65018 [Feature][Frontend] Add metadata value to mm_payload on render requests](https://github.com/vllm-project/vllm/pull/65018) — [Feature][Frontend] Add metadata value to mm_payload on render requests
+  - author: subhashpolisetti · age: 15d · reviewers: DarkLight1337, apex-mochen, claude, hickeyma, subhashpolisetti · last activity: 2026-11-16
+- [#65779 [Frontend] Stream diarized_json transcriptions as segment events](https://github.com/vllm-project/vllm/pull/65779) — [Frontend] Stream diarized_json transcriptions as segment events
+  - author: twu3202 · age: 12d · reviewers: claude · last activity: 2026-11-16
+- [#67961 [KV Offload] add mode (read|write|readwrite) to multi-tier](https://github.com/vllm-project/vllm/pull/67961) — [KV Offload] add mode (read|write|readwrite) to multi-tier
+  - author: effi-ofer · age: 0d · reviewers: claude · last activity: 2026-11-16
+- [#65777 [Frontend][Realtime] Add server-side turn detection (server_vad / semantic_vad) to /v1/realtime](https://github.com/vllm-project/vllm/pull/65777) — [Frontend][Realtime] Add server-side turn detection (server_vad / semantic_vad) to /v1/realtime
+  - author: twu3202 · age: 12d · reviewers: claude · last activity: 2026-11-16
+- [#67463 [Bugfix][LoRA] Set multimodal tower/connector LoRA mappings per encoder batch](https://github.com/vllm-project/vllm/pull/67463) — [Bugfix][LoRA] Set multimodal tower/connector LoRA mappings per encoder batch
+  - author: yibol9768-alt · age: 3d · reviewers: Nan2018, claude · last activity: 2026-11-16
+- [#67932 [Draft] Add per-expert EPLB topology and token metrics](https://github.com/vllm-project/vllm/pull/67932) — [Draft] Add per-expert EPLB topology and token metrics
+  - author: itaijj · age: 0d · reviewers: claude · last activity: 2026-11-16
+- [#59492 [Feature] Enable triton autotuning for config reliant kernels](https://github.com/vllm-project/vllm/pull/59492) — [Feature] Enable triton autotuning for config reliant kernels
+  - author: giuseppegrossi · age: 47d · reviewers: claude, indivats · last activity: 2026-11-16
+- [#53876 [Core] Bounded-memory streaming sessions: retention, in-place KV eviction, consolidation](https://github.com/vllm-project/vllm/pull/53876) — [Core] Bounded-memory streaming sessions: retention, in-place KV eviction, consolidation
+  - author: nvbfalk · age: 82d · reviewers: — · last activity: 2026-11-16
+- [#66996 [LoRA] Synchronize MoE adapter slots across DP/EP ranks](https://github.com/vllm-project/vllm/pull/66996) — [LoRA] Synchronize MoE adapter slots across DP/EP ranks
+  - author: jeejeelee · age: 5d · reviewers: claude, linitra24 · last activity: 2026-11-16
+- [#64672 [Model] Add Raon-1-mini support](https://github.com/vllm-project/vllm/pull/64672) — [Model] Add Raon-1-mini support
+  - author: ugonfor · age: 17d · reviewers: claude · last activity: 2026-11-16
+- [#61662 [ROCm][Perf][GLM-5.3-Flash] Mono decode layer for GLM-5.3-Flash on MI355X](https://github.com/vllm-project/vllm/pull/61662) — [ROCm][Perf][GLM-5.3-Flash] Mono decode layer for GLM-5.3-Flash on MI355X
+  - author: amd-sriram · age: 33d · reviewers: amd-sriram, claude, dllehr-amd, jhartika-amd, okorzh-amd, simondanielsson · last activity: 2026-11-16
+- [#67168 [Bugfix][Multimodal] Honor Gemma 4 image resize settings](https://github.com/vllm-project/vllm/pull/67168) — [Bugfix][Multimodal] Honor Gemma 4 image resize settings
+  - author: maithilijoshi20 · age: 4d · reviewers: — · last activity: 2026-11-16
+- [#67058 [Bugfix] Extend --chat-template-content-format to cross-encoder scoring](https://github.com/vllm-project/vllm/pull/67058) — [Bugfix] Extend --chat-template-content-format to cross-encoder scoring
+  - author: oliverholworthy · age: 5d · reviewers: DarkLight1337, claude, oliverholworthy · last activity: 2026-11-16
+- [#63229 [ROCm][MoE] Move AITER MegaMoEV2 To Oracle](https://github.com/vllm-project/vllm/pull/63229) — [ROCm][MoE] Move AITER MegaMoEV2 To Oracle
+  - author: micah-wil · age: 25d · reviewers: claude, fxmarty-amd, micah-wil, simondanielsson · last activity: 2026-11-16
+- [#60358 [ROCm] [Feat] Enable HiSparse on ROCm](https://github.com/vllm-project/vllm/pull/60358) — [ROCm] [Feat] Enable HiSparse on ROCm
+  - author: tjtanaa · age: 40d · reviewers: — · last activity: 2026-11-16
+- [#67816 [KV Offload] generic backend for KV cache DRAM offload](https://github.com/vllm-project/vllm/pull/67816) — [KV Offload] generic backend for KV cache DRAM offload
+  - author: rikvanriel · age: 1d · reviewers: claude · last activity: 2026-11-16
+- [#65061 [BI][DSv4.1] Make FlashMLA sparse attention and the indexer batch invariant](https://github.com/vllm-project/vllm/pull/65061) — [BI][DSv4.1] Make FlashMLA sparse attention and the indexer batch invariant
+  - author: 0z5a · age: 14d · reviewers: — · last activity: 2026-11-16
+- [#65053 [BI][DSv4.1] Make dense projections, norms and logprobs batch invariant](https://github.com/vllm-project/vllm/pull/65053) — [BI][DSv4.1] Make dense projections, norms and logprobs batch invariant
+  - author: 0z5a · age: 14d · reviewers: claude · last activity: 2026-11-16
+- [#65052 [BI] Add the batch-invariant CUDA op library](https://github.com/vllm-project/vllm/pull/65052) — [BI] Add the batch-invariant CUDA op library
+  - author: 0z5a · age: 14d · reviewers: — · last activity: 2026-11-16
+- [#66662 [Perf] Batch and CUDA-graph the Voxtral Realtime audio frontend](https://github.com/vllm-project/vllm/pull/66662) — [Perf] Batch and CUDA-graph the Voxtral Realtime audio frontend
+  - author: Moumeneb1 · age: 7d · reviewers: DarkLight1337, Moumeneb1, apex-mochen, claude · last activity: 2026-11-16
+- [#67480 [Bugfix][Parser] Reject tool calls that omit schema-required arguments](https://github.com/vllm-project/vllm/pull/67480) — [Bugfix][Parser] Reject tool calls that omit schema-required arguments
+  - author: perrypeng-peng · age: 3d · reviewers: LinzeShi, claude, perrypeng-peng, smiyamoto3 · last activity: 2026-11-16
+- [#56327 [LoRA][Model] Add LoRA support for GLM-5.3-Flash](https://github.com/vllm-project/vllm/pull/56327) — [LoRA][Model] Add LoRA support for GLM-5.3-Flash
+  - author: HollowMan6 · age: 67d · reviewers: HollowMan6, claude, copilot-pull-request-reviewer, linitra24 · last activity: 2026-11-16
+- [#60338 [Benchmark] NVIDIA Confidential Computing CPU<->GPU bridge microbench](https://github.com/vllm-project/vllm/pull/60338) — [Benchmark] NVIDIA Confidential Computing CPU<->GPU bridge microbench
+  - author: Alex-Carter01 · age: 40d · reviewers: claude, hmellor · last activity: 2026-11-16
+- [#65064 [BI][DSv4.1] Make SWA bounded replay exact under batch invariance](https://github.com/vllm-project/vllm/pull/65064) — [BI][DSv4.1] Make SWA bounded replay exact under batch invariance
+  - author: 0z5a · age: 14d · reviewers: — · last activity: 2026-11-16
+- [#67350 [PP][MRV2] Add per-field tensor layouts for pipeline transport](https://github.com/vllm-project/vllm/pull/67350) — [PP][MRV2] Add per-field tensor layouts for pipeline transport
+  - author: LostFox11 · age: 4d · reviewers: — · last activity: 2026-11-16
+- [#65403 [Perf][Sparse MLA][GLM-5.3] Index-group workspace savings and opt-in masked-MHA prefill on quantized KV](https://github.com/vllm-project/vllm/pull/65403) — [Perf][Sparse MLA][GLM-5.3] Index-group workspace savings and opt-in masked-MHA prefill on quantized KV
+  - author: gaby · age: 13d · reviewers: apex-mochen, chatgpt-codex-connector, claude · last activity: 2026-11-16
+- [#46742 [ROCm] [Feat] TokenSpeed MHA integration for GPTOSS](https://github.com/vllm-project/vllm/pull/46742) — [ROCm] [Feat] TokenSpeed MHA integration for GPTOSS
+  - author: tjtanaa · age: 144d · reviewers: — · last activity: 2026-11-16
+- [#67198 [Perf][Mamba] Mamba2 SSD prefill dispatch: FlashInfer for checkpoint prefills, per-phase backend flags](https://github.com/vllm-project/vllm/pull/67198) — [Perf][Mamba] Mamba2 SSD prefill dispatch: FlashInfer for checkpoint prefills, per-phase backend flags
+  - author: roikoren755 · age: 4d · reviewers: claude · last activity: 2026-11-16
+- [#67847 [ROCm][Perf][Kimi-K3.1] Fuse the DSA decode prologue](https://github.com/vllm-project/vllm/pull/67847) — [ROCm][Perf][Kimi-K3.1] Fuse the DSA decode prologue
+  - author: nsusanto · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#62504 [Feature][KV Connector][Mooncake] Add layerwise and chunk-wise KV transfer](https://github.com/vllm-project/vllm/pull/62504) — [Feature][KV Connector][Mooncake] Add layerwise and chunk-wise KV transfer
+  - author: nwpu-zxr · age: 28d · reviewers: claude · last activity: 2026-11-16
+- [#67770 [Spec Decode] Add an independent draft temperature](https://github.com/vllm-project/vllm/pull/67770) — [Spec Decode] Add an independent draft temperature
+  - author: roikoren755 · age: 1d · reviewers: claude · last activity: 2026-11-16
+- [#64364 [Perf][DSv4.1] Improve the TP4 concurrency-1 specialized decode](https://github.com/vllm-project/vllm/pull/64364) — [Perf][DSv4.1] Improve the TP4 concurrency-1 specialized decode
+  - author: abmfy · age: 19d · reviewers: claude · last activity: 2026-11-16
+- [#66785 [Feature] extract_hidden_states: stream hidden states to CPU pages with token-hash prefix backfill](https://github.com/vllm-project/vllm/pull/66785) — [Feature] extract_hidden_states: stream hidden states to CPU pages with token-hash prefix backfill
+  - author: sunny-infra · age: 6d · reviewers: LinzeShi, claude · last activity: 2026-11-16
+- [#67445 [ROCm][RDNA] ROCM_RDNA_ATTN: gfx1150..gfx1153 and RDNA4 tables, default on gfx115x](https://github.com/vllm-project/vllm/pull/67445) — [ROCm][RDNA] ROCM_RDNA_ATTN: gfx1150..gfx1153 and RDNA4 tables, default on gfx115x
+  - author: roberteg16 · age: 3d · reviewers: claude · last activity: 2026-11-16
+- [#67149 [Kernel] Selectable fused MQA+top-k prefill backend: add FlashTopK (SM90, SM100)](https://github.com/vllm-project/vllm/pull/67149) — [Kernel] Selectable fused MQA+top-k prefill backend: add FlashTopK (SM90, SM100)
+  - author: Ma1oneZhang · age: 4d · reviewers: LopezCastroRoberto, claude · last activity: 2026-11-16
+- [#57 SM90 Mega MoE: FP8 routed experts with FP32 128x128 block scales (GLM-5.3-Flash)](https://github.com/vllm-project/DeepGEMM/pull/57) — SM90 Mega MoE: FP8 routed experts with FP32 128x128 block scales (GLM-5.3-Flash)
+  - author: simon-veitner-redhat · age: 6d · reviewers: — · last activity: 2026-11-13
+- [#61 [SM120] Add experimental FP8 x MXFP4 MegaMoE](https://github.com/vllm-project/DeepGEMM/pull/61) — [SM120] Add experimental FP8 x MXFP4 MegaMoE
+  - author: WhiteNight123 · age: 4d · reviewers: copilot-pull-request-reviewer · last activity: 2026-11-13
+- [#55 [Sync] SM90 MegaMoE (cooperative) from deepseek-ai/DeepGEMM#360](https://github.com/vllm-project/DeepGEMM/pull/55) — [Sync] SM90 MegaMoE (cooperative) from deepseek-ai/DeepGEMM#360
+  - author: new-TonyWang · age: 10d · reviewers: — · last activity: 2026-11-06
+- [#53 feat: add SM90 support for BF16 Mega Gate](https://github.com/vllm-project/DeepGEMM/pull/53) — feat: add SM90 support for BF16 Mega Gate
+  - author: chaunceyjiang · age: 13d · reviewers: — · last activity: 2026-11-03
+- [#28 [SM120] Support 128-state pages in FP8 paged-MQA logits](https://github.com/vllm-project/DeepGEMM/pull/28) — [SM120] Support 128-state pages in FP8 paged-MQA logits
+  - author: yyihuang · age: 41d · reviewers: — · last activity: 2026-10-19
+- [#25 [SM100] Add paired MXFP4 BF16 paged MQA producer for LiteTopK decode](https://github.com/vllm-project/DeepGEMM/pull/25) — [SM100] Add paired MXFP4 BF16 paged MQA producer for LiteTopK decode
+  - author: Heisenberg-Yin · age: 43d · reviewers: — · last activity: 2026-10-10
+- [#2 Add native SM120 and SM121 TopK with PyTorch stable ABI](https://github.com/vllm-project/DeepSelect/pull/2) — Add native SM120 and SM121 TopK with PyTorch stable ABI
+  - author: lucifer1004 · age: 62d · reviewers: — · last activity: 2026-09-15
+- [#44 [Perf] Split Hopper BF16 ETAP KV work across CTAs for small query batches](https://github.com/vllm-project/FlashMLA/pull/44) — [Perf] Split Hopper BF16 ETAP KV work across CTAs for small query batches
+  - author: zhangxin81 · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#36 [Feature] Add native SM120 (sm_120a) support](https://github.com/vllm-project/FlashMLA/pull/36) — [Feature] Add native SM120 (sm_120a) support
+  - author: DarkOfTheMoon · age: 21d · reviewers: — · last activity: 2026-10-30
+- [#2 upstream sync](https://github.com/vllm-project/FlashMLA/pull/2) — upstream sync
+  - author: LucasWilkinson · age: 472d · reviewers: — · last activity: 2026-10-27
+- [#31 small-head sparse decode on SM90](https://github.com/vllm-project/FlashMLA/pull/31) — small-head sparse decode on SM90
+  - author: chaunceyjiang · age: 27d · reviewers: — · last activity: 2026-10-20
+- [#1 upstream sync](https://github.com/vllm-project/FlashMLA/pull/1) — upstream sync
+  - author: LucasWilkinson · age: 472d · reviewers: — · last activity: 2025-10-16
+- [#49 [Feature][Attention] Q8KV4 decode and prefill: optional MXFP8 output](https://github.com/vllm-project/MSA/pull/49) — [Feature][Attention] Q8KV4 decode and prefill: optional MXFP8 output
+  - author: zyongye · age: 10d · reviewers: — · last activity: 2026-11-06
+- [#46 [Feature] Add MiniMax M3 indexer context-parallel kernels](https://github.com/vllm-project/MSA/pull/46) — [Feature] Add MiniMax M3 indexer context-parallel kernels
+  - author: wolfcomos · age: 22d · reviewers: — · last activity: 2026-10-29
+- [#593 Refactor(moe): share remote MoE runners for GPU P2P.](https://github.com/vllm-project/afd-plugin/pull/593) — Refactor(moe): share remote MoE runners for GPU P2P.
+  - author: Mohammad-nassar10 · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#578 [GPU] Qwen3-30B-A3B standalone FFN service (re-opened)](https://github.com/vllm-project/afd-plugin/pull/578) — [GPU] Qwen3-30B-A3B standalone FFN service (re-opened)
+  - author: ronenkat · age: 3d · reviewers: Etelis · last activity: 2026-11-16
+- [#580 [GPU] Add MRV2 async GPU connector with NVSHMEM cross-node transport](https://github.com/vllm-project/afd-plugin/pull/580) — [GPU] Add MRV2 async GPU connector with NVSHMEM cross-node transport
+  - author: specture724 · age: 2d · reviewers: jiangkuaixue123, ronenkat · last activity: 2026-11-16
+- [#506 feat(npu): carry a pre-quantized activation over the sync A2E transport](https://github.com/vllm-project/afd-plugin/pull/506) — feat(npu): carry a pre-quantized activation over the sync A2E transport
+  - author: Pingzii · age: 18d · reviewers: jiangkuaixue123 · last activity: 2026-11-16
+- [#534 [NPU] Add DeepSeek-V4.1 flash AFD role split](https://github.com/vllm-project/afd-plugin/pull/534) — [NPU] Add DeepSeek-V4.1 flash AFD role split
+  - author: wangyao-i · age: 12d · reviewers: jiangkuaixue123 · last activity: 2026-11-13
+- [#530 feat(npu): add MiniMax-M3 AFD role split](https://github.com/vllm-project/afd-plugin/pull/530) — feat(npu): add MiniMax-M3 AFD role split
+  - author: wangyao-i · age: 13d · reviewers: jiangkuaixue123 · last activity: 2026-11-13
+- [#523 feat(elastic): AFD elastic scaling for Ascend NPU](https://github.com/vllm-project/afd-plugin/pull/523) — feat(elastic): AFD elastic scaling for Ascend NPU
+  - author: yzchang-plus · age: 14d · reviewers: jiangkuaixue123 · last activity: 2026-11-13
+- [#492 feat(gpu): run Qwen3 MoE on FastAFDAFDConnector](https://github.com/vllm-project/afd-plugin/pull/492) — feat(gpu): run Qwen3 MoE on FastAFDAFDConnector
+  - author: ischencheng · age: 24d · reviewers: — · last activity: 2026-11-13
+- [#468 [Feat]: Add runtime FULL and LIGHTWEIGHT profiling for Async CAM](https://github.com/vllm-project/afd-plugin/pull/468) — [Feat]: Add runtime FULL and LIGHTWEIGHT profiling for Async CAM
+  - author: lirx-pd · age: 28d · reviewers: jiangkuaixue123, lirx-pd · last activity: 2026-11-13
+- [#444 [WIP] feat(npu): support MXFP8 datatype for A2E operator](https://github.com/vllm-project/afd-plugin/pull/444) — [WIP] feat(npu): support MXFP8 datatype for A2E operator
+  - author: wangyibo1005 · age: 35d · reviewers: — · last activity: 2026-11-11
+- [#489 feat(gpu): add FastAFD M2N connector for SM100](https://github.com/vllm-project/afd-plugin/pull/489) — feat(gpu): add FastAFD M2N connector for SM100
+  - author: ischencheng · age: 25d · reviewers: ischencheng, jiangkuaixue123 · last activity: 2026-10-27
+- [#488 feat: forward one tenant-scoped session id on /v1/messages](https://github.com/vllm-project/agentic-api/pull/488) — feat: forward one tenant-scoped session id on /v1/messages
+  - author: sohom-cs · age: 20d · reviewers: maralbahari, sohom-cs · last activity: 2026-11-17
+- [#553 fix: admit fco_ and other item id prefixes OpenAI accepts](https://github.com/vllm-project/agentic-api/pull/553) — fix: admit fco_ and other item id prefixes OpenAI accepts
+  - author: maralbahari · age: 0d · reviewers: franciscojavierarceo, maralbahari, tjtanaa · last activity: 2026-11-16
+- [#536 feat: resolve Responses file_id references from the Files API](https://github.com/vllm-project/agentic-api/pull/536) — feat: resolve Responses file_id references from the Files API
+  - author: LeaderOnePro · age: 3d · reviewers: copilot-pull-request-reviewer, maralbahari · last activity: 2026-11-16
+- [#425 feat: support MCP connectors on /v1/messages](https://github.com/vllm-project/agentic-api/pull/425) — feat: support MCP connectors on /v1/messages
+  - author: skyloevil · age: 40d · reviewers: maralbahari · last activity: 2026-11-16
+- [#496 feat: run background responses on the HTTP Responses API](https://github.com/vllm-project/agentic-api/pull/496) — feat: run background responses on the HTTP Responses API
+  - author: Zheng-Lu · age: 16d · reviewers: haoshan98 · last activity: 2026-11-16
+- [#278 feat: add indexed pgvector file search storage](https://github.com/vllm-project/agentic-api/pull/278) — feat: add indexed pgvector file search storage
+  - author: franciscojavierarceo · age: 66d · reviewers: — · last activity: 2026-11-15
+- [#280 feat: add contextual retrieval, reranking and vector store configuration](https://github.com/vllm-project/agentic-api/pull/280) — feat: add contextual retrieval, reranking and vector store configuration
+  - author: franciscojavierarceo · age: 66d · reviewers: — · last activity: 2026-11-15
+- [#544 test: record OpenAI replays of gateway calls and pin their model input](https://github.com/vllm-project/agentic-api/pull/544) — test: record OpenAI replays of gateway calls and pin their model input
+  - author: sohom-cs · age: 1d · reviewers: — · last activity: 2026-11-15
+- [#509 ci: guard API routes and storage history against drift](https://github.com/vllm-project/agentic-api/pull/509) — ci: guard API routes and storage history against drift
+  - author: franciscojavierarceo · age: 11d · reviewers: — · last activity: 2026-11-08
+- [#490 feat: draft recursive history query for stored responses](https://github.com/vllm-project/agentic-api/pull/490) — feat: draft recursive history query for stored responses
+  - author: soda4fries · age: 19d · reviewers: jiahuei · last activity: 2026-10-30
+- [#447 chore: add native streaming placement qualification](https://github.com/vllm-project/agentic-api/pull/447) — chore: add native streaming placement qualification
+  - author: LOGO127 · age: 32d · reviewers: — · last activity: 2026-10-21
+- [#382 feat: add shared vLLM Responses event contract](https://github.com/vllm-project/agentic-api/pull/382) — feat: add shared vLLM Responses event contract
+  - author: franciscojavierarceo · age: 52d · reviewers: — · last activity: 2026-09-25
+- [#350 feat: establish provider-aware reasoning replay foundation](https://github.com/vllm-project/agentic-api/pull/350) — feat: establish provider-aware reasoning replay foundation
+  - author: Zheng-Lu · age: 57d · reviewers: Zheng-Lu, copilot-pull-request-reviewer · last activity: 2026-09-25
+- [#284 feat: complete file-search streaming and API compatibility](https://github.com/vllm-project/agentic-api/pull/284) — feat: complete file-search streaming and API compatibility
+  - author: franciscojavierarceo · age: 66d · reviewers: — · last activity: 2026-09-11
+- [#283 feat: add durable vector store batches and owned workers](https://github.com/vllm-project/agentic-api/pull/283) — feat: add durable vector store batches and owned workers
+  - author: franciscojavierarceo · age: 66d · reviewers: — · last activity: 2026-09-11
+- [#282 feat: add vector store updates, content, and expiration](https://github.com/vllm-project/agentic-api/pull/282) — feat: add vector store updates, content, and expiration
+  - author: franciscojavierarceo · age: 66d · reviewers: — · last activity: 2026-09-11
+- [#281 feat: stream Files API uploads and support expiration](https://github.com/vllm-project/agentic-api/pull/281) — feat: stream Files API uploads and support expiration
+  - author: franciscojavierarceo · age: 66d · reviewers: — · last activity: 2026-09-11
+- [#195 docs: specify server-managed prompt cache state for Messages](https://github.com/vllm-project/agentic-api/pull/195) — docs: specify server-managed prompt cache state for Messages
+  - author: franciscojavierarceo · age: 87d · reviewers: — · last activity: 2026-08-21
+- [#65 docs: define and validate KV-affine Responses routing](https://github.com/vllm-project/agentic-api/pull/65) — docs: define and validate KV-affine Responses routing
+  - author: franciscojavierarceo · age: 151d · reviewers: — · last activity: 2026-07-17
+- [#3483 [Feat] Improve gateway shutdown ordering and add bounded request draining](https://github.com/vllm-project/aibrix/pull/3483) — [Feat] Improve gateway shutdown ordering and add bounded request draining
+  - author: rayne-Li · age: 0d · reviewers: gemini-code-assist, rayne-Li, varungup90 · last activity: 2026-11-17
+- [#3470 Feat] Add a probe-driven per-pod blacklist to the gateway](https://github.com/vllm-project/aibrix/pull/3470) — Feat] Add a probe-driven per-pod blacklist to the gateway
+  - author: varungup90 · age: 3d · reviewers: gemini-code-assist, varungup90 · last activity: 2026-11-17
+- [#3481 [Feat] Support Redis Sentinel in the gateway plugin](https://github.com/vllm-project/aibrix/pull/3481) — [Feat] Support Redis Sentinel in the gateway plugin
+  - author: NelZyhh · age: 0d · reviewers: gemini-code-assist, varungup90 · last activity: 2026-11-17
+- [#3436 [Feat] Improve MDS (python metadata service) stress observability and add OpenTSDB dashboard support](https://github.com/vllm-project/aibrix/pull/3436) — [Feat] Improve MDS (python metadata service) stress observability and add OpenTSDB dashboard support
+  - author: zhangjyr · age: 7d · reviewers: gemini-code-assist, varungup90, zhangjyr · last activity: 2026-11-16
+- [#3491 [Bug] Measure load-balance capacity per request so it does not follow traffic share](https://github.com/vllm-project/aibrix/pull/3491) — [Bug] Measure load-balance capacity per request so it does not follow traffic share
+  - author: sh0116 · age: 0d · reviewers: gemini-code-assist · last activity: 2026-11-16
+- [#3484 [Bug] Keep two ModelClaims from sharing an engine under one model name](https://github.com/vllm-project/aibrix/pull/3484) — [Bug] Keep two ModelClaims from sharing an engine under one model name
+  - author: Zeyu-ZEYU · age: 0d · reviewers: Zeyu-ZEYU, gemini-code-assist, varungup90 · last activity: 2026-11-16
+- [#3473 [Bug] Resolve the SGLang prefill queue gauge across its v0.5.12 rename](https://github.com/vllm-project/aibrix/pull/3473) — [Bug] Resolve the SGLang prefill queue gauge across its v0.5.12 rename
+  - author: wynneyin · age: 1d · reviewers: gemini-code-assist, googs1025, varungup90, wynneyin · last activity: 2026-11-16
+- [#3373 [Feat] Predict which pods a Deployment scale-in deletes, for traffic-aware draining](https://github.com/vllm-project/aibrix/pull/3373) — [Feat] Predict which pods a Deployment scale-in deletes, for traffic-aware draining
+  - author: sohom-cs · age: 15d · reviewers: chatgpt-codex-connector, gemini-code-assist, sohom-cs · last activity: 2026-11-15
+- [#3389 [Bug] Reserve inflight slot on local counter at admission (Part of #3346)](https://github.com/vllm-project/aibrix/pull/3389) — [Bug] Reserve inflight slot on local counter at admission (Part of #3346)
+  - author: DsThakurRawat · age: 14d · reviewers: DsThakurRawat, gemini-code-assist, varungup90 · last activity: 2026-11-13
+- [#3252 [Bug] Eject failing prefill pods and roll back unearned prefix credits (#3222)](https://github.com/vllm-project/aibrix/pull/3252) — [Bug] Eject failing prefill pods and roll back unearned prefix credits (#3222)
+  - author: DsThakurRawat · age: 25d · reviewers: gemini-code-assist, varungup90 · last activity: 2026-11-13
+- [#2536 [Misc] Add Prometheus metrics for StormService rollout, replica state, and in-place fallback](https://github.com/vllm-project/aibrix/pull/2536) — [Misc] Add Prometheus metrics for StormService rollout, replica state, and in-place fallback
+  - author: raghavchitkara36 · age: 99d · reviewers: copilot-pull-request-reviewer, gemini-code-assist, googs1025 · last activity: 2026-11-11
+- [#3403 [Feat] Publish downloader metadata for ModelWarmup cache reuse](https://github.com/vllm-project/aibrix/pull/3403) — [Feat] Publish downloader metadata for ModelWarmup cache reuse
+  - author: googs1025 · age: 12d · reviewers: gemini-code-assist · last activity: 2026-11-10
+- [#2812 [Feat] Observe elastic EP scaling state in PodAutoscaler status](https://github.com/vllm-project/aibrix/pull/2812) — [Feat] Observe elastic EP scaling state in PodAutoscaler status
+  - author: bolubo · age: 52d · reviewers: bolubo, copilot-pull-request-reviewer, gemini-code-assist, googs1025 · last activity: 2026-11-10
+- [#2804 [Feat] Record the metric projection in the PodAutoscaler status](https://github.com/vllm-project/aibrix/pull/2804) — [Feat] Record the metric projection in the PodAutoscaler status
+  - author: bolubo · age: 53d · reviewers: bolubo, gemini-code-assist, googs1025 · last activity: 2026-11-09
+- [#3364 [Bug] Count RoleSets, not pods, when a StormService's replicas are RoleSets](https://github.com/vllm-project/aibrix/pull/3364) — [Bug] Count RoleSets, not pods, when a StormService's replicas are RoleSets
+  - author: wguo7 · age: 16d · reviewers: Jeffwan, gemini-code-assist, wguo7 · last activity: 2026-11-05
+- [#3216 [Docs] Add MUSA S5000 inference samples](https://github.com/vllm-project/aibrix/pull/3216) — [Docs] Add MUSA S5000 inference samples
+  - author: googs1025 · age: 27d · reviewers: gemini-code-assist · last activity: 2026-11-03
+- [#3255 [Bug] Retain queued routing contexts until worker cleanup](https://github.com/vllm-project/aibrix/pull/3255) — [Bug] Retain queued routing contexts until worker cleanup
+  - author: LingYi-Liang · age: 25d · reviewers: gemini-code-assist, varungup90 · last activity: 2026-10-29
+- [#2692 [API][CLI] Add etcd-backed service discovery for standalone gateways](https://github.com/vllm-project/aibrix/pull/2692) — [API][CLI] Add etcd-backed service discovery for standalone gateways
+  - author: zupengwang · age: 68d · reviewers: cursor, gemini-code-assist, zupengwang · last activity: 2026-10-07
+- [#2571 feat(gateway): new routing algorithms designed or from papers](https://github.com/vllm-project/aibrix/pull/2571) — feat(gateway): new routing algorithms designed or from papers
+  - author: CarolWinddd · age: 91d · reviewers: gemini-code-assist · last activity: 2026-10-06
+- [#2444 feat: add autoscaler circuit breaker](https://github.com/vllm-project/aibrix/pull/2444) — feat: add autoscaler circuit breaker
+  - author: googs1025 · age: 126d · reviewers: copilot-pull-request-reviewer, gemini-code-assist, googs1025 · last activity: 2026-08-31
+- [#2601 feat(console): persist resource catalog](https://github.com/vllm-project/aibrix/pull/2601) — feat(console): persist resource catalog
+  - author: DwyaneShi · age: 87d · reviewers: DwyaneShi, Jeffwan, gemini-code-assist · last activity: 2026-08-22
+- [#2550 [Misc]Batch: Introduce batch retry_finalize api](https://github.com/vllm-project/aibrix/pull/2550) — [Misc]Batch: Introduce batch retry_finalize api
+  - author: zhangjyr · age: 97d · reviewers: gemini-code-assist · last activity: 2026-08-13
+- [#1836 [API]: feat(roles): add support for role dependencies to enforce startup order](https://github.com/vllm-project/aibrix/pull/1836) — [API]: feat(roles): add support for role dependencies to enforce startup order
+  - author: googs1025 · age: 342d · reviewers: copilot-pull-request-reviewer, gemini-code-assist, googs1025 · last activity: 2026-08-12
+- [#2086 [Refactor] remove torch dependency from cache kernel](https://github.com/vllm-project/aibrix/pull/2086) — [Refactor] remove torch dependency from cache kernel
+  - author: DwyaneShi · age: 223d · reviewers: DwyaneShi, gemini-code-assist · last activity: 2026-04-14
+- [#1822 [Docs]: update metric names for clarity and consistency](https://github.com/vllm-project/aibrix/pull/1822) — [Docs]: update metric names for clarity and consistency
+  - author: haitwang-cloud · age: 346d · reviewers: gemini-code-assist, googs1025, haitwang-cloud · last activity: 2026-02-02
+- [#1765 WIP: [Feat] Support StormService pause rollout in upgrade ](https://github.com/vllm-project/aibrix/pull/1765) — WIP: [Feat] Support StormService pause rollout in upgrade
+  - author: Jeffwan · age: 363d · reviewers: gemini-code-assist · last activity: 2025-11-19
+- [#1536 [Feat] Support StormService pause rollout in upgrade](https://github.com/vllm-project/aibrix/pull/1536) — [Feat] Support StormService pause rollout in upgrade
+  - author: Jeffwan · age: 439d · reviewers: Jeffwan, gemini-code-assist, googs1025 · last activity: 2025-09-24
+- [#10 feat: Support Florence-2 Transformers-native architecture (transformers ≥ 4.56.1 / 5.x)](https://github.com/vllm-project/bart-plugin/pull/10) — feat: Support Florence-2 Transformers-native architecture (transformers ≥ 4.56.1 / 5.x)
+  - author: carlesonielfa · age: 255d · reviewers: Isotr0py, carlesonielfa · last activity: 2026-09-05
+- [#8 [Model] Add T5Gemma2 model plugin integration](https://github.com/vllm-project/bart-plugin/pull/8) — [Model] Add T5Gemma2 model plugin integration
+  - author: akh64bit · age: 256d · reviewers: NickLucche · last activity: 2026-07-23
+- [#19 Add M2M100/NLLB support (nllb-200-distilled-600M, 1.3B, 3.3B)](https://github.com/vllm-project/bart-plugin/pull/19) — Add M2M100/NLLB support (nllb-200-distilled-600M, 1.3B, 3.3B)
+  - author: dschulmeist · age: 215d · reviewers: NickLucche · last activity: 2026-07-11
+- [#4 [Misc] Add pre-commit](https://github.com/vllm-project/bart-plugin/pull/4) — [Misc] Add pre-commit
+  - author: NickLucche · age: 274d · reviewers: — · last activity: 2026-02-15
+- [#703 [ci-selector] shadow trial records (buildkite/ci_selector/shadow/)](https://github.com/vllm-project/ci-infra/pull/703) — [ci-selector] shadow trial records (buildkite/ci_selector/shadow/)
+  - author: vllm-agent · age: 47d · reviewers: — · last activity: 2026-11-17
+- [#884 runtime-shard: check on every build that no test dropped out of its shards](https://github.com/vllm-project/ci-infra/pull/884) — runtime-shard: check on every build that no test dropped out of its shards
+  - author: Thangnguyenvn98 · age: 17d · reviewers: — · last activity: 2026-11-16
+- [#904 [pipeline-generator] AMD steps run on their own definition changes, not on any edit to their yaml](https://github.com/vllm-project/ci-infra/pull/904) — [pipeline-generator] AMD steps run on their own definition changes, not on any edit to their yaml
+  - author: ahsan-ca · age: 6d · reviewers: AndreasKaratzas · last activity: 2026-11-13
+- [#827 [CI][Buildkite] Route steps off unhealthy AMD GPU queues to declared fallback devices](https://github.com/vllm-project/ci-infra/pull/827) — [CI][Buildkite] Route steps off unhealthy AMD GPU queues to declared fallback devices
+  - author: AndreasKaratzas · age: 30d · reviewers: — · last activity: 2026-10-20
+- [#562 Add confirmed vLLM CI selection leaks](https://github.com/vllm-project/ci-infra/pull/562) — Add confirmed vLLM CI selection leaks
+  - author: khluu · age: 65d · reviewers: — · last activity: 2026-10-20
+- [#707 [ci-selector] fix the misses found by the 64-PR shadow review](https://github.com/vllm-project/ci-infra/pull/707) — [ci-selector] fix the misses found by the 64-PR shadow review
+  - author: khluu · age: 46d · reviewers: — · last activity: 2026-10-01
+- [#702 [ci-selector] shadow trial records: ledger, per-PR comments, miss verdicts](https://github.com/vllm-project/ci-infra/pull/702) — [ci-selector] shadow trial records: ledger, per-PR comments, miss verdicts
+  - author: khluu · age: 47d · reviewers: — · last activity: 2026-09-30
+- [#658 Add Inferact TPU7x Buildkite pools for v7x-16 and v7x-8 queues](https://github.com/vllm-project/ci-infra/pull/658) — Add Inferact TPU7x Buildkite pools for v7x-16 and v7x-8 queues
+  - author: khluu · age: 52d · reviewers: theminghuang · last activity: 2026-09-25
+- [#569 Add vLLM release notes skill](https://github.com/vllm-project/ci-infra/pull/569) — Add vLLM release notes skill
+  - author: khluu · age: 64d · reviewers: — · last activity: 2026-09-13
+- [#469 Automatically trace vLLM nightly pytest jobs](https://github.com/vllm-project/ci-infra/pull/469) — Automatically trace vLLM nightly pytest jobs
+  - author: khluu · age: 96d · reviewers: — · last activity: 2026-08-19
+- [#413 Add generic native pipeline renderer](https://github.com/vllm-project/ci-infra/pull/413) — Add generic native pipeline renderer
+  - author: khluu · age: 129d · reviewers: — · last activity: 2026-07-10
+- [#195 [RFC] Pipeline-generator ](https://github.com/vllm-project/ci-infra/pull/195) — [RFC] Pipeline-generator
+  - author: rzabarazesh · age: 395d · reviewers: khluu, yeqcharlotte · last activity: 2025-11-10
+- [#36 Pipeline generator](https://github.com/vllm-project/ci-infra/pull/36) — Pipeline generator
+  - author: khluu · age: 782d · reviewers: aslonnie · last activity: 2024-10-09
+- [#996 [LUT-B] Add E8M0 tile scales and exact DP fitting](https://github.com/vllm-project/compressed-tensors/pull/996) — [LUT-B] Add E8M0 tile scales and exact DP fitting
+  - author: HDCharles · age: 18d · reviewers: — · last activity: 2026-11-16
+- [#963 [Compressors] Merge all compressed forward PRs](https://github.com/vllm-project/compressed-tensors/pull/963) — [Compressors] Merge all compressed forward PRs
+  - author: kylesayrs · age: 30d · reviewers: yiliu30 · last activity: 2026-11-12
+- [#962 [Compressors] Add NVFP4 compressed forward](https://github.com/vllm-project/compressed-tensors/pull/962) — [Compressors] Add NVFP4 compressed forward
+  - author: kylesayrs · age: 30d · reviewers: — · last activity: 2026-11-09
+- [#961 [Compressors] Add pack-quantized compressed forward](https://github.com/vllm-project/compressed-tensors/pull/961) — [Compressors] Add pack-quantized compressed forward
+  - author: kylesayrs · age: 30d · reviewers: — · last activity: 2026-11-09
+- [#956 [Compressors] Add FP8 compressed forward](https://github.com/vllm-project/compressed-tensors/pull/956) — [Compressors] Add FP8 compressed forward
+  - author: kylesayrs · age: 30d · reviewers: — · last activity: 2026-11-09
+- [#959 [Compressors] Add INT8 compressed forward](https://github.com/vllm-project/compressed-tensors/pull/959) — [Compressors] Add INT8 compressed forward
+  - author: kylesayrs · age: 30d · reviewers: — · last activity: 2026-11-09
+- [#902 [Converter] Convert fp8 to CT](https://github.com/vllm-project/compressed-tensors/pull/902) — [Converter] Convert fp8 to CT
+  - author: kylesayrs · age: 54d · reviewers: — · last activity: 2026-11-05
+- [#943 Asynchronous offloading writeback](https://github.com/vllm-project/compressed-tensors/pull/943) — Asynchronous offloading writeback
+  - author: Roderick-Wu · age: 32d · reviewers: soyr-redhat · last activity: 2026-11-05
+- [#844 Read attention quantization shapes from each layer's config on per-layer (heterogeneous) configs](https://github.com/vllm-project/compressed-tensors/pull/844) — Read attention quantization shapes from each layer's config on per-layer (heterogeneous) configs
+  - author: yashb98 · age: 89d · reviewers: HDCharles, Roderick-Wu, yashb98 · last activity: 2026-11-04
+- [#998 Async subgraph transfers experiment](https://github.com/vllm-project/compressed-tensors/pull/998) — Async subgraph transfers experiment
+  - author: Roderick-Wu · age: 17d · reviewers: — · last activity: 2026-10-30
+- [#875 Triton Packed Quantized kernels](https://github.com/vllm-project/compressed-tensors/pull/875) — Triton Packed Quantized kernels
+  - author: ElizaWszola · age: 66d · reviewers: — · last activity: 2026-10-23
+- [#801 [Prototype] Add LUT-B QDQ and compressor](https://github.com/vllm-project/compressed-tensors/pull/801) — [Prototype] Add LUT-B QDQ and compressor
+  - author: mgoin · age: 110d · reviewers: brian-dellabetta · last activity: 2026-10-16
+- [#615 [Offload] Add stats tracker for debugging/ performance tuning model device movement](https://github.com/vllm-project/compressed-tensors/pull/615) — [Offload] Add stats tracker for debugging/ performance tuning model device movement
+  - author: kylesayrs · age: 257d · reviewers: HDCharles, brian-dellabetta, coderabbitai, kylesayrs · last activity: 2026-10-14
+- [#727 Add GemmaConverter for gemma-QAT checkpoints](https://github.com/vllm-project/compressed-tensors/pull/727) — Add GemmaConverter for gemma-QAT checkpoints
+  - author: mgoin · age: 164d · reviewers: brian-dellabetta, coderabbitai · last activity: 2026-10-14
+- [#812 Fused triton quantize-dequantize in forward helpers](https://github.com/vllm-project/compressed-tensors/pull/812) — Fused triton quantize-dequantize in forward helpers
+  - author: ElizaWszola · age: 105d · reviewers: ElizaWszola, kylesayrs, yiliu30 · last activity: 2026-10-09
+- [#45 feat(phase9.2): lm-eval GSM8K evaluation — 63.08% exact_match](https://github.com/vllm-project/dllm-plugin/pull/45) — feat(phase9.2): lm-eval GSM8K evaluation — 63.08% exact_match
+  - author: AlonKellner-RedHat · age: 175d · reviewers: — · last activity: 2026-05-25
+- [#219 [Cute,Fwd,Sm90] Faster head_dim 512 attention forward on Hopper (BF16 / FP16)](https://github.com/vllm-project/flash-attention/pull/219) — [Cute,Fwd,Sm90] Faster head_dim 512 attention forward on Hopper (BF16 / FP16)
+  - author: xuanzic · age: 4d · reviewers: — · last activity: 2026-11-12
+- [#206 [Cute,Fwd,Sm90] Native FP8 (E4M3 Q/K/V) forward for Hopper](https://github.com/vllm-project/flash-attention/pull/206) — [Cute,Fwd,Sm90] Native FP8 (E4M3 Q/K/V) forward for Hopper
+  - author: jhaotingc · age: 25d · reviewers: — · last activity: 2026-11-06
+- [#212 [Cute,Fwd,Sm90] BF16/FP16 decode launch tuning for Hopper](https://github.com/vllm-project/flash-attention/pull/212) — [Cute,Fwd,Sm90] BF16/FP16 decode launch tuning for Hopper
+  - author: jobartlett · age: 18d · reviewers: — · last activity: 2026-10-29
+- [#177 Add SM90 FA4 Dense and MLA](https://github.com/vllm-project/flash-attention/pull/177) — Add SM90 FA4 Dense and MLA
+  - author: simon-veitner-redhat · age: 101d · reviewers: LucasWilkinson, simon-veitner-redhat · last activity: 2026-10-09
+- [#181 Add standalone SM103 FP8 d192/v128 varlen forward kernel](https://github.com/vllm-project/flash-attention/pull/181) — Add standalone SM103 FP8 d192/v128 varlen forward kernel
+  - author: mingg26 · age: 89d · reviewers: — · last activity: 2026-08-24
+- [#171 Sync upstream](https://github.com/vllm-project/flash-attention/pull/171) — Sync upstream
+  - author: MatthewBonanni · age: 117d · reviewers: — · last activity: 2026-08-12
+- [#170 [WIP/RFC][SM120] Add bounded BF16 D256 paged-decode specialization](https://github.com/vllm-project/flash-attention/pull/170) — [WIP/RFC][SM120] Add bounded BF16 D256 paged-decode specialization
+  - author: goodnight654 · age: 117d · reviewers: — · last activity: 2026-07-22
+- [#163 Refactor FA3 onto the PyTorch stable API](https://github.com/vllm-project/flash-attention/pull/163) — Refactor FA3 onto the PyTorch stable API
+  - author: LucasWilkinson · age: 125d · reviewers: janeyx99 · last activity: 2026-07-14
+- [#159 Fa4 fp8 foldscale opt](https://github.com/vllm-project/flash-attention/pull/159) — Fa4 fp8 foldscale opt
+  - author: qixiang-99 · age: 130d · reviewers: — · last activity: 2026-07-09
+- [#151 feat(fa4): fuse per-group fp8 output](https://github.com/vllm-project/flash-attention/pull/151) — feat(fa4): fuse per-group fp8 output
+  - author: carlyou · age: 151d · reviewers: chatgpt-codex-connector · last activity: 2026-07-07
+- [#147 feat(cute): add SM90 FP8 KV support with in-kernel dequantization](https://github.com/vllm-project/flash-attention/pull/147) — feat(cute): add SM90 FP8 KV support with in-kernel dequantization
+  - author: qixiang-99 · age: 157d · reviewers: — · last activity: 2026-06-12
+- [#113 [Frontend] Add FP8 output quantization support to FlashAttention backend](https://github.com/vllm-project/flash-attention/pull/113) — [Frontend] Add FP8 output quantization support to FlashAttention backend
+  - author: sachinkumarsingh092 · age: 317d · reviewers: ProExpertProg, sachinkumarsingh092 · last activity: 2026-03-15
+- [#114 Sync to upstream main 20260121](https://github.com/vllm-project/flash-attention/pull/114) — Sync to upstream main 20260121
+  - author: LucasWilkinson · age: 298d · reviewers: — · last activity: 2026-01-23
+- [#108 FA2 support head sizes 40, 72, and 80](https://github.com/vllm-project/flash-attention/pull/108) — FA2 support head sizes 40, 72, and 80
+  - author: MatthewBonanni · age: 367d · reviewers: — · last activity: 2025-11-14
+- [#88 Vllm_flash_attn_with_attention_weights](https://github.com/vllm-project/flash-attention/pull/88) — Vllm_flash_attn_with_attention_weights
+  - author: SiriusPaul · age: 431d · reviewers: — · last activity: 2025-09-17
+- [#67 WIP stream k scheduling](https://github.com/vllm-project/flash-attention/pull/67) — WIP stream k scheduling
+  - author: LucasWilkinson · age: 566d · reviewers: — · last activity: 2025-05-03
+- [#1564 Add users profile](https://github.com/vllm-project/guidellm/pull/1564) — Add users profile
+  - author: jaredoconnell · age: 10d · reviewers: coderabbitai, dbutenhof, jaredoconnell, sjmonson · last activity: 2026-11-16
+- [#1182 feat: capture vLLM configuration with a one-shot collector](https://github.com/vllm-project/guidellm/pull/1182) — feat: capture vLLM configuration with a one-shot collector
+  - author: rudrakshkarpe · age: 50d · reviewers: HarshShroff, coderabbitai, dbutenhof, rudrakshkarpe, sjmonson · last activity: 2026-11-16
+- [#1247 Add target_moe constraint to stop at a target margin of error](https://github.com/vllm-project/guidellm/pull/1247) — Add target_moe constraint to stop at a target margin of error
+  - author: theminjunchoi · age: 40d · reviewers: — · last activity: 2026-11-16
+- [#1359 Adding Omni TTS support](https://github.com/vllm-project/guidellm/pull/1359) — Adding Omni TTS support
+  - author: sharonh24 · age: 28d · reviewers: coderabbitai, dbutenhof, jaredoconnell, sharonh24, sjmonson · last activity: 2026-11-16
+- [#1586 docs: translate guides into Korean](https://github.com/vllm-project/guidellm/pull/1586) — docs: translate guides into Korean
+  - author: Jiye-Park01 · age: 2d · reviewers: coderabbitai · last activity: 2026-11-16
+- [#1295 Add a sweep_next profile that finds the peak rate with a ramp](https://github.com/vllm-project/guidellm/pull/1295) — Add a sweep_next profile that finds the peak rate with a ramp
+  - author: theminjunchoi · age: 35d · reviewers: JennLM · last activity: 2026-11-15
+- [#1407 Add max_concurrent_sessions data option](https://github.com/vllm-project/guidellm/pull/1407) — Add max_concurrent_sessions data option
+  - author: jaredoconnell · age: 26d · reviewers: coderabbitai, dbutenhof · last activity: 2026-11-14
+- [#1309 Support multi-model round-robin for multi-LoRA benchmarking](https://github.com/vllm-project/guidellm/pull/1309) — Support multi-model round-robin for multi-LoRA benchmarking
+  - author: bbenshab · age: 32d · reviewers: dbutenhof, sjmonson · last activity: 2026-11-11
+- [#1532 Fix request-count warmup/cooldown sample selection](https://github.com/vllm-project/guidellm/pull/1532) — Fix request-count warmup/cooldown sample selection
+  - author: LIUYOU2015 · age: 16d · reviewers: — · last activity: 2026-11-07
+- [#1021 Per-submodule Rust bindings](https://github.com/vllm-project/guidellm/pull/1021) — Per-submodule Rust bindings
+  - author: sjmonson · age: 97d · reviewers: — · last activity: 2026-11-03
+- [#1210 Support reading the selected model from the dataset](https://github.com/vllm-project/guidellm/pull/1210) — Support reading the selected model from the dataset
+  - author: sjmonson · age: 46d · reviewers: dbutenhof · last activity: 2026-10-15
+- [#1222 Optimize synthetic generation on Mooncake and WEKA](https://github.com/vllm-project/guidellm/pull/1222) — Optimize synthetic generation on Mooncake and WEKA
+  - author: jaredoconnell · age: 45d · reviewers: sjmonson · last activity: 2026-10-02
+- [#1192 wip: workload catalog](https://github.com/vllm-project/guidellm/pull/1192) — wip: workload catalog
+  - author: sjmonson · age: 49d · reviewers: — · last activity: 2026-09-28
+- [#729 feat: add multi-image latency benchmarking](https://github.com/vllm-project/guidellm/pull/729) — feat: add multi-image latency benchmarking
+  - author: sjarvie · age: 187d · reviewers: — · last activity: 2026-06-14
+- [#209 perf(cuda): support partial N/K tiles with minimal padding](https://github.com/vllm-project/humming/pull/209) — perf(cuda): support partial N/K tiles with minimal padding
+  - author: jinzhen-lin · age: 3d · reviewers: — · last activity: 2026-11-13
+- [#174 feat(sm70): run Humming on Volta (Tesla V100) for fp16 activations with 1-8-bit weights](https://github.com/vllm-project/humming/pull/174) — feat(sm70): run Humming on Volta (Tesla V100) for fp16 activations with 1-8-bit weights
+  - author: christopherrobertbrooks-tech · age: 22d · reviewers: — · last activity: 2026-10-25
+- [#52 Fix indexed Stream-K FP32 reduction](https://github.com/vllm-project/humming/pull/52) — Fix indexed Stream-K FP32 reduction
+  - author: hebo1221 · age: 115d · reviewers: chatgpt-codex-connector, hebo1221 · last activity: 2026-08-11
+- [#3519 [SmoothQuant] Add token masking support for activation ranges](https://github.com/vllm-project/llm-compressor/pull/3519) — [SmoothQuant] Add token masking support for activation ranges
+  - author: sohom-cs · age: 2d · reviewers: chatgpt-codex-connector, gemini-code-assist, sohom-cs · last activity: 2026-11-17
+- [#3463 [Research] iMat Ablations for nvfp4](https://github.com/vllm-project/llm-compressor/pull/3463) — [Research] iMat Ablations for nvfp4
+  - author: HDCharles · age: 11d · reviewers: gemini-code-assist · last activity: 2026-11-16
+- [#3525 Prototype whole-model meta operations](https://github.com/vllm-project/llm-compressor/pull/3525) — Prototype whole-model meta operations
+  - author: Roderick-Wu · age: 0d · reviewers: gemini-code-assist · last activity: 2026-11-16
+- [#3416 [LUT-B] Add Qwen examples and delayed-codebook GPTQ](https://github.com/vllm-project/llm-compressor/pull/3416) — [LUT-B] Add Qwen examples and delayed-codebook GPTQ
+  - author: HDCharles · age: 18d · reviewers: gemini-code-assist · last activity: 2026-11-16
+- [#3511 Prototype](https://github.com/vllm-project/llm-compressor/pull/3511) — Prototype
+  - author: Roderick-Wu · age: 4d · reviewers: HDCharles, gemini-code-assist · last activity: 2026-11-16
+- [#3432 [Quantization] Add token masking support for activation and KV-cache observers](https://github.com/vllm-project/llm-compressor/pull/3432) — [Quantization] Add token masking support for activation and KV-cache observers
+  - author: sohom-cs · age: 14d · reviewers: chatgpt-codex-connector, gemini-code-assist, sohom-cs, waynehacking8 · last activity: 2026-11-15
+- [#3493 [Pruning] Add HOPE expert pruning modifier](https://github.com/vllm-project/llm-compressor/pull/3493) — [Pruning] Add HOPE expert pruning modifier
+  - author: kylesayrs · age: 6d · reviewers: gemini-code-assist, kylesayrs · last activity: 2026-11-12
+- [#3342 Refactor initialiation + Calibration start](https://github.com/vllm-project/llm-compressor/pull/3342) — Refactor initialiation + Calibration start
+  - author: Roderick-Wu · age: 27d · reviewers: HDCharles, Roderick-Wu, coderabbitai, gemini-code-assist, kylesayrs · last activity: 2026-11-12
+- [#2821 [not for land] testing humming CT + vllm](https://github.com/vllm-project/llm-compressor/pull/2821) — [not for land] testing humming CT + vllm
+  - author: HDCharles · age: 159d · reviewers: coderabbitai, gemini-code-assist · last activity: 2026-11-11
+- [#3437 [Feat] RAZOR Expert Sparsity](https://github.com/vllm-project/llm-compressor/pull/3437) — [Feat] RAZOR Expert Sparsity
+  - author: kylesayrs · age: 13d · reviewers: gemini-code-assist, kylesayrs, soyr-redhat · last activity: 2026-11-10
+- [#3492 [Feature] Add Ceil_x observer for MXFP4 quantization](https://github.com/vllm-project/llm-compressor/pull/3492) — [Feature] Add Ceil_x observer for MXFP4 quantization
+  - author: yzmkbk · age: 6d · reviewers: gemini-code-assist · last activity: 2026-11-10
+- [#3234 Lazy Linearization and Repacking](https://github.com/vllm-project/llm-compressor/pull/3234) — Lazy Linearization and Repacking
+  - author: Roderick-Wu · age: 52d · reviewers: gemini-code-assist, kylesayrs · last activity: 2026-11-10
+- [#3371 Support calibration-dependent quantization of MTP layers](https://github.com/vllm-project/llm-compressor/pull/3371) — Support calibration-dependent quantization of MTP layers
+  - author: Mramaran · age: 24d · reviewers: Mramaran, gemini-code-assist, soyr-redhat · last activity: 2026-11-10
+- [#3473 [Bugfix] Check FUSED_MODULE_MAPPINGS against what vLLM packs, and fix the gaps it finds](https://github.com/vllm-project/llm-compressor/pull/3473) — [Bugfix] Check FUSED_MODULE_MAPPINGS against what vLLM packs, and fix the gaps it finds
+  - author: waynehacking8 · age: 10d · reviewers: gemini-code-assist · last activity: 2026-11-09
+- [#3483 [Pruning] Add AIMERExpertPruner for calibration-free expert pruning](https://github.com/vllm-project/llm-compressor/pull/3483) — [Pruning] Add AIMERExpertPruner for calibration-free expert pruning
+  - author: rohan9446 · age: 10d · reviewers: gemini-code-assist · last activity: 2026-11-09
+- [#3485 [Research] MXFP4xFP8 imatrix and model-free MSE ablations](https://github.com/vllm-project/llm-compressor/pull/3485) — [Research] MXFP4xFP8 imatrix and model-free MSE ablations
+  - author: HDCharles · age: 9d · reviewers: gemini-code-assist · last activity: 2026-11-07
+- [#3477 [Research] iMat MxFP4a16 Ablations](https://github.com/vllm-project/llm-compressor/pull/3477) — [Research] iMat MxFP4a16 Ablations
+  - author: HDCharles · age: 10d · reviewers: gemini-code-assist, kylesayrs · last activity: 2026-11-06
+- [#3464 Fix quantized MoE model loading: quantizer guard + sub-model mapping registration](https://github.com/vllm-project/llm-compressor/pull/3464) — Fix quantized MoE model loading: quantizer guard + sub-model mapping registration
+  - author: kylesayrs · age: 11d · reviewers: gemini-code-assist · last activity: 2026-11-06
+- [#3462 Prototype meta MoE linearization for sequential calibration](https://github.com/vllm-project/llm-compressor/pull/3462) — Prototype meta MoE linearization for sequential calibration
+  - author: HDCharles · age: 11d · reviewers: gemini-code-assist · last activity: 2026-11-05
+- [#3276 [Feature] Norm-only distillation for already-compressed checkpoints (-12% WikiText PPL on Qwen3-0.6B W4A16)](https://github.com/vllm-project/llm-compressor/pull/3276) — [Feature] Norm-only distillation for already-compressed checkpoints (-12% WikiText PPL on Qwen3-0.6B W4A16)
+  - author: ToukoUrsin · age: 35d · reviewers: HDCharles, ToukoUrsin, gemini-code-assist · last activity: 2026-11-05
+- [#3272 [WIP][Feature] Add IterSmooth preprocessing modifier and Qwen3.6 W8A8 example](https://github.com/vllm-project/llm-compressor/pull/3272) — [WIP][Feature] Add IterSmooth preprocessing modifier and Qwen3.6 W8A8 example
+  - author: dawnwharf · age: 35d · reviewers: gemini-code-assist · last activity: 2026-11-04
+- [#3417 [Examples] Reasoning-aware (on-policy) calibration for AWQ](https://github.com/vllm-project/llm-compressor/pull/3417) — [Examples] Reasoning-aware (on-policy) calibration for AWQ
+  - author: AbigaleD · age: 18d · reviewers: gemini-code-assist · last activity: 2026-11-03
+- [#3278 [WIP][Feature] Add QuaRot and FlexSmooth support for GLM-5.2](https://github.com/vllm-project/llm-compressor/pull/3278) — [WIP][Feature] Add QuaRot and FlexSmooth support for GLM-5.2
+  - author: tangtang1152 · age: 34d · reviewers: gemini-code-assist, kylesayrs · last activity: 2026-11-02
+- [#3296 docs: add verified AutoAWQ checkpoint conversion walkthrough](https://github.com/vllm-project/llm-compressor/pull/3296) — docs: add verified AutoAWQ checkpoint conversion walkthrough
+  - author: xiao-yang25 · age: 31d · reviewers: gemini-code-assist, soyr-redhat · last activity: 2026-10-29
+- [#2668 feat: concurrent KLD evaluation without enforce_eager (closes #2667, refs #2646)](https://github.com/vllm-project/llm-compressor/pull/2668) — feat: concurrent KLD evaluation without enforce_eager (closes #2667, refs #2646)
+  - author: jayakumarpujar · age: 201d · reviewers: HDCharles, coderabbitai, gemini-code-assist · last activity: 2026-10-23
+- [#3285 [WiP] Interpreterlock-free staging](https://github.com/vllm-project/llm-compressor/pull/3285) — [WiP] Interpreterlock-free staging
+  - author: Roderick-Wu · age: 33d · reviewers: coderabbitai, gemini-code-assist · last activity: 2026-10-20
+- [#3116 remove cadence on unit tests](https://github.com/vllm-project/llm-compressor/pull/3116) — remove cadence on unit tests
+  - author: dsikka · age: 77d · reviewers: gemini-code-assist · last activity: 2026-10-15
+- [#1256 [WIP] [Design] LLMCompressor Class](https://github.com/vllm-project/llm-compressor/pull/1256) — [WIP] [Design] LLMCompressor Class
+  - author: kylesayrs · age: 611d · reviewers: brian-dellabetta, kylesayrs · last activity: 2026-10-14
+- [#2323 [AWQ] Add option to consider smooth layer quantization in scale search](https://github.com/vllm-project/llm-compressor/pull/2323) — [AWQ] Add option to consider smooth layer quantization in scale search
+  - author: Ramshankar07 · age: 289d · reviewers: HDCharles, Ramshankar07, gemini-code-assist · last activity: 2026-10-14
+- [#2431 AWQ smooth layer quantization (v2) [not for land]](https://github.com/vllm-project/llm-compressor/pull/2431) — AWQ smooth layer quantization (v2) [not for land]
+  - author: HDCharles · age: 258d · reviewers: ANGDL, gemini-code-assist · last activity: 2026-10-14
+- [#2510 [Examples] Reorganize examples by model/scheme/algo hierarchy](https://github.com/vllm-project/llm-compressor/pull/2510) — [Examples] Reorganize examples by model/scheme/algo hierarchy
+  - author: dsikka · age: 237d · reviewers: brian-dellabetta, gemini-code-assist · last activity: 2026-10-14
+- [#2878 [Agents] Add quantization skills: kv-cache, attention, w4a8, autoround, embedding, model-free-ptq](https://github.com/vllm-project/llm-compressor/pull/2878) — [Agents] Add quantization skills: kv-cache, attention, w4a8, autoround, embedding, model-free-ptq
+  - author: 2imi9 · age: 139d · reviewers: gemini-code-assist · last activity: 2026-10-14
+- [#3003 Add native FP8 expert support to REAP](https://github.com/vllm-project/llm-compressor/pull/3003) — Add native FP8 expert support to REAP
+  - author: ieBoytsov · age: 102d · reviewers: gemini-code-assist, ieBoytsov · last activity: 2026-10-14
+- [#3111 Implement streaming quantization pipeline](https://github.com/vllm-project/llm-compressor/pull/3111) — Implement streaming quantization pipeline
+  - author: Isotr0py · age: 80d · reviewers: gemini-code-assist · last activity: 2026-10-14
+- [#2663 Feat/issue 2646](https://github.com/vllm-project/llm-compressor/pull/2663) — Feat/issue 2646
+  - author: rpathade · age: 202d · reviewers: HDCharles, coderabbitai, gemini-code-assist, rpathade · last activity: 2026-09-24
+- [#3 Dev/ncompass trace sharing](https://github.com/vllm-project/perf-dashboard/pull/3) — Dev/ncompass trace sharing
+  - author: vineye25 · age: 265d · reviewers: khluu · last activity: 2026-03-09
+- [#104 Add GPQA-Diamond, AIME 2026 and RULER NIAH evals to MI355X workloads](https://github.com/vllm-project/perf-eval/pull/104) — Add GPQA-Diamond, AIME 2026 and RULER NIAH evals to MI355X workloads
+  - author: josh-schell-amd · age: 0d · reviewers: — · last activity: 2026-11-16
+- [#66 [RFC] Capture reproducible experiment provenance](https://github.com/vllm-project/perf-eval/pull/66) — [RFC] Capture reproducible experiment provenance
+  - author: jamesETsmith · age: 90d · reviewers: — · last activity: 2026-10-09
+- [#74 Add GB300 Slurm PD serving infrastructure and Kimi K3 PD workloads](https://github.com/vllm-project/perf-eval/pull/74) — Add GB300 Slurm PD serving infrastructure and Kimi K3 PD workloads
+  - author: khluu · age: 76d · reviewers: — · last activity: 2026-09-02
+- [#51 Add GLM-5.2 standalone B300 SGLang benchmark](https://github.com/vllm-project/perf-eval/pull/51) — Add GLM-5.2 standalone B300 SGLang benchmark
+  - author: simon-mo · age: 111d · reviewers: — · last activity: 2026-08-11
+- [#29 attention backend sweep](https://github.com/vllm-project/perf-eval/pull/29) — attention backend sweep
+  - author: stacyroberts · age: 146d · reviewers: — · last activity: 2026-07-29
+- [#30 Add GB300 Slurm Pyxis smoke path](https://github.com/vllm-project/perf-eval/pull/30) — Add GB300 Slurm Pyxis smoke path
+  - author: khluu · age: 142d · reviewers: — · last activity: 2026-06-27
+- [#939 [Feat][Router]: Add automatic retry with exponential backoff and jitter](https://github.com/vllm-project/production-stack/pull/939) — [Feat][Router]: Add automatic retry with exponential backoff and jitter
+  - author: ikaadil · age: 199d · reviewers: gemini-code-assist, waelrabah11 · last activity: 2026-11-10
+- [#1199 [Feat][Bugfix][Doc] Operator: LMCache multiprocess mode, with in-process mode kept](https://github.com/vllm-project/production-stack/pull/1199) — [Feat][Bugfix][Doc] Operator: LMCache multiprocess mode, with in-process mode kept
+  - author: h1manshu23 · age: 8d · reviewers: gemini-code-assist · last activity: 2026-11-08
+- [#1186 [Feat][Helm] Add a router-level Grafana dashboard](https://github.com/vllm-project/production-stack/pull/1186) — [Feat][Helm] Add a router-level Grafana dashboard
+  - author: highlyavailable · age: 16d · reviewers: gemini-code-assist, highlyavailable · last activity: 2026-11-07
+- [#1180 [Feat] [Operator] Add securityContext support to VLLMRouter and CacheServer CRDs](https://github.com/vllm-project/production-stack/pull/1180) — [Feat] [Operator] Add securityContext support to VLLMRouter and CacheServer CRDs
+  - author: mallyagirish · age: 20d · reviewers: gemini-code-assist, mallyagirish · last activity: 2026-11-03
+- [#1079 [Operator] Add separate resource requests and limits](https://github.com/vllm-project/production-stack/pull/1079) — [Operator] Add separate resource requests and limits
+  - author: banlor · age: 74d · reviewers: banlor, gemini-code-assist · last activity: 2026-09-23
+- [#1081 [Helm][Feature] Add vllm-stack-operator chart: operator, CRDs and CRs in one helm install](https://github.com/vllm-project/production-stack/pull/1081) — [Helm][Feature] Add vllm-stack-operator chart: operator, CRDs and CRs in one helm install
+  - author: jackiesre721 · age: 67d · reviewers: gemini-code-assist, jackiesre721 · last activity: 2026-09-11
+- [#1045 [Router][Bugfix] KV-aware routing: tokenize chat-completions bodies through the chat template](https://github.com/vllm-project/production-stack/pull/1045) — [Router][Bugfix] KV-aware routing: tokenize chat-completions bodies through the chat template
+  - author: tyler2cr · age: 87d · reviewers: gemini-code-assist, tyler2cr · last activity: 2026-08-29
+- [#626 [Feat] Router-side queuing support](https://github.com/vllm-project/production-stack/pull/626) — [Feat] Router-side queuing support
+  - author: allytotheson · age: 471d · reviewers: gemini-code-assist, ruizhang0101 · last activity: 2026-08-19
+- [#1007 [Feat] Add multi-node multiprocessing deployment via LeaderWorkerSet](https://github.com/vllm-project/production-stack/pull/1007) — [Feat] Add multi-node multiprocessing deployment via LeaderWorkerSet
+  - author: ardecode · age: 116d · reviewers: gemini-code-assist · last activity: 2026-07-29
+- [#977 [Build][Router] Bump lmcache to 0.4.7 and vllm to 0.22.0](https://github.com/vllm-project/production-stack/pull/977) — [Build][Router] Bump lmcache to 0.4.7 and vllm to 0.22.0
+  - author: zhengfeihe · age: 151d · reviewers: gemini-code-assist · last activity: 2026-06-25
+- [#913 [Feat] Add NIXL-based disaggregated prefill routing support](https://github.com/vllm-project/production-stack/pull/913) — [Feat] Add NIXL-based disaggregated prefill routing support
+  - author: Vivo50E · age: 218d · reviewers: gemini-code-assist · last activity: 2026-06-20
+- [#841 [Feat] Support PD Disaggregation via CRD Operator](https://github.com/vllm-project/production-stack/pull/841) — [Feat] Support PD Disaggregation via CRD Operator
+  - author: Vivo50E · age: 270d · reviewers: Vivo50E, gemini-code-assist, ruizhang0101 · last activity: 2026-04-13
+- [#890 [Feat][Router] Add conditional disaggregated routing with threshold-based request classification](https://github.com/vllm-project/production-stack/pull/890) — [Feat][Router] Add conditional disaggregated routing with threshold-based request classification
+  - author: XuanCS · age: 243d · reviewers: gemini-code-assist · last activity: 2026-03-23
+- [#776 feat(router): use aiohttp session for health checks](https://github.com/vllm-project/production-stack/pull/776) — feat(router): use aiohttp session for health checks
+  - author: nejch · age: 323d · reviewers: gemini-code-assist, nejch · last activity: 2026-03-06
+- [#669 [Feat][PD] lastest PD support from LMCache with NIXL](https://github.com/vllm-project/production-stack/pull/669) — [Feat][PD] lastest PD support from LMCache with NIXL
+  - author: kobe0938 · age: 446d · reviewers: gemini-code-assist, kobe0938, panpan0000 · last activity: 2025-09-23
+- [#672 [Router][Feat][Bugfix] Add Swagger UI (OpenAPI) support with Pydantic request models + fix rewrite Content-Length + test](https://github.com/vllm-project/production-stack/pull/672) — [Router][Feat][Bugfix] Add Swagger UI (OpenAPI) support with Pydantic request models + fix rewrite Content-Length + test
+  - author: JaredforReal · age: 440d · reviewers: JaredforReal, YuhanLiu11, davidgao7 · last activity: 2025-09-12
+- [#417 [Router][Feat] Enhance K8s service discovery to support all models per engine pod](https://github.com/vllm-project/production-stack/pull/417) — [Router][Feat] Enhance K8s service discovery to support all models per engine pod
+  - author: TheCodeWrangler · age: 557d · reviewers: — · last activity: 2025-05-12
+- [#240 [FEAT] Integrate the router with Envoy through extproc](https://github.com/vllm-project/production-stack/pull/240) — [FEAT] Integrate the router with Envoy through extproc
+  - author: rootfs · age: 621d · reviewers: BrianPark314 · last activity: 2025-05-05
+- [#340 [Feat] Support basic disaggregated prefill (vLLM v0)](https://github.com/vllm-project/production-stack/pull/340) — [Feat] Support basic disaggregated prefill (vLLM v0)
+  - author: YuhanLiu11 · age: 594d · reviewers: — · last activity: 2025-04-08
+- [#349 [Feat] Adding QoE-based Scheduler for Disaggregated Prefill](https://github.com/vllm-project/production-stack/pull/349) — [Feat] Adding QoE-based Scheduler for Disaggregated Prefill
+  - author: YuhanLiu11 · age: 588d · reviewers: — · last activity: 2025-04-07
+- [#239 [Feat] Prefix-aware routing and load balancing](https://github.com/vllm-project/production-stack/pull/239) — [Feat] Prefix-aware routing and load balancing
+  - author: KuntaiDu · age: 621d · reviewers: gaocegege · last activity: 2025-03-06
+- [#676 Add CI workflow for YAML validation](https://github.com/vllm-project/recipes/pull/676) — Add CI workflow for YAML validation
+  - author: arijitroy003 · age: 116d · reviewers: — · last activity: 2026-11-13
+- [#1250 [Preview only] Kimi-K3 Ascend PD with #1226](https://github.com/vllm-project/recipes/pull/1250) — [Preview only] Kimi-K3 Ascend PD with #1226
+  - author: SOMEONEUNSEEN · age: 4d · reviewers: gemini-code-assist · last activity: 2026-11-13
+- [#1152 [Recipe] Support Ascend deployment policies and PD options](https://github.com/vllm-project/recipes/pull/1152) — [Recipe] Support Ascend deployment policies and PD options
+  - author: MAyang38 · age: 27d · reviewers: gemini-code-assist · last activity: 2026-11-10
+- [#1200 docs(recipe): verify Qwen3.8-27B W8A8 on Ascend 910C Atlas A3](https://github.com/vllm-project/recipes/pull/1200) — docs(recipe): verify Qwen3.8-27B W8A8 on Ascend 910C Atlas A3
+  - author: chanchp · age: 18d · reviewers: gemini-code-assist · last activity: 2026-10-30
+- [#1163 feat: support named Ascend deployment workflows](https://github.com/vllm-project/recipes/pull/1163) — feat: support named Ascend deployment workflows
+  - author: Wyz-134 · age: 26d · reviewers: gemini-code-assist · last activity: 2026-10-28
+- [#1151 Add Ascend support for GLM-5.2](https://github.com/vllm-project/recipes/pull/1151) — Add Ascend support for GLM-5.2
+  - author: SOMEONEUNSEEN · age: 27d · reviewers: gemini-code-assist · last activity: 2026-10-20
+- [#1144 Credit each recipe's contributors on its page and in the JSON API](https://github.com/vllm-project/recipes/pull/1144) — Credit each recipe's contributors on its page and in the JSON API
+  - author: esmeetu · age: 28d · reviewers: chatgpt-codex-connector, gemini-code-assist · last activity: 2026-10-19
+- [#1138 [Infra] Remove the copies of the vLLM recipes from models/](https://github.com/vllm-project/recipes/pull/1138) — [Infra] Remove the copies of the vLLM recipes from models/
+  - author: esmeetu · age: 30d · reviewers: gemini-code-assist · last activity: 2026-10-17
+- [#1079 Add DGX Spark 64GB recipes](https://github.com/vllm-project/recipes/pull/1079) — Add DGX Spark 64GB recipes
+  - author: prodney-dev · age: 41d · reviewers: faradawn, gemini-code-assist, prodney-dev · last activity: 2026-10-13
+- [#771 [UI] Consolidate MiniMax-H3 deployment guidance](https://github.com/vllm-project/recipes/pull/771) — [UI] Consolidate MiniMax-H3 deployment guidance
+  - author: lishunyang12 · age: 99d · reviewers: gemini-code-assist · last activity: 2026-08-23
+- [#630 Add MI355X MXFP4 + LMCache KV-offload to Kimi-K2.7-Code recipe](https://github.com/vllm-project/recipes/pull/630) — Add MI355X MXFP4 + LMCache KV-offload to Kimi-K2.7-Code recipe
+  - author: hyukjlee · age: 126d · reviewers: gemini-code-assist · last activity: 2026-07-13
+- [#523 Add DeepSeek-V4-Flash demo notebook](https://github.com/vllm-project/recipes/pull/523) — Add DeepSeek-V4-Flash demo notebook
+  - author: faradawn · age: 158d · reviewers: anushapant, gemini-code-assist · last activity: 2026-06-11
+- [#127 [ROCm] add Llama-70b & Llama-405b recipes](https://github.com/vllm-project/recipes/pull/127) — [ROCm] add Llama-70b & Llama-405b recipes
+  - author: zhuyuhua-v · age: 354d · reviewers: gemini-code-assist · last activity: 2025-11-27
+- [#390 fix: preserve upstream error statuses in vLLM P/D routing](https://github.com/vllm-project/router/pull/390) — fix: preserve upstream error statuses in vLLM P/D routing
+  - author: lio1226 · age: 28d · reviewers: KaisennHu, chatgpt-codex-connector, copilot-pull-request-reviewer, lio1226, wuhang2014 · last activity: 2026-11-17
+- [#280 fix: hold the concurrency slot for the whole streaming response](https://github.com/vllm-project/router/pull/280) — fix: hold the concurrency slot for the whole streaming response
+  - author: areslp · age: 61d · reviewers: chatgpt-codex-connector, copilot-pull-request-reviewer, hsliuustc0106, wuhang2014 · last activity: 2026-11-17
+- [#519 feat(kv-aware): rank P/D decode by logical context tokens](https://github.com/vllm-project/router/pull/519) — feat(kv-aware): rank P/D decode by logical context tokens
+  - author: KaisennHu · age: 11d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, wuhang2014 · last activity: 2026-11-17
+- [#444 feat(kv-aware): use prefill progress for colocated routing](https://github.com/vllm-project/router/pull/444) — feat(kv-aware): use prefill progress for colocated routing
+  - author: KaisennHu · age: 25d · reviewers: KaisennHu, chatgpt-codex-connector, copilot-pull-request-reviewer, david6666666, herotai214, hsliuustc0106 · last activity: 2026-11-17
+- [#469 feat(pd): use prefill progress for disaggregated routing](https://github.com/vllm-project/router/pull/469) — feat(pd): use prefill progress for disaggregated routing
+  - author: KaisennHu · age: 19d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, herotai214, hsliuustc0106, xuxiongchen · last activity: 2026-11-17
+- [#493 feat(kv-aware): unify prefix reuse for full and hybrid attention models](https://github.com/vllm-project/router/pull/493) — feat(kv-aware): unify prefix reuse for full and hybrid attention models
+  - author: KaisennHu · age: 14d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, herotai214 · last activity: 2026-11-17
+- [#572 feat(kv-aware): reuse prepared tokens for optional regular prefix history](https://github.com/vllm-project/router/pull/572) — feat(kv-aware): reuse prepared tokens for optional regular prefix history
+  - author: xuxiongchen · age: 4d · reviewers: KaisennHu, xuxiongchen · last activity: 2026-11-17
+- [#514 feat(kv-aware)[3/6]: route hybrid attention models by prefix in colocated mode](https://github.com/vllm-project/router/pull/514) — feat(kv-aware)[3/6]: route hybrid attention models by prefix in colocated mode
+  - author: KaisennHu · age: 11d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, herotai214, xuxiongchen · last activity: 2026-11-17
+- [#413 [WIP][Test] add Program-level Progress-TTL scheduling perf test case](https://github.com/vllm-project/router/pull/413) — [WIP][Test] add Program-level Progress-TTL scheduling perf test case
+  - author: zhumingjue138 · age: 25d · reviewers: chatgpt-codex-connector, david6666666 · last activity: 2026-11-17
+- [#460 feat: exact input-token facts for Program scheduling](https://github.com/vllm-project/router/pull/460) — feat: exact input-token facts for Program scheduling
+  - author: LiangTengwen · age: 21d · reviewers: KaisennHu, LiangTengwen, chatgpt-codex-connector, david6666666 · last activity: 2026-11-17
+- [#585 feat(pd): refuse a Decode candidate whose engine has no room, discovered from its metrics](https://github.com/vllm-project/router/pull/585) — feat(pd): refuse a Decode candidate whose engine has no room, discovered from its metrics
+  - author: KaisennHu · age: 1d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, wuhang2014 · last activity: 2026-11-17
+- [#589 [CI] Collect nightly Rust coverage as LCOV artifacts](https://github.com/vllm-project/router/pull/589) — [CI] Collect nightly Rust coverage as LCOV artifacts
+  - author: yenuo26 · age: 0d · reviewers: chatgpt-codex-connector, david6666666, wuhang2014, yenuo26 · last activity: 2026-11-17
+- [#330 Add smetric: balanced session-centric routing for agentic multi-turn workloads](https://github.com/vllm-project/router/pull/330) — Add smetric: balanced session-centric routing for agentic multi-turn workloads
+  - author: clateral912 · age: 47d · reviewers: KaisennHu, clateral912, copilot-pull-request-reviewer, david6666666, herotai214, wuhang2014 · last activity: 2026-11-17
+- [#384 feat(epd): integrate static Encode workers with independent routing policy](https://github.com/vllm-project/router/pull/384) — feat(epd): integrate static Encode workers with independent routing policy
+  - author: zjbpaul1317 · age: 30d · reviewers: david6666666, herotai214, zjbpaul1317 · last activity: 2026-11-17
+- [#509 Fetch reusable KV prefix from eligible GPU peers](https://github.com/vllm-project/router/pull/509) — Fetch reusable KV prefix from eligible GPU peers
+  - author: briefgaming · age: 12d · reviewers: KaisennHu, briefgaming, chatgpt-codex-connector, david6666666 · last activity: 2026-11-17
+- [#565 test(rocm): add opt-in MoRI RDMA lifecycle checks](https://github.com/vllm-project/router/pull/565) — test(rocm): add opt-in MoRI RDMA lifecycle checks
+  - author: YukioZzz · age: 5d · reviewers: chatgpt-codex-connector, david6666666 · last activity: 2026-11-16
+- [#539 [Feature] Opt-in per-worker in-flight admission capacity (#435)](https://github.com/vllm-project/router/pull/539) — [Feature] Opt-in per-worker in-flight admission capacity (#435)
+  - author: mohamad-alakkad · age: 9d · reviewers: david6666666 · last activity: 2026-11-16
+- [#573 [Feature] Add opt-in Prefill completion history for equal-cost P selection](https://github.com/vllm-project/router/pull/573) — [Feature] Add opt-in Prefill completion history for equal-cost P selection
+  - author: xuxiongchen · age: 4d · reviewers: KaisennHu, xuxiongchen · last activity: 2026-11-15
+- [#466 fix(metrics): keep worker load gauges current across replacement](https://github.com/vllm-project/router/pull/466) — fix(metrics): keep worker load gauges current across replacement
+  - author: devinhuang2001 · age: 19d · reviewers: david6666666, devinhuang2001, wuhang2014 · last activity: 2026-11-15
+- [#235 fix(router): read sticky session IDs from typed requests](https://github.com/vllm-project/router/pull/235) — fix(router): read sticky session IDs from typed requests
+  - author: bvolpato · age: 74d · reviewers: bvolpato, chatgpt-codex-connector, copilot-pull-request-reviewer, hsliuustc0106, wuhang2014 · last activity: 2026-11-15
+- [#199 feat(router): support typed custom generate routes](https://github.com/vllm-project/router/pull/199) — feat(router): support typed custom generate routes
+  - author: bvolpato · age: 103d · reviewers: bvolpato, chatgpt-codex-connector, copilot-pull-request-reviewer, wuhang2014 · last activity: 2026-11-15
+- [#533 feat: observe KV prediction accuracy](https://github.com/vllm-project/router/pull/533) — feat: observe KV prediction accuracy
+  - author: Kkhhh-star · age: 10d · reviewers: KaisennHu, Kkhhh-star, chatgpt-codex-connector, david6666666, hsliuustc0106 · last activity: 2026-11-15
+- [#383 [Feature] Add trusted KV-aware routing and agent scheduling hints](https://github.com/vllm-project/router/pull/383) — [Feature] Add trusted KV-aware routing and agent scheduling hints
+  - author: Liuchenbing-2026 · age: 31d · reviewers: chatgpt-codex-connector, david6666666 · last activity: 2026-11-15
+- [#513 feat(kv-index)[2/6]: add hybrid KV event stream and cache layout declaration](https://github.com/vllm-project/router/pull/513) — feat(kv-index)[2/6]: add hybrid KV event stream and cache layout declaration
+  - author: KaisennHu · age: 11d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, wuhang2014, xuxiongchen · last activity: 2026-11-15
+- [#512 feat(kv-index)[1/6]: add hybrid attention prefix index](https://github.com/vllm-project/router/pull/512) — feat(kv-index)[1/6]: add hybrid attention prefix index
+  - author: KaisennHu · age: 11d · reviewers: KaisennHu, chatgpt-codex-connector, wuhang2014, xuxiongchen · last activity: 2026-11-14
+- [#524 feat(program-scheduling): score next-turn KV prefetch in shadow](https://github.com/vllm-project/router/pull/524) — feat(program-scheduling): score next-turn KV prefetch in shadow
+  - author: StevenWang-CY · age: 11d · reviewers: KaisennHu, StevenWang-CY, chatgpt-codex-connector, david6666666 · last activity: 2026-11-14
+- [#450 feat: first class anthropic /v1/messages route (http)](https://github.com/vllm-project/router/pull/450) — feat: first class anthropic /v1/messages route (http)
+  - author: dundysm · age: 24d · reviewers: KaisennHu, chatgpt-codex-connector, copilot-pull-request-reviewer, david6666666, dundysm, wuhang2014 · last activity: 2026-11-14
+- [#531 feat(kv-index): add source-scoped recovery state](https://github.com/vllm-project/router/pull/531) — feat(kv-index): add source-scoped recovery state
+  - author: Kkhhh-star · age: 11d · reviewers: KaisennHu, Kkhhh-star, david6666666, xuxiongchen · last activity: 2026-11-14
+- [#380 Add session_least_load: a new session goes to the least-loaded DP rank, then stays there](https://github.com/vllm-project/router/pull/380) — Add session_least_load: a new session goes to the least-loaded DP rank, then stays there
+  - author: benenzhu · age: 32d · reviewers: benenzhu, chatgpt-codex-connector, copilot-pull-request-reviewer, david6666666, wuhang2014 · last activity: 2026-11-14
+- [#387 feat: register explicit DP ranks through the IGW worker API](https://github.com/vllm-project/router/pull/387) — feat: register explicit DP ranks through the IGW worker API
+  - author: 7ntys · age: 29d · reviewers: 7ntys, copilot-pull-request-reviewer, david6666666, wuhang2014 · last activity: 2026-11-14
+- [#498 Follow-ups to improve the new `sticky_least_loaded` router policy](https://github.com/vllm-project/router/pull/498) — Follow-ups to improve the new `sticky_least_loaded` router policy
+  - author: SumanthRH · age: 13d · reviewers: KaisennHu, SumanthRH, david6666666, github-advanced-security · last activity: 2026-11-14
+- [#506 [DO NOT MERGE][Feature] Add experimental Rust gRPC EPD on released vLLM 0.30](https://github.com/vllm-project/router/pull/506) — [DO NOT MERGE][Feature] Add experimental Rust gRPC EPD on released vLLM 0.30
+  - author: herotai214 · age: 12d · reviewers: chatgpt-codex-connector, david6666666 · last activity: 2026-11-14
+- [#528 [WIP][Conductor] Introduct Mooncake Conductor as an external KV-cache index provider for vllm-router](https://github.com/vllm-project/router/pull/528) — [WIP][Conductor] Introduct Mooncake Conductor as an external KV-cache index provider for vllm-router
+  - author: Bourn3z · age: 11d · reviewers: Bourn3z, KaisennHu, chatgpt-codex-connector, david6666666, wuhang2014 · last activity: 2026-11-14
+- [#536 [Test] Cover scheduling policies under the PD merge deployment](https://github.com/vllm-project/router/pull/536) — [Test] Cover scheduling policies under the PD merge deployment
+  - author: yenuo26 · age: 10d · reviewers: chatgpt-codex-connector, david6666666, herotai214, wuhang2014, yenuo26 · last activity: 2026-11-14
+- [#553 feat(router): experimental gRPC EPD for E+PD and E→P→D](https://github.com/vllm-project/router/pull/553) — feat(router): experimental gRPC EPD for E+PD and E→P→D
+  - author: herotai214 · age: 6d · reviewers: chatgpt-codex-connector, david6666666, wuhang2014 · last activity: 2026-11-14
+- [#483 fix(pd): release stranded prefill KV cache on client cancellation before decode dispatch (#453)](https://github.com/vllm-project/router/pull/483) — fix(pd): release stranded prefill KV cache on client cancellation before decode dispatch (#453)
+  - author: chaitanya202 · age: 16d · reviewers: chaitanya202, chatgpt-codex-connector, david6666666, wuhang2014 · last activity: 2026-11-14
+- [#561 test: Add E/P/D Failure Timing Tests, Part 1: Consumer 2xx With a Bad Body](https://github.com/vllm-project/router/pull/561) — test: Add E/P/D Failure Timing Tests, Part 1: Consumer 2xx With a Bad Body
+  - author: eysk-m · age: 5d · reviewers: chatgpt-codex-connector, eysk-m, gty111, herotai214 · last activity: 2026-11-13
+- [#546 feat(program-scheduling): activate workflow return-time TTL](https://github.com/vllm-project/router/pull/546) — feat(program-scheduling): activate workflow return-time TTL
+  - author: spencerr221 · age: 7d · reviewers: chatgpt-codex-connector, wuhang2014 · last activity: 2026-11-13
+- [#470 [http]: bound the SSE forward queue so a stalled client stops the worker](https://github.com/vllm-project/router/pull/470) — [http]: bound the SSE forward queue so a stalled client stops the worker
+  - author: devinhuang2001 · age: 19d · reviewers: chatgpt-codex-connector, copilot-pull-request-reviewer, david6666666, devinhuang2001, wuhang2014 · last activity: 2026-11-13
+- [#570 fix(kv-index): reclaim unused full-attention metadata](https://github.com/vllm-project/router/pull/570) — fix(kv-index): reclaim unused full-attention metadata
+  - author: CrypticCortex · age: 5d · reviewers: — · last activity: 2026-11-13
+- [#567 feat(pd): add bounded decode commitment wait and held-KV observability (P2)](https://github.com/vllm-project/router/pull/567) — feat(pd): add bounded decode commitment wait and held-KV observability (P2)
+  - author: lalitium · age: 5d · reviewers: — · last activity: 2026-11-13
+- [#538 fix(cache_aware): preserve agent prefix affinity when HTTP render is unavailable](https://github.com/vllm-project/router/pull/538) — fix(cache_aware): preserve agent prefix affinity when HTTP render is unavailable
+  - author: mohamad-alakkad · age: 9d · reviewers: chatgpt-codex-connector, herotai214, mohamad-alakkad · last activity: 2026-11-13
+- [#525 [Bench] Evaluate KV retention on OffloadingConnector, hint on and off](https://github.com/vllm-project/router/pull/525) — [Bench] Evaluate KV retention on OffloadingConnector, hint on and off
+  - author: StevenWang-CY · age: 11d · reviewers: StevenWang-CY, chatgpt-codex-connector, david6666666, wuhang2014 · last activity: 2026-11-13
+- [#554 feat(kv-index): multi-tier hybrid prefix credit](https://github.com/vllm-project/router/pull/554) — feat(kv-index): multi-tier hybrid prefix credit
+  - author: KaisennHu · age: 6d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, wuhang2014 · last activity: 2026-11-12
+- [#515 feat(pd)[4/6]: add hybrid attention prefix routing for P/D](https://github.com/vllm-project/router/pull/515) — feat(pd)[4/6]: add hybrid attention prefix routing for P/D
+  - author: KaisennHu · age: 11d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, herotai214, xuxiongchen · last activity: 2026-11-12
+- [#517 feat(kv-index)[6/6]: support DeepSeek V4/V4.1 sliding and replay windows](https://github.com/vllm-project/router/pull/517) — feat(kv-index)[6/6]: support DeepSeek V4/V4.1 sliding and replay windows
+  - author: KaisennHu · age: 11d · reviewers: KaisennHu, chatgpt-codex-connector, david6666666, herotai214, wuhang2014, xuxiongchen · last activity: 2026-11-11
+- [#516 feat(kv-index)[5/6]: support Qwen4Exp compressed attention and scratch groups](https://github.com/vllm-project/router/pull/516) — feat(kv-index)[5/6]: support Qwen4Exp compressed attention and scratch groups
+  - author: KaisennHu · age: 11d · reviewers: KaisennHu, chatgpt-codex-connector, herotai214, wuhang2014 · last activity: 2026-11-11
+- [#337 feat: configure prefill and decode data parallel sizes independently](https://github.com/vllm-project/router/pull/337) — feat: configure prefill and decode data parallel sizes independently
+  - author: yuzelingsha · age: 45d · reviewers: copilot-pull-request-reviewer, herotai214, hsliuustc0106 · last activity: 2026-11-10
+- [#527 feat(logging): add optional user prompt logging](https://github.com/vllm-project/router/pull/527) — feat(logging): add optional user prompt logging
+  - author: sunl19ht · age: 11d · reviewers: sunl19ht, wuhang2014 · last activity: 2026-11-09
+- [#367 [Feature] Add an observational one-token inference probe (--inference-probe)](https://github.com/vllm-project/router/pull/367) — [Feature] Add an observational one-token inference probe (--inference-probe)
+  - author: dunjin · age: 35d · reviewers: chatgpt-codex-connector, copilot-pull-request-reviewer, david6666666, dunjin, github-advanced-security, wuhang2014 · last activity: 2026-10-28
+- [#218 [CI][ROCm] Add NIXL PD e2e test](https://github.com/vllm-project/router/pull/218) — [CI][ROCm] Add NIXL PD e2e test
+  - author: simondanielsson · age: 91d · reviewers: chatgpt-codex-connector, copilot-pull-request-reviewer, david6666666, simondanielsson · last activity: 2026-10-27
+- [#377 [Bugfix] Preserve custom chat roles and metadata in the gRPC frontend](https://github.com/vllm-project/router/pull/377) — [Bugfix] Preserve custom chat roles and metadata in the gRPC frontend
+  - author: Liuchenbing-2026 · age: 33d · reviewers: KaisennHu, david6666666 · last activity: 2026-10-25
+- [#217 [Feature]: cache-aware chat routing with session-id/full-history fallback](https://github.com/vllm-project/router/pull/217) — [Feature]: cache-aware chat routing with session-id/full-history fallback
+  - author: wuhang2014 · age: 92d · reviewers: chatgpt-codex-connector, copilot-pull-request-reviewer · last activity: 2026-10-07
+- [#311 Fix persistent worker state for discovered P/D routing (#299)](https://github.com/vllm-project/router/pull/311) — Fix persistent worker state for discovered P/D routing (#299)
+  - author: PyExtreme · age: 52d · reviewers: — · last activity: 2026-10-06
+- [#120 Migrate /v1/chat/completions from typed struct to JSON pass-through](https://github.com/vllm-project/router/pull/120) — Migrate /v1/chat/completions from typed struct to JSON pass-through
+  - author: Friday13th · age: 244d · reviewers: Prowindy · last activity: 2026-09-15
+- [#238 feat: cache aware per request affinity](https://github.com/vllm-project/router/pull/238) — feat: cache aware per request affinity
+  - author: sdevare-nv · age: 74d · reviewers: chatgpt-codex-connector · last activity: 2026-09-14
+- [#216 [Bugfix]: Fix health checker to preserve worker load during checks](https://github.com/vllm-project/router/pull/216) — [Bugfix]: Fix health checker to preserve worker load during checks
+  - author: wuhang2014 · age: 92d · reviewers: bvolpato, chatgpt-codex-connector, copilot-pull-request-reviewer · last activity: 2026-09-14
+- [#209 fix: bootstrap dynamically discovered Mooncake prefill workers](https://github.com/vllm-project/router/pull/209) — fix: bootstrap dynamically discovered Mooncake prefill workers
+  - author: wukehu · age: 96d · reviewers: chatgpt-codex-connector, wukehu · last activity: 2026-09-14
+- [#198 fix(pd-router): policy selection over persistent workers with live load; cache-aware tie-breaks](https://github.com/vllm-project/router/pull/198) — fix(pd-router): policy selection over persistent workers with live load; cache-aware tie-breaks
+  - author: xiaguan · age: 103d · reviewers: chatgpt-codex-connector · last activity: 2026-09-14
+- [#127 Improve Prometheus HTTP status metrics and cache/discovery observability](https://github.com/vllm-project/router/pull/127) — Improve Prometheus HTTP status metrics and cache/discovery observability
+  - author: potatosalad · age: 236d · reviewers: — · last activity: 2026-09-14
+- [#81 feat: Aggregate models from all workers in /v1/models endpoint](https://github.com/vllm-project/router/pull/81) — feat: Aggregate models from all workers in /v1/models endpoint
+  - author: surak · age: 283d · reviewers: Prowindy · last activity: 2026-09-14
+- [#33 Proposal: Empowering vLLM Router with Semantic Intelligence](https://github.com/vllm-project/router/pull/33) — Proposal: Empowering vLLM Router with Semantic Intelligence
+  - author: Xunzhuo · age: 336d · reviewers: — · last activity: 2026-09-14
+- [#32 [Proposal] refactor core for extensible router architecture](https://github.com/vllm-project/router/pull/32) — [Proposal] refactor core for extensible router architecture
+  - author: Xunzhuo · age: 336d · reviewers: — · last activity: 2026-09-14
+- [#31 [Docs/Misc]: Add comprehensive documentation and contributing guide](https://github.com/vllm-project/router/pull/31) — [Docs/Misc]: Add comprehensive documentation and contributing guide
+  - author: Xunzhuo · age: 337d · reviewers: — · last activity: 2026-09-14
+- [#67 refactor: Remove legacy PrefillDecode routing mode](https://github.com/vllm-project/router/pull/67) — refactor: Remove legacy PrefillDecode routing mode
+  - author: jdw2159 · age: 298d · reviewers: — · last activity: 2026-01-22
+
+## Roadmap issues
+
+- [#61024 [Roadmap] vLLM Roadmap Q4 2026](https://github.com/vllm-project/vllm/issues/61024) — 3/12 checklist items done
+  - [x] Fully remove Model Runner V1 and close the remaining [Model Runner V2 gaps](https://github.com/vllm-project/vllm/issues/47172).
+  - [x] Implement [extensible KV cache support](https://github.com/vllm-project/vllm/pull/56492), pluggable `KVCacheConfigBuilder` implementations for models, and better cache-grouping heuristics for sliding-window attention speculators.
+  - [x] Refactor CUDA graphs: separate prefill/decode graph sizes; clarify capture, dispatch, and padding semantics, including adaptive verification and sequence parallelism; and simplify encoder and DeepSeek V4.1 prefill-skipping graphs. Validate prefill graph sizing against padding overhead and performance regressions.
+  - [ ] Simplify and harden the engine's model loop, data-parallel flow, and scheduler, and improve streaming-input reliability.
+  - [ ] Reduce coupling between model implementations and the engine through a clearer model interface.
+  - [ ] Advance the Rust frontend toward default use, including resolving Responses API readiness and parity requirements.
+  - [ ] Add native per-step observability through [forward-pass metrics](https://github.com/vllm-project/vllm/pull/52061), in collaboration with Dynamo.
+  - [ ] Extend agent hints across routers and KV connectors with Dynamo and llm-d: multi-tenancy, cache-tier TTLs, filesystem eviction, and request-level control of prefetching, eviction, and selective offloading.
+  - [ ] Publish production recipes with clear explanations of deployment and performance tradeoffs, including disaggregated prefill/decode and KV offloading.
+  - [ ] Harden numerical fault handling, including NaNs, and expert-parallel recovery through restart and scale-down; integrate recovery with llm-d and Dynamo.
+  - [ ] Achieve state-of-the-art agentic workload performance for priority models across AMD and new hardware, including Rubin and MI455X.
+  - [ ] Integrate native [forward-pass metrics](https://github.com/vllm-project/vllm/pull/52061) into the serving observability work with Dynamo.
+- [#45221 [RFC]: AuxOutput Connector — block-keyed outputs and storage roadmap](https://github.com/vllm-project/vllm/issues/45221) — 0/0 checklist items done
+- [#44280 [Roadmap] Rust Frontend Feature Parity](https://github.com/vllm-project/vllm/issues/44280) — 20/30 checklist items done
+  - [x] Rust code lives in the main vLLM repository under `rust/`
+  - [x] `vllm-rs` integrates with `vllm serve` as a Python-supervised frontend subprocess
+  - [x] Core `/v1/chat/completions` support (streaming & non-streaming)
+  - [x] Core `/v1/completions` support (streaming & non-streaming)
+  - [x] Tool calling and reasoning output support for several key model families
+  - [x] Commonly used OpenAI-compatible sampling options
+  - [x] Image, audio, and video multimodal chat inputs for registered processor/model specs
+  - [x] Multi-engine internal load balancing with scheduler-stat-aware routing
+  - [x] Admin and operational routes: health, load, version, metrics, reset-cache, sleep/wake
+  - [x] Mock-engine and HTTP integration-test infrastructure for Rust frontend development
+  - [x] External DP load-balancing mode: support the Python-style shape where each API server connects to one DP rank 🧭
+  - [x] Hybrid DP load-balancing mode: support per-node internal LB plus cross-node external LB 🧭
+  - [ ] Elastic EP support: implement `/scale_elastic_ep`, `/is_scaling_elastic_ep`, request draining, and scaling-state rejection behavior 🧭
+  - [ ] Fault tolerance for DP+EP external-LB deployments: `--enable-fault-tolerance`, `/fault_tolerance/apply`, and `/fault_tolerance/status` 🧭
+  - [x] KV-event publisher discovery: `/kv_event_sources`
+  - [x] Token-in/token-out `/inference/v1/generate` (streaming & non-streaming), gated by `--enable-scale-out`
+  - [x] `kv_transfer_params` / `ec_transfer_params` passthrough
+  - [x] Raw multimodal `content_parts`, with `mm_placeholders` in responses
+  - [x] Prompt metadata and per-request speculative-decoding metrics
+  - [x] `output_mode: "text"`, batch and streaming (protocol: RFC #56851 §10)
+- [#52167 [RFC]: Extended online quantization roadmap](https://github.com/vllm-project/vllm/issues/52167) — 0/0 checklist items done
+- [#48633 `NixlPushMode` Roadmap - Reliability Issue Inventory](https://github.com/vllm-project/vllm/issues/48633) — 0/0 checklist items done
+- [#45036 [RFC]: [Roadmap] Mooncake Store Connector Feature Enrichment Roadmap](https://github.com/vllm-project/vllm/issues/45036) — 5/8 checklist items done
+  - [x] **Standalone Store Architecture** — Support Mooncake store's standalone mode, where a dedicated process allocates and manages Mooncake store memory segments. This reduces memory allocation fragmentation and minimizes the metadata size maintained in the Mooncake master. (Done in [#42689](https://github.com/vllm-project/vllm/pull/42689))
+  - [x] **SSD Offload** — Support SSD as a tiered storage backend. KV cache blocks are first buffered in CPU memory, with support for asynchronous flush to SSD or write-on-eviction from CPU memory. On read, SSD data is loaded into a staging buffer before being served to GPU, dramatically increasing effective KV cache capacity. (Done in [#42689](https://github.com/vllm-project/vllm/pull/42689))
+  - [x] **Memory Semantics** — Unify the address space of HBM and DRAM within a supernode, leveraging the hyperplane to enable direct transfer between HBM and DRAM. (Done in [#63064 ](https://github.com/vllm-project/vllm/pull/63064))
+  - [ ] **KV Cache Event Propagation** — Emit `KVCacheEvent` objects (e.g., `BlockStored`, `BlockRemoved`) from the store connector so that external orchestrators (global schedulers, routing layers) can observe cache state changes in real time, enabling cache-aware request routing across engines.
+  - [ ] **Recompute on Get Failure** — When a load operation fails (e.g., remote block evicted between lookup and transfer), report the affected block IDs back to the scheduler so it can trigger recomputation of those tokens instead of serving stale/missing KV data. (Ref: [vllm-ascend#9701](https://github.com/vllm-project/vllm-ascend/pull/9701), Doing in [vllm#48216](https://github.com/vllm-project/vllm/pull/48216/))
+  - [x] **Decode-Phase KV Cache Put with GQA TP Asymmetry** — Support saving KV cache generated during the decode phase for disaggregated P/D architectures. The main challenge is that under GQA with asymmetric TP, the KV cache produced during decode must be transformed before it can be reused by prefill. (Done in [#53129](https://github.com/vllm-project/vllm/pull/53129), Doing in [#54307](https://github.com/vllm-project/vllm/pull/54307))
+  - [x] **Hybrid Attention** — Support models with heterogeneous attention types across layers (e.g., DeepSeek-V4, Qwen3.5). (Done in [#42828](https://github.com/vllm-project/vllm/pull/42828))
+  - [ ] **Layer-wise KV Transfer** — Support per-layer granularity for KV cache put/get operations. This enables overlapping KV transfer with model computation. (Doing in [vllm#51978](https://github.com/vllm-project/vllm/pull/51978))
+- [#48193 [Roadmap] Weight-loading-bound startup](https://github.com/vllm-project/vllm/issues/48193) — 0/0 checklist items done
+- [#543 [RFC]: Afd-plugin 2026 Q4 Roadmap](https://github.com/vllm-project/afd-plugin/issues/543) — 0/0 checklist items done
+- [#513 [RFC]: M2N connector and communication roadmap](https://github.com/vllm-project/afd-plugin/issues/513) — 0/7 checklist items done
+  - [ ] **Shared experts and dense layers.** Run shared experts and dense MLP layers on the Attention side, overlapped with dispatch and combine. Relax the "every layer MoE, no shared expert" check accordingly.
+  - [ ] **DeepSeek-V2-Lite.** MLA attention, dense first layer, shared experts. Smallest model of the DeepSeek family and the planned hardware-CI model in vllm-project/afd-plugin#155.
+  - [ ] **CI E2E.** Support DeepSeek-V2-Lite and Qwen3-30b in the CI. (#512)
+  - [ ] **Qwen3.5 / Qwen3.6 MoE.** Hybrid linear (Gated DeltaNet) attention and a gated shared expert.
+  - [ ] **GLM-5.3.**
+  - [ ] **DeepSeek-V4.1 Flash.** Builds on the P2P DeepSeek-V4 adaptation.
+  - [ ] **Kimi-K3.** Splits at the latent MoE boundary (vllm-project/afd-plugin#386, merged to the `kimi-k3` branch, not `main`), which today requires the gate on the FFN and ModelRunner V1; M2N requires the gate on Attention and ModelRunnerV2.
+- [#155 [RFC]: afd-plugin project roadmap](https://github.com/vllm-project/afd-plugin/issues/155) — 0/0 checklist items done
+- [#3055 v0.9.0 Roadmap](https://github.com/vllm-project/aibrix/issues/3055) — 0/0 checklist items done
+- [#2346 v0.8.0 Roadmap](https://github.com/vllm-project/aibrix/issues/2346) — 0/0 checklist items done
+- [#2905 [RFC] AutoRound Q3 2026 Roadmap](https://github.com/vllm-project/llm-compressor/issues/2905) — 8/9 checklist items done
+  - [x] Qwen3-8B https://github.com/vllm-project/llm-compressor/pull/3092
+  - [x] Llama 3.3 70B https://github.com/vllm-project/llm-compressor/pull/3160
+  - [x] Qwen3-32B-A3B https://github.com/vllm-project/llm-compressor/pull/3092
+  - [x] Qwen3-235B https://github.com/vllm-project/llm-compressor/pull/3092
+  - [x] Enable the LLMC CI pipeline on Intel B60 GPUs  https://github.com/vllm-project/llm-compressor/pull/2945
+  - [ ] ~~Align with the broader GPU CI / Buildkite migration when applicable~~
+  - [x] Extend the test scope on demand https://github.com/vllm-project/llm-compressor/pull/3049 https://github.com/vllm-project/llm-compressor/pull/3002
+  - [x] Integrate AutoRound extreme low-bit support with algorithm-agnostic packing in LLMC  https://github.com/vllm-project/llm-compressor/pull/2895
+  - [x] Add an experimental pure 2-bit or mixed 2/4-bit example https://github.com/vllm-project/llm-compressor/pull/2940
+- [#855 [Roadmap] vLLM Production Stack 2026 Roadmap](https://github.com/vllm-project/production-stack/issues/855) — 0/24 checklist items done
+  - [ ] (P0) XpYd disaggregated prefill support
+  - [ ] (P1) Routing to external providers like OpenAI or Anthropic (#883 #902 )
+  - [ ] (P1) Router-side request queuing support (#876 #905 )
+  - [ ] (P2) Implement predictive routing based on future workloads
+  - [ ] (P2) Implement priority routing #996
+  - [ ] (P2) Improve router performance
+  - [ ] Compile current router with Nuitka
+  - [ ] Prototype Rust/Go/Nginx-based router frontend
+  - [ ] (P0) Advanced autoscaling based on modern inference metrics
+  - [ ] (P0) Implement KV-cache–aware and prefix-aware routing logic in Gateway Inference extension and CRD (#881 )
+  - [ ] (P0) Implement disaggregated prefill support in CRD (#841 )
+  - [ ] (P0) Integrate KEDA-based scaling in CRD (#903 )
+  - [ ] (P1) Make existing deployment methods (Helm/CRD/Gateway Inference) more Kubernetes-native
+  - [ ] (P2) Support automatic configuration of engine parameters
+  - [ ] (P0) Support deployment with vLLM Omni
+  - [ ] (P1) Intelligent routing for agent workloads and multimodal models
+  - [ ] (P2) End-to-end deployment for multimodal models
+  - [ ] (P2) First-class support for RL workloads
+  - [ ] (P0) Request migration when the vLLM instance fails
+  - [ ] (P1) Ship router extension config with pre-defined safety policies, rate limits, and logging enabled
+- [#440 [RFC] first class anthropic /v1/messages routing (roadmap #244 issue 6)](https://github.com/vllm-project/router/issues/440) — 0/0 checklist items done
+- [#505 [RFC] Rust gRPC EPD roadmap](https://github.com/vllm-project/router/issues/505) — 0/0 checklist items done
+- [#244 [Help Wanted] vLLM Router 2026 Roadmap](https://github.com/vllm-project/router/issues/244) — 0/0 checklist items done
