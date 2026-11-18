@@ -1,6 +1,6 @@
 # OSS Project Tracker
 
-CLI to track multi-repo open-source projects (starting with **vLLM** and **llm-d**): module maps, change digests, pipeline (RFCs / big PRs), and people/ownership.
+CLI to track multi-repo open-source projects (**vLLM**, **llm-d**, **Praxis AI**): module maps, change digests, pipeline (RFCs / big PRs), and people/ownership.
 
 Adding a project means editing [`projects.yaml`](projects.yaml) only — no code changes.
 

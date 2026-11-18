@@ -33,6 +33,26 @@ def test_extract_feature_bullets():
     assert not any("empty batch" in b.lower() for b in bullets)
 
 
+def test_extract_skips_contributors_and_chores():
+    notes = """
+## Announcement
+Read the full release [blog](https://vllm-sr.ai/blog/v0.4)
+
+## What's Changed
+### Dependencies
+* chore(deps): bump foo by @dependabot in https://example.com/1
+### Features
+* feat(routing): dynamic model selection by @dev in https://example.com/2
+## New Contributors
+* @someone made their first contribution in https://example.com/3
+"""
+    bullets = extract_feature_bullets(notes)
+    assert any("Release blog" in b for b in bullets)
+    assert any("dynamic model selection" in b for b in bullets)
+    assert not any("dependabot" in b.lower() for b in bullets)
+    assert not any("first contribution" in b.lower() for b in bullets)
+
+
 def test_build_releases_report(tmp_workspace: Path, db: Database):
     root = Path(__file__).resolve().parents[1]
     cfg = load_config(root / "projects.yaml")

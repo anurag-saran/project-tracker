@@ -25,13 +25,33 @@ console = Console()
 _BULLET_RE = re.compile(r"^\s*[-*+]\s+(.+)$")
 _HEADING_RE = re.compile(r"^#{1,3}\s+(.+)$")
 _FEATURE_HEAD = re.compile(
-    r"feature|highlight|what.?s new|tl;?dr|new model|improvement|enhancement",
+    r"feature|highlight|what.?s new|tl;?dr|new model|improvement|enhancement|"
+    r"announcement|notable|added|changelog",
     re.I,
 )
 _SKIP_HEAD = re.compile(
-    r"fix|bug|chore|ci|doc|dependenc|contributor|thank|before you upgrade|breaking",
+    r"fix|bug|chore|ci|doc|dependenc|contributor|thank|before you upgrade|"
+    r"breaking|new contributors|installation|python|docker|helm|upgrade",
     re.I,
 )
+_NOISE_BULLET = re.compile(
+    r"^(chore|fix|ci|docs?|test|build|refactor|style|perf)\b|"
+    r"dependabot|first contribution|made their first contribution|"
+    r"^bump |\(@dependabot",
+    re.I,
+)
+_FEAT_BULLET = re.compile(
+    r"^\*\*[^*]+\*\*|^feat\b|^add(?:ed|s)?\b|^new\b|^support\b|^introduce",
+    re.I,
+)
+_BLOG_LINK = re.compile(
+    r"\[([^\]]*(?:blog|release notes?|announcement)[^\]]*)\]\((https?://[^)]+)\)",
+    re.I,
+)
+
+
+def _is_noise_bullet(text: str) -> bool:
+    return bool(_NOISE_BULLET.search(text))
 
 
 def extract_feature_bullets(body: str | None, *, limit: int = 20) -> list[str]:
@@ -42,6 +62,12 @@ def extract_feature_bullets(body: str | None, *, limit: int = 20) -> list[str]:
     features: list[str] = []
     in_feature_section = False
     saw_any_heading = False
+
+    # Prefer an explicit release-blog link when notes are thin (common for vSR).
+    for m in _BLOG_LINK.finditer(body):
+        label = re.sub(r"\s+", " ", m.group(1)).strip() or "Release blog"
+        features.append(f"**Release blog:** [{label}]({m.group(2)})")
+        break
 
     for line in lines:
         hm = _HEADING_RE.match(line.strip())
@@ -61,28 +87,40 @@ def extract_feature_bullets(body: str | None, *, limit: int = 20) -> list[str]:
             continue
         text = bm.group(1).strip()
         text = re.sub(r"\s+", " ", text)
-        if len(text) < 8:
+        if len(text) < 8 or _is_noise_bullet(text):
             continue
         if saw_any_heading and not in_feature_section and features:
-            continue
+            # Still accept clearly feature-shaped bullets outside sections
+            if not _FEAT_BULLET.search(text):
+                continue
         if saw_any_heading and not in_feature_section and _SKIP_HEAD.search(text):
             continue
         features.append(text)
         if len(features) >= limit:
             break
 
-    if not features:
-        # Fallback: first N bullets anywhere
+    if len(features) <= 1:
+        # Fallback: prefer feat-shaped bullets, skip chore/contributor noise
+        ranked: list[str] = []
         for line in lines:
             bm = _BULLET_RE.match(line)
             if not bm:
                 continue
             text = re.sub(r"\s+", " ", bm.group(1).strip())
-            if len(text) >= 8:
-                features.append(text)
-            if len(features) >= min(limit, 12):
+            if len(text) < 8 or _is_noise_bullet(text):
+                continue
+            if _FEAT_BULLET.search(text):
+                ranked.insert(0, text)
+            else:
+                ranked.append(text)
+            if len(ranked) >= min(limit, 12):
                 break
-    return features
+        for text in ranked:
+            if text not in features:
+                features.append(text)
+            if len(features) >= limit:
+                break
+    return features[:limit]
 
 
 def _summarize_release(
