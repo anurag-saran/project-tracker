@@ -56,6 +56,18 @@ pip install vllm-router
 vllm-router --worker-urls http://worker1:8000 http://worker2:8000 --policy consistent_hash
 ```
 
+## OpenClaw
+
+Self-hosted AI assistant that meets you in chat apps (WhatsApp, Telegram, Slack, Discord, …) with a local Gateway, skills/plugins, and hosted or local models (including vLLM).
+
+- [Site / install](https://openclaw.ai/)
+- [Docs](https://docs.openclaw.ai/)
+- [GitHub](https://github.com/openclaw/openclaw)
+
+```bash
+curl -fsSL https://openclaw.ai/install.sh | bash
+```
+
 ## How these relate
 
 | Project | Role |
@@ -65,3 +77,4 @@ vllm-router --worker-urls http://worker1:8000 http://worker2:8000 --policy consi
 | **vLLM Semantic Router** | Choose *which* model (or blend) for each request |
 | **llm-d** | Kubernetes stack for production multi-node serving on vLLM |
 | **Praxis AI** | Gateway: protocols, providers, policy, tools (MCP/A2A) |
+| **OpenClaw** | Personal/team assistant UX on top of models + channels |

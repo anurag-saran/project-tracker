@@ -2,7 +2,7 @@ settings:
   max_repos_per_org: 25
   default_since: 7d
 
-# Focus: vLLM + llm-d + Praxis AI. Add other projects by appending here.
+# Focus: vLLM + llm-d + Praxis AI + OpenClaw. Add other projects by appending here.
 projects:
   - name: vllm
     description: High-throughput and memory-efficient inference engine for LLMs
@@ -81,3 +81,25 @@ projects:
     docs_urls:
       - "https://praxis.fast"
       - "https://praxis.fast/ai/"
+
+  - name: openclaw
+    description: Open-source self-hosted AI assistant — gateway, channels (chat apps), skills/plugins, local or hosted models
+    sources:
+      - org: openclaw
+        skip_archived: true
+      - repo: openclaw/openclaw
+        tier: core
+      - repo: openclaw/clawhub
+        tier: watch
+    pipeline_signals:
+      issue_title_prefixes: ["[RFC]", "[Proposal]"]
+      labels: ["RFC", "proposal", "enhancement"]
+      significant_pr:
+        labels: ["RFC", "proposal", "breaking-change"]
+        min_files: 20
+        min_additions: 400
+    people_signals:
+      codeowners: [".github/CODEOWNERS", "CODEOWNERS"]
+    docs_urls:
+      - "https://openclaw.ai"
+      - "https://docs.openclaw.ai"
