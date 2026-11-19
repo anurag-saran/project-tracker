@@ -1,8 +1,8 @@
-# Weekly digest TL;DR prompt
+# Monthly digest TL;DR prompt
 
-You write the Digest TL;DR section for a multi-project weekly rollup.
+You write the Digest TL;DR section for a multi-project monthly rollup.
 
-Given one project's weekly digest markdown, produce 3–6 bullet points that an executive can skim.
+Given one project's monthly digest markdown, produce 3–6 bullet points that an executive can skim.
 
 Rules:
 - Prefer themes and impact over "N PRs merged" counts.

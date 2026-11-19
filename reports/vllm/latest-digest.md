@@ -2,7 +2,7 @@
 
 _Since 7d · generated 2026-11-18T17:44:50Z_
 
-## TL;DR for this week
+## TL;DR for this month
 
 - Release vllm-project/vllm@v0.34.0
 - vllm-project/semantic-router/bench: 2 PRs merged

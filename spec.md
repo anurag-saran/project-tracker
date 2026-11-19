@@ -83,7 +83,7 @@ seed values; print what was found and what didn't resolve.
   and directory listings. Cache them by content hash and regenerate only when
   sources change. Manual overrides in `overrides/<project>.yaml` always win.
 
-### 2. Change digest (`tracker digest <project|all> --since 7d`)
+### 2. Change digest (`tracker digest <project|all> --since 30d`)
 - Pull, since the last run (incremental, stored in SQLite):
   releases, merged PRs (title, body, labels, author, files changed, +/-),
   closed RFCs/proposals.
@@ -113,13 +113,13 @@ seed values; print what was found and what didn't resolve.
   pages and a digest archive, deployable to GitHub Pages
 - Optional notifiers behind an interface: Slack webhook, email (SMTP).
   Off by default.
-- Every report starts with a 5-bullet "TL;DR for this week" across all modules.
+- Every report starts with a 5-bullet "TL;DR for this month" across all modules.
 
 ### 6. Automation
-- GitHub Actions workflow: weekly cron (Mondays 7am ET) runs
-  `tracker digest all`, `tracker pipeline all`, commits reports, and
-  rebuilds the site. `workflow_dispatch` for manual runs.
-- `tracker map` runs monthly or when new repos/modules are detected.
+- GitHub Actions workflow: monthly cron (1st of month ~7am ET) runs
+  `tracker digest all`, `tracker pipeline all`, blogs/releases/rollup,
+  commits reports, and rebuilds the site. `workflow_dispatch` for manual runs.
+- `tracker map` runs on each monthly run or when new repos/modules are detected.
 
 ## CLI summary
 ```
@@ -127,7 +127,7 @@ tracker init                      # create projects.yaml, db, folders
 tracker validate                  # resolve orgs/repos/paths, report problems
 tracker discover <project>        # list repos, propose modules
 tracker map <project>
-tracker digest <project|all> [--since 7d|DATE] [--dry-run]
+tracker digest <project|all> [--since 30d|DATE] [--dry-run]
 tracker pipeline <project|all>
 tracker people <project>
 tracker site

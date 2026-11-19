@@ -3,7 +3,7 @@
 _Since 7d · generated 2026-11-18T14:03:44Z_
 Blog index: [https://vllm.ai/blog](https://vllm.ai/blog)
 
-## TL;DR for this week
+## TL;DR for this month
 
 - [Keeping Agents Fast: High-Interactivity Decode with FlyDSL MonoKernels in vLLM](https://vllm.ai/blog/2026-11-18-flydsl-monokernels)
 - [DeepSeek-V4.1-Flash on Vera Rubin NVL72: 58x Throughput vs. GB300 NVL72 at 387 tokens/s](https://vllm.ai/blog/2026-11-12-deepseek-v41-flash-vera-rubin)

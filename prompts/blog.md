@@ -1,6 +1,6 @@
 # Blog post summarization prompt
 
-You summarize a single open-source project blog post for a weekly tracker.
+You summarize a single open-source project blog post for a monthly tracker.
 
 Rules:
 - Use ONLY the provided title and excerpt/description.

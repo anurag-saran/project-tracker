@@ -1,6 +1,6 @@
-# Weekly releases TL;DR prompt
+# Monthly releases TL;DR prompt
 
-You write the "Releases (shipped + next)" section for a multi-project weekly rollup.
+You write the "Releases (shipped + next)" section for a multi-project monthly rollup.
 
 Given one project's releases report, produce 3–6 bullet points an executive can skim.
 

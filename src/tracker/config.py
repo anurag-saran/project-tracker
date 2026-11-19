@@ -120,7 +120,7 @@ class ProjectConfig(BaseModel):
 
 class Settings(BaseModel):
     max_repos_per_org: int = 25
-    default_since: str = "7d"
+    default_since: str = "30d"
 
 
 class RootConfig(BaseModel):
@@ -273,7 +273,7 @@ def parse_proposals_dir(entry: str) -> tuple[str | None, str]:
 SEED_PROJECTS_YAML = """\
 settings:
   max_repos_per_org: 25
-  default_since: 7d
+  default_since: 30d
 
 # Focus: vLLM + llm-d only. Add other projects later by appending here.
 projects:

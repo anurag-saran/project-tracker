@@ -1,6 +1,6 @@
 settings:
   max_repos_per_org: 25
-  default_since: 7d
+  default_since: 30d
 
 # Focus: vLLM + llm-d + Praxis AI + OpenClaw. Add other projects by appending here.
 projects:

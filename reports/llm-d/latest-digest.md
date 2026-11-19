@@ -2,7 +2,7 @@
 
 _Since 7d · generated 2026-11-18T17:46:16Z_
 
-## TL;DR for this week
+## TL;DR for this month
 
 - Release llm-d/llm-d-batch-gateway@v1.1.0-rc1
 - Release llm-d/llm-d-batch-gateway@v1.0.1-rc1

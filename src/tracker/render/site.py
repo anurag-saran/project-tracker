@@ -157,14 +157,17 @@ def build_site(
                     )
                 )
 
-    weekly = reports / "WEEKLY.md"
-    if weekly.exists():
-        (out / "weekly.html").write_text(
+    monthly = reports / "MONTHLY.md"
+    # Prefer MONTHLY; fall back to legacy WEEKLY.md if present
+    if not monthly.exists() and (reports / "WEEKLY.md").exists():
+        monthly = reports / "WEEKLY.md"
+    if monthly.exists():
+        (out / "monthly.html").write_text(
             env.get_template("site/report.html.j2").render(
                 projects=projects_meta,
-                title="Weekly tracker",
+                title="Monthly tracker",
                 project_name=".",
-                body_html=_md_to_html(weekly.read_text()),
+                body_html=_md_to_html(monthly.read_text()),
                 generated_at=generated_at,
             )
         )
@@ -187,7 +190,7 @@ def build_site(
         env.get_template("site/index.html.j2").render(
             projects=projects_meta,
             generated_at=generated_at,
-            has_weekly=weekly.exists(),
+            has_monthly=monthly.exists(),
             has_learning=has_learning,
         )
     )

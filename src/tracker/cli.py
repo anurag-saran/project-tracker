@@ -326,7 +326,7 @@ def fetch(
     ctx: typer.Context,
     project: str = typer.Argument("all", help="Project name or 'all'"),
     since: Optional[str] = typer.Option(
-        None, "--since", help="Lookback window, e.g. 7d or 2025-01-01"
+        None, "--since", help="Lookback window, e.g. 30d or 2025-01-01"
     ),
 ) -> None:
     """Fetch GitHub data into SQLite (deterministic stage)."""
@@ -517,7 +517,7 @@ def blogs(
         False, "--skip-fetch", help="Summarize from SQLite only"
     ),
 ) -> None:
-    """Fetch project blogs (RSS) and write weekly summaries with post links."""
+    """Fetch project blogs (RSS) and write monthly summaries with post links."""
     from tracker.stages.blogs import build_blogs
 
     root = _root(ctx)
@@ -587,18 +587,18 @@ def rollup(
     dry_run: bool = typer.Option(
         False,
         "--dry-run",
-        help="Skip LLM; copy extracted digest bullets into WEEKLY",
+        help="Skip LLM; copy extracted digest bullets into MONTHLY",
     ),
 ) -> None:
-    """Write reports/WEEKLY.md + ensure latest-* copies for week-over-week diffs."""
-    from tracker.stages.rollup import build_weekly_rollup
+    """Write reports/MONTHLY.md + ensure latest-* copies for month-over-month diffs."""
+    from tracker.stages.rollup import build_monthly_rollup
 
     root = _root(ctx)
     cfg = _config(ctx)
-    path = build_weekly_rollup(cfg, workspace=root, dry_run=dry_run)
+    path = build_monthly_rollup(cfg, workspace=root, dry_run=dry_run)
     console.print(
         "Read the rollup, then diff stable paths like "
-        "reports/<project>/latest-digest.md against last week."
+        "reports/<project>/latest-digest.md against last month."
     )
     console.print(path)
 

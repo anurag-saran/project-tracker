@@ -1,4 +1,4 @@
-"""Fetch project blogs via RSS and write weekly summaries with links."""
+"""Fetch project blogs via RSS and write monthly summaries with links."""
 
 from __future__ import annotations
 

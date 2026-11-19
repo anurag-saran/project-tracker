@@ -32,15 +32,15 @@ Optional LLM providers:
 tracker init                         # projects.yaml, .tracker/db, folders
 tracker validate                     # resolve orgs/repos/paths against GitHub
 tracker discover <project>           # rank repos, propose modules → modules.generated.yaml
-tracker fetch <project|all> [--since 7d]
-tracker digest <project|all> [--since 7d] [--dry-run] [--skip-fetch]
-tracker pipeline <project|all> [--since 7d] [--dry-run]
-tracker blogs <project|all> [--since 7d] [--dry-run]   # RSS → summaries + links
+tracker fetch <project|all> [--since 30d]
+tracker digest <project|all> [--since 30d] [--dry-run] [--skip-fetch]
+tracker pipeline <project|all> [--since 30d] [--dry-run]
+tracker blogs <project|all> [--since 30d] [--dry-run]   # RSS → summaries + links
 tracker releases <project|all> [--dry-run]              # shipped features + next planned
 tracker people <project>
 tracker map <project> [--dry-run]
 tracker site                         # static HTML under site/
-tracker rollup [--dry-run]           # WEEKLY.md (LLM TL;DRs for releases/blogs/digest/pipeline)
+tracker rollup [--dry-run]           # MONTHLY.md (LLM TL;DRs for releases/blogs/digest/pipeline)
 tracker notify <project> --channel slack   # optional; off by default
 ```
 
@@ -52,7 +52,7 @@ Reports land in `reports/<project>/`:
 - `YYYY-MM-DD-releases.md` / `latest-releases.md` — features per release + next community drop
 - `YYYY-MM-DD-people.md` / `latest-people.md`
 - `module-map.md`
-- `reports/WEEKLY.md` — cross-project TL;DR rollup (includes blogs + releases)
+- `reports/MONTHLY.md` — cross-project TL;DR rollup (includes blogs + releases)
 
 ## Adding a project
 
@@ -81,7 +81,7 @@ Then:
 ```bash
 uv run tracker validate
 uv run tracker discover my-project
-uv run tracker digest my-project --since 7d
+uv run tracker digest my-project --since 30d
 ```
 
 **Tiers:** `core` gets per-module detail; `watch` is a short section; org repos beyond `settings.max_repos_per_org` become `overflow` one-liners. Effective tier: explicit repo → org source → project → `watch`.
@@ -106,11 +106,11 @@ uv run tracker notify vllm --channel slack
 
 ## Automation (read updates + diff sections)
 
-[`.github/workflows/weekly.yml`](.github/workflows/weekly.yml) runs Mondays ~7am ET and on `workflow_dispatch`:
+[`.github/workflows/monthly.yml`](.github/workflows/monthly.yml) runs on the **1st of each month** ~7am ET and on `workflow_dispatch`:
 
-1. Fetches GitHub data and builds digests / pipelines / **blog summaries** (module map on the first Monday or manual runs)
-2. Writes `reports/WEEKLY.md` plus stable `latest-*.md` files per project
-3. Opens (or updates) a PR: **Weekly tracker — YYYY-MM-DD**
+1. Fetches GitHub data and builds digests / pipelines / **blog summaries** / releases (module maps each run)
+2. Writes `reports/MONTHLY.md` plus stable `latest-*.md` files per project (default lookback **30d**)
+3. Opens (or updates) a PR: **Monthly tracker — YYYY-MM-DD**
 
 Configure blogs with `blog_urls` in `projects.yaml` (vLLM → `https://vllm.ai/blog`, llm-d → `https://llm-d.ai/blog`). Feeds are read from `/rss.xml`.
 
@@ -119,12 +119,12 @@ Configure blogs with `blog_urls` in `projects.yaml` (vLLM → `https://vllm.ai/b
 | Where | What you get |
 |-------|----------------|
 | PR description | TL;DRs for every project (code + **new blogs**) |
-| PR **Files changed** | Week-over-week diff of each project section (`latest-digest.md`, `latest-blogs.md`, …) |
+| PR **Files changed** | Month-over-month diff of each project section (`latest-digest.md`, `latest-blogs.md`, …) |
 | `latest-blogs.md` | Short summary per new post + link to the full article |
 | Dated `YYYY-MM-DD-*.md` files | Full history archive |
-| GitHub Pages `weekly.html` | Same rollup on the static site |
+| GitHub Pages `monthly.html` | Same rollup on the static site |
 
-Merge the PR when you’ve reviewed the week (or leave it open as the reading surface).
+Merge the PR when you’ve reviewed the month (or leave it open as the reading surface).
 
 Set repository secret `ANTHROPIC_API_KEY` (optional) and enable GitHub Pages (source: GitHub Actions).
 

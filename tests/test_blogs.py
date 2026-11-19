@@ -1,4 +1,4 @@
-"""Blog RSS parse + weekly blog report tests."""
+"""Blog RSS parse + monthly blog report tests."""
 
 from __future__ import annotations
 

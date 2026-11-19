@@ -2,7 +2,7 @@
 
 _Since 7d · generated 2026-11-18T18:28:21Z_
 
-## TL;DR for this week
+## TL;DR for this month
 
 - Release praxis-proxy/grid@v0.3.1
 - Release praxis-proxy/ai@v0.11.0

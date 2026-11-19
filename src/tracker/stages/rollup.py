@@ -1,4 +1,4 @@
-"""Weekly rollup: stable latest-* copies + reports/WEEKLY.md for PR reading."""
+"""Monthly rollup: stable latest-* copies + reports/MONTHLY.md for PR reading."""
 
 from __future__ import annotations
 
@@ -26,10 +26,10 @@ _MAX_SECTION_CHARS = 14_000
 
 # prompt file stem → (cache kind, max bullets, empty fallback)
 _SECTION_META = {
-    "digest": ("weekly_digest_tldr", 6, ["_(no TL;DR bullets)_"]),
-    "releases": ("weekly_releases_tldr", 6, ["_(see latest-releases.md)_"]),
-    "blogs": ("weekly_blogs_tldr", 5, ["_(none this period)_"]),
-    "pipeline": ("weekly_pipeline_tldr", 6, ["_(no TL;DR bullets)_"]),
+    "digest": ("monthly_digest_tldr", 6, ["_(no TL;DR bullets)_"]),
+    "releases": ("monthly_releases_tldr", 6, ["_(see latest-releases.md)_"]),
+    "blogs": ("monthly_blogs_tldr", 5, ["_(none this period)_"]),
+    "pipeline": ("monthly_pipeline_tldr", 6, ["_(no TL;DR bullets)_"]),
 }
 
 
@@ -84,7 +84,7 @@ def _llm_section_tldr(
     system: str,
     dry_run: bool,
 ) -> list[str]:
-    """Narrative TL;DR for a WEEKLY section; falls back to extracted bullets."""
+    """Narrative TL;DR for a MONTHLY section; falls back to extracted bullets."""
     cache_kind, max_bullets, empty = _SECTION_META[section]
     if not report_md.strip():
         return list(empty)
@@ -93,7 +93,7 @@ def _llm_section_tldr(
         return (fallback or empty)[:max_bullets]
 
     source_hash = content_hash(section, project, report_md)
-    subject = f"weekly/{project}/{section}_tldr"
+    subject = f"monthly/{project}/{section}_tldr"
     if db is not None:
         cached = db.get_summary(cache_kind, subject, source_hash)
         if cached:
@@ -115,7 +115,7 @@ def _llm_section_tldr(
         usage.add(result)
     except Exception as e:
         console.print(
-            f"[yellow]weekly {section} TL;DR LLM failed for {project} ({e}); "
+            f"[yellow]monthly {section} TL;DR LLM failed for {project} ({e}); "
             "using extracted bullets[/yellow]"
         )
         return (fallback or empty)[:max_bullets]
@@ -154,7 +154,7 @@ def _append_section(
     parts.append("")
 
 
-def build_weekly_rollup(
+def build_monthly_rollup(
     config: RootConfig,
     *,
     workspace: Path | None = None,
@@ -163,7 +163,7 @@ def build_weekly_rollup(
     llm: LLMProvider | None = None,
     db: Database | None = None,
 ) -> Path:
-    """Build reports/WEEKLY.md with per-project TL;DRs and links to latest reports."""
+    """Build reports/MONTHLY.md with per-project TL;DRs and links to latest reports."""
     root = reports_dir(workspace)
     root.mkdir(parents=True, exist_ok=True)
     day = date or datetime.now(timezone.utc).strftime("%Y-%m-%d")
@@ -185,24 +185,24 @@ def build_weekly_rollup(
                 llm = get_provider()
             except Exception as e:
                 console.print(
-                    f"[yellow]LLM unavailable ({e}); WEEKLY section TL;DRs "
+                    f"[yellow]LLM unavailable ({e}); MONTHLY section TL;DRs "
                     "will use extracted bullets[/yellow]"
                 )
                 llm = get_provider("null")
 
     usage = UsageTracker()
     prompts = {
-        section: load_prompt(f"weekly_{section}_tldr", workspace)
+        section: load_prompt(f"monthly_{section}_tldr", workspace)
         for section in _SECTION_META
     }
 
     parts: list[str] = [
-        f"# Weekly tracker — {day}",
+        f"# Monthly tracker — {day}",
         "",
         f"_Generated {generated}_",
         "",
-        "Open the **Files changed** tab on the weekly PR to diff each project's "
-        "`latest-digest.md` / `latest-pipeline.md` section against last week.",
+        "Open the **Files changed** tab on the monthly PR to diff each project's "
+        "`latest-digest.md` / `latest-pipeline.md` section against last month.",
         "",
         "## Projects",
         "",
@@ -344,9 +344,9 @@ def build_weekly_rollup(
         if own_db and db is not None:
             db.close()
 
-    out = root / "WEEKLY.md"
+    out = root / "MONTHLY.md"
     out.write_text("\n".join(parts).rstrip() + "\n")
-    (root / f"{day}-WEEKLY.md").write_text(out.read_text())
+    (root / f"{day}-MONTHLY.md").write_text(out.read_text())
     console.print(
         f"[green]Wrote[/green] {out}"
         + (
@@ -356,3 +356,8 @@ def build_weekly_rollup(
         )
     )
     return out
+
+
+# Backwards-compatible alias
+def build_weekly_rollup(*args, **kwargs):
+    return build_monthly_rollup(*args, **kwargs)

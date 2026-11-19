@@ -1,6 +1,6 @@
-# Weekly pipeline TL;DR prompt
+# Monthly pipeline TL;DR prompt
 
-You write the "Pipeline TL;DR" section for a multi-project weekly rollup.
+You write the "Pipeline TL;DR" section for a multi-project monthly rollup.
 
 Given one project's pipeline report (RFCs, proposals, significant PRs), produce 3–6 bullet points an executive can skim.
 

@@ -15,7 +15,7 @@ def test_build_site(tmp_workspace: Path):
     reports.mkdir(parents=True)
     (reports / "module-map.md").write_text("# vllm module map\n\nHello.\n")
     (reports / "2025-11-01-digest.md").write_text(
-        "# digest\n\n## TL;DR for this week\n\n- one\n"
+        "# digest\n\n## TL;DR for this month\n\n- one\n"
     )
     (tmp_workspace / "LEARNING.md").write_text(
         "# Learning\n\n- [Quickstart](https://example.com)\n"

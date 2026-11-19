@@ -1,6 +1,6 @@
-# Weekly blogs TL;DR prompt
+# Monthly blogs TL;DR prompt
 
-You write the "New blogs" section for a multi-project weekly rollup.
+You write the "New blogs" section for a multi-project monthly rollup.
 
 Given one project's blogs report (titles, links, summaries), produce 2–5 bullet points an executive can skim.
 

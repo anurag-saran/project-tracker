@@ -1,9 +1,9 @@
-name: Weekly tracker reports
+name: Monthly tracker reports
 
 on:
   schedule:
-    # Mondays 7:00 America/New_York ≈ 12:00 UTC
-    - cron: "0 12 * * 1"
+    # 1st of each month 7:00 America/New_York ≈ 12:00 UTC
+    - cron: "0 12 1 * *"
   workflow_dispatch:
 
 permissions:
@@ -13,23 +13,23 @@ permissions:
   id-token: write
 
 concurrency:
-  group: tracker-weekly
+  group: tracker-monthly
   cancel-in-progress: false
 
 jobs:
   reports:
     runs-on: ubuntu-latest
     outputs:
-      week: ${{ steps.meta.outputs.week }}
+      month: ${{ steps.meta.outputs.month }}
       pr_number: ${{ steps.pr.outputs.pull-request-number }}
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Week stamp
+      - name: Month stamp
         id: meta
-        run: echo "week=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
+        run: echo "month=$(date -u +%Y-%m-%d)" >> "$GITHUB_OUTPUT"
 
       - name: Install uv
         uses: astral-sh/setup-uv@v4
@@ -47,87 +47,107 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          TRACKER_OPENAI_MODEL: ${{ vars.TRACKER_OPENAI_MODEL }}
         run: |
           export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
+          if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$OPENAI_API_KEY" ]; then
             export TRACKER_LLM_PROVIDER=null
           fi
-          uv run tracker digest all --since 7d
+          uv run tracker digest all --since 30d
 
       - name: Pipeline (all)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          TRACKER_OPENAI_MODEL: ${{ vars.TRACKER_OPENAI_MODEL }}
         run: |
           export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
+          if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$OPENAI_API_KEY" ]; then
             export TRACKER_LLM_PROVIDER=null
           fi
-          uv run tracker pipeline all --since 7d --skip-fetch
+          uv run tracker pipeline all --since 30d --skip-fetch
 
       - name: Blogs (all)
         env:
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          TRACKER_OPENAI_MODEL: ${{ vars.TRACKER_OPENAI_MODEL }}
         run: |
           export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
+          if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$OPENAI_API_KEY" ]; then
             export TRACKER_LLM_PROVIDER=null
           fi
-          uv run tracker blogs all --since 7d
+          uv run tracker blogs all --since 30d
 
       - name: Releases (shipped features + next planned)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          TRACKER_OPENAI_MODEL: ${{ vars.TRACKER_OPENAI_MODEL }}
         run: |
           export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
+          if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$OPENAI_API_KEY" ]; then
             export TRACKER_LLM_PROVIDER=null
           fi
           uv run tracker releases all
 
-      - name: Module map (first Monday or manual)
+      - name: Module map (always on monthly + manual)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
           TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          TRACKER_OPENAI_MODEL: ${{ vars.TRACKER_OPENAI_MODEL }}
         run: |
           export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
-          if [ -z "$ANTHROPIC_API_KEY" ]; then
+          if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$OPENAI_API_KEY" ]; then
             export TRACKER_LLM_PROVIDER=null
           fi
-          day=$(date -u +%d)
-          if [ "$day" -le 7 ] || [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            for p in $(uv run python -c "import yaml; from pathlib import Path; print(' '.join(x['name'] for x in yaml.safe_load(Path('projects.yaml').read_text())['projects']))"); do
-              uv run tracker map "$p" --skip-fetch || true
-            done
-          else
-            echo "Skipping module map (not first week of month)"
-          fi
+          for p in $(uv run python -c "import yaml; from pathlib import Path; print(' '.join(x['name'] for x in yaml.safe_load(Path('projects.yaml').read_text())['projects']))"); do
+            uv run tracker map "$p" --skip-fetch || true
+          done
 
-      - name: Weekly rollup
-        run: uv run tracker rollup
+      - name: Monthly rollup
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          TRACKER_LLM_PROVIDER: ${{ vars.TRACKER_LLM_PROVIDER }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          OPENAI_BASE_URL: ${{ vars.OPENAI_BASE_URL }}
+          TRACKER_OPENAI_MODEL: ${{ vars.TRACKER_OPENAI_MODEL }}
+        run: |
+          export TRACKER_LLM_PROVIDER="${TRACKER_LLM_PROVIDER:-anthropic}"
+          if [ -z "$ANTHROPIC_API_KEY" ] && [ -z "$OPENAI_API_KEY" ]; then
+            export TRACKER_LLM_PROVIDER=null
+          fi
+          uv run tracker rollup
 
       - name: Build site
         run: uv run tracker site
 
-      - name: Open weekly PR (read updates + diff sections)
+      - name: Open monthly PR (read updates + diff sections)
         id: pr
         env:
-          WEEK: ${{ steps.meta.outputs.week }}
+          MONTH: ${{ steps.meta.outputs.month }}
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          BRANCH="tracker/weekly-${WEEK}"
+          BRANCH="tracker/monthly-${MONTH}"
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
 
           git checkout -B "$BRANCH"
 
           # Track report artifacts (dated archive + stable latest-* for diffs).
-          # Add paths separately so a missing optional file does not skip reports/.
           git add reports
           if [ -f modules.generated.yaml ]; then
             git add modules.generated.yaml
@@ -141,18 +161,17 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore: weekly tracker reports ${WEEK}"
+          git commit -m "chore: monthly tracker reports ${MONTH}"
 
-          # Push branch (create or update)
           git push -u origin "HEAD:refs/heads/${BRANCH}" --force
 
           BODY_FILE=$(mktemp)
           {
-            echo "Weekly OSS tracker run for **${WEEK}**."
+            echo "Monthly OSS tracker run for **${MONTH}** (lookback ~30d)."
             echo
             echo "### How to read this"
             echo "1. **Conversation / PR body** — TL;DRs per project (below)."
-            echo "2. **Files changed** — week-over-week diff of each project's sections via stable paths:"
+            echo "2. **Files changed** — month-over-month diff of each project's sections via stable paths:"
             echo "   - \`reports/<project>/latest-digest.md\`"
             echo "   - \`reports/<project>/latest-pipeline.md\`"
             echo "   - \`reports/<project>/latest-blogs.md\`"
@@ -163,21 +182,20 @@ jobs:
             echo
             echo "---"
             echo
-            if [ -f reports/WEEKLY.md ]; then
-              cat reports/WEEKLY.md
+            if [ -f reports/MONTHLY.md ]; then
+              cat reports/MONTHLY.md
             else
-              echo "_No WEEKLY.md generated._"
+              echo "_No MONTHLY.md generated._"
             fi
           } > "$BODY_FILE"
 
-          # Create PR if missing; otherwise update body
           EXISTING=$(gh pr list --head "$BRANCH" --json number --jq '.[0].number // empty')
           if [ -n "$EXISTING" ]; then
-            gh pr edit "$EXISTING" --title "Weekly tracker — ${WEEK}" --body-file "$BODY_FILE"
+            gh pr edit "$EXISTING" --title "Monthly tracker — ${MONTH}" --body-file "$BODY_FILE"
             echo "pull-request-number=$EXISTING" >> "$GITHUB_OUTPUT"
           else
             URL=$(gh pr create \
-              --title "Weekly tracker — ${WEEK}" \
+              --title "Monthly tracker — ${MONTH}" \
               --body-file "$BODY_FILE" \
               --base "${{ github.event.repository.default_branch }}" \
               --head "$BRANCH")

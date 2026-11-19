@@ -3,7 +3,7 @@
 _Since 7d · generated 2026-11-18T14:03:45Z_
 Blog index: [https://llm-d.ai/blog](https://llm-d.ai/blog)
 
-## TL;DR for this week
+## TL;DR for this month
 
 - [Multi-Tenant and Multi-Priority Model Serving with llm-d](https://llm-d.ai/blog/multi-tenant-multi-priority-model-serving-llm-d)
 
